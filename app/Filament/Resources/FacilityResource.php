@@ -41,6 +41,12 @@ class FacilityResource extends Resource
                     ->label('名称')
                     ->columnSpanFull()
                     ->required(),
+                Forms\Components\Radio::make('type')
+                    ->label('类型')
+                    ->options([
+                        0 => '房源',
+                        1 => '商铺'
+                    ])->default(0)
             ]);
     }
 
