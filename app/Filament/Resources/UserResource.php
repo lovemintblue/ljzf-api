@@ -17,8 +17,18 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
 
+    protected static ?string $navigationGroup = '用户';
+
+    protected static ?string $navigationLabel = '用户列表';
+
+    protected static ?string $label = '用户';
+
+    /**
+     * @param Form $form
+     * @return Form
+     */
     public static function form(Form $form): Form
     {
         return $form
@@ -35,6 +45,10 @@ class UserResource extends Resource
             ]);
     }
 
+    /**
+     * @param Table $table
+     * @return Table
+     */
     public static function table(Table $table): Table
     {
         return $table
