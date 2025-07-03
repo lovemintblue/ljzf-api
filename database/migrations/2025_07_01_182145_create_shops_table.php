@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->decimal('area', 10)->comment('面积')->default(0);
             $table->integer('floor')->comment('楼层')->default(0);
             $table->integer('total_floors')->comment('总楼层')->default(0);
-            $table->enum('renovation', ['毛坯', '简装', '精装'])->comment('装修')->default('毛坯');
+            $table->enum('renovation', ['毛坯', '简装', '精装修'])->comment('装修')->default('毛坯');
             $table->decimal('rent_price', 10)->comment('租金')->default(0);
             $table->decimal('deposit_price', 10)->comment('押金')->default(0);
             $table->decimal('property_fee', 10)->comment('物业费')->default(0);
