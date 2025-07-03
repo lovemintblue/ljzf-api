@@ -10,7 +10,8 @@ class House extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'images' => 'json'
+        'images' => 'json',
+        'facility_ids' => 'json'
     ];
 
     /**

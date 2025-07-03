@@ -35,7 +35,21 @@ class HousesController extends Controller
     public function store(HouseRequest $request, House $house): HouseInfoResource
     {
         $user = $request->user();
-        $house->fill($request->all());
+        $data = $request->all();
+
+        if (!empty($data['images'])) {
+            $data['images'] = json_decode($data['images'], true);
+        } else {
+            $data['images'] = [];
+        }
+
+        if (!empty($data['facility_ids'])) {
+            $data['facility_ids'] = json_decode($data['facility_ids'], true);
+        } else {
+            $data['facility_ids'] = [];
+        }
+
+        $house->fill($data);
         $house->user()->associate($user);
         $house->save();
         return new HouseInfoResource($house);
