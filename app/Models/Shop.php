@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Shop extends Model
 {
     protected $guarded = [];
-    
+
     protected $casts = [
-        'images' => 'json'
+        'images' => 'json',
+        'facility_ids' => 'json',
+        'industry_ids' => 'json',
     ];
 
     /**

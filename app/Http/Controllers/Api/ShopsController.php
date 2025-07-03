@@ -24,7 +24,27 @@ class ShopsController extends Controller
     public function store(ShopRequest $request, Shop $shop): ShopInfoResource
     {
         $user = $request->user();
-        $shop->fill($request->all());
+        $data = $request->all();
+
+        if (!empty($data['images'])) {
+            $data['images'] = json_decode($data['images'], true);
+        } else {
+            $data['images'] = [];
+        }
+
+        if (!empty($data['facility_ids'])) {
+            $data['facility_ids'] = json_decode($data['facility_ids'], true);
+        } else {
+            $data['facility_ids'] = [];
+        }
+
+        if (!empty($data['industry_ids'])) {
+            $data['industry_ids'] = json_decode($data['industry_ids'], true);
+        } else {
+            $data['industry_ids'] = [];
+        }
+
+        $shop->fill($data);
         $shop->user()->associate($user);
         $shop->save();
         return new ShopInfoResource($shop);

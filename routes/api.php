@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\FacilitiesController;
 use App\Http\Controllers\Api\HousesController;
 use App\Http\Controllers\Api\IndustriesController;
+use App\Http\Controllers\Api\ShopsController;
 use App\Http\Controllers\Api\UploadsController;
 use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
@@ -37,5 +38,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源 - 新增
     Route::post('houses', [HousesController::class, 'store'])
         ->name('houses.store');
+
+    // 商铺 - 新增
+    Route::post('shops', [ShopsController::class, 'store'])
+        ->name('shops.store');
 });
 
