@@ -21,9 +21,9 @@ class UserLevelResource extends Resource
 
     protected static ?string $navigationGroup = '用户';
 
-    protected static ?string $navigationLabel = '会员列表';
+    protected static ?string $navigationLabel = '用户等级';
 
-    protected static ?string $label = '会员';
+    protected static ?string $label = '用户等级';
 
     /**
      * @param Form $form
