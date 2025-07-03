@@ -34,7 +34,9 @@ class HousesController extends Controller
      */
     public function store(HouseRequest $request, House $house): HouseInfoResource
     {
+        $user = $request->user();
         $house->fill($request->all());
+        $house->user()->associate($user);
         $house->save();
         return new HouseInfoResource($house);
     }
