@@ -5,14 +5,24 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ShopRequest;
 use App\Http\Resources\Shop\ShopInfoResource;
+use App\Http\Resources\Shop\ShopResource;
 use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class ShopsController extends Controller
 {
-    public function index()
+    /**
+     * 列表
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function index(Request $request): AnonymousResourceCollection
     {
-
+        $shops = Shop::query()
+            ->latest()
+            ->paginate();
+        return ShopResource::collection($shops);
     }
 
     /**
@@ -47,6 +57,16 @@ class ShopsController extends Controller
         $shop->fill($data);
         $shop->user()->associate($user);
         $shop->save();
+        return new ShopInfoResource($shop);
+    }
+
+    /**
+     * 详情
+     * @param Shop $shop
+     * @return ShopInfoResource
+     */
+    public function show(Shop $shop): ShopInfoResource
+    {
         return new ShopInfoResource($shop);
     }
 }

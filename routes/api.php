@@ -35,12 +35,25 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('users/update', [UsersController::class, 'update'])
         ->name('users.update');
 
+    // 房源 - 列表
+    Route::get('houses', [HousesController::class, 'index'])
+        ->name('houses.index');
     // 房源 - 新增
     Route::post('houses', [HousesController::class, 'store'])
         ->name('houses.store');
+    // 房源 - 详情
+    Route::get('houses/{house}', [HousesController::class, 'show'])
+        ->name('houses.show');
 
+
+    // 商铺 - 列表
+    Route::get('shops', [ShopsController::class, 'index'])
+        ->name('shops.index');
     // 商铺 - 新增
     Route::post('shops', [ShopsController::class, 'store'])
         ->name('shops.store');
+    // 商铺 - 详情
+    Route::get('shops/{shop}', [ShopsController::class, 'show'])
+        ->name('shops.show');
 });
 

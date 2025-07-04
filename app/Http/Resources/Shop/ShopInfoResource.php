@@ -5,6 +5,28 @@ namespace App\Http\Resources\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed $id
+ * @property mixed $title
+ * @property mixed $type
+ * @property mixed $area
+ * @property mixed $floor
+ * @property mixed $total_floors
+ * @property mixed $renovation
+ * @property mixed $rent_price
+ * @property mixed $deposit_price
+ * @property mixed $images
+ * @property mixed $property_fee
+ * @property mixed $payment_method
+ * @property mixed $contact_name
+ * @property mixed $contact_phone
+ * @property mixed $business_district
+ * @property mixed $address
+ * @property mixed $surroundings
+ * @property mixed $description
+ * @property mixed $facility_ids
+ * @property mixed $industry_ids
+ */
 class ShopInfoResource extends JsonResource
 {
     /**
@@ -14,6 +36,30 @@ class ShopInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        $images = collect($this->images)->map(function ($image) {
+            return formatUrl($image);
+        });
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'type' => $this->type,
+            'area' => $this->area,
+            'floor' => $this->floor,
+            'total_floors' => $this->total_floors,
+            'renovation' => $this->renovation,
+            'rent_price' => $this->rent_price,
+            'deposit_price' => $this->deposit_price,
+            'property_fee' => $this->property_fee,
+            'payment_method' => $this->payment_method,
+            'contact_name' => $this->contact_name,
+            'contact_phone' => $this->contact_phone,
+            'images' => $images,
+            'business_district' => $this->business_district,
+            'address' => $this->address,
+            'surroundings' => $this->surroundings,
+            'description' => $this->description,
+            'facility_ids' => $this->facility_ids,
+            'industry_ids' => $this->industry_ids,
+        ];
     }
 }
