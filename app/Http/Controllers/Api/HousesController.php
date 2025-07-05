@@ -38,7 +38,8 @@ class HousesController extends Controller
         $data = $request->all();
 
         if (!empty($data['images'])) {
-            $data['images'] = json_decode($data['images'], true);
+            $images = json_decode($data['images'], true);
+            $data['images'] = collect($images)->pluck('path')->toArray();
         } else {
             $data['images'] = [];
         }
