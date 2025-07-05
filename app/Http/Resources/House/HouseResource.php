@@ -14,13 +14,16 @@ class HouseResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-//        $images = collect()->map(function ($image) {
-//            return formatUrl($image);
-//        });
+        $images = collect($this->images)->map(function ($image) {
+            return [
+                'path' => $image,
+                'url' => formatUrl($image)
+            ];
+        });
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'images' => $this->images,
+            'images' => $images,
             'room_count' => $this->room_count,
             'living_room_count' => $this->living_room_count,
             'bathroom_count' => $this->bathroom_count,
