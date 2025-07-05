@@ -30,6 +30,9 @@ class HouseResource extends JsonResource
             'min_rental_period' => $this->min_rental_period,
             'community' => $this->community,
             'address' => $this->address,
+            'orientation' => $this->orientation,
+            'floor' => $this->floor,
+            'total_floors' => $this->total_floors,
         ];
     }
 }
