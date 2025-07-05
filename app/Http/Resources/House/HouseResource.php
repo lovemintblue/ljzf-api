@@ -15,10 +15,7 @@ class HouseResource extends JsonResource
     public function toArray(Request $request): array
     {
         $images = collect($this->images)->map(function ($image) {
-            return [
-                'path' => $image,
-                'url' => formatUrl($image)
-            ];
+            return formatUrl($image);
         });
         return [
             'id' => $this->id,
