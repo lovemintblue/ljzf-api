@@ -53,5 +53,18 @@ class UserLevelSeeder extends Seeder
                 ]
             ]
         ];
+
+        foreach ($list as $item) {
+            $userLevel = new UserLevel();
+            $userLevel->name = $item['name'];
+            $userLevel->level = $item['level'];
+            $userLevel->price = $item['price'];
+            $userLevel->original_price = $item['original_price'];
+            $userLevel->is_recommend = $item['is_recommend'];
+            $userLevel->is_good_value = $item['is_good_value'];
+            $userLevel->cycle = $item['cycle'];
+            $userLevel->privilege = $item['privilege'];
+            $userLevel->save();
+        }
     }
 }
