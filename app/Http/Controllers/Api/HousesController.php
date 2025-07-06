@@ -65,4 +65,19 @@ class HousesController extends Controller
     {
         return new HouseInfoResource($house);
     }
+
+    /**
+     * 我的
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function myIndex(Request $request): AnonymousResourceCollection
+    {
+        $user = $request->user();
+        $houses = House::query()
+            ->whereBelongsTo($user)
+            ->latest()
+            ->paginate();
+        return HouseResource::collection($houses);
+    }
 }
