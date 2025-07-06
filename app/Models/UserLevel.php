@@ -18,4 +18,8 @@ class UserLevel extends Model
 {
     public $timestamps = false;
     protected $guarded = [];
+
+    protected $casts = [
+        'privilege' => 'json'
+    ];
 }
