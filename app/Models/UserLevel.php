@@ -16,9 +16,28 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserLevel extends Model
 {
+    /**
+     * @var array|string[]
+     */
+    public static array $privilegeMap = [
+        0 => '特价房源查看',
+        1 => '免中介费',
+        2 => '专属客服',
+        3 => '优先房源推荐',
+        4 => '免费搬家服务',
+    ];
+
+    /**
+     * @var array|string[]
+     */
+    public static array $cycleMap = [
+        0 => '月',
+        1 => '季',
+        2 => '年'
+    ];
+
     public $timestamps = false;
     protected $guarded = [];
-
     protected $casts = [
         'privilege' => 'json'
     ];

@@ -79,13 +79,7 @@ class UserLevelResource extends Resource
                     ->native(false)
                     ->columnSpanFull()
                     ->multiple()
-                    ->options([
-                        0 => '特价房源查看',
-                        1 => '免中介费',
-                        2 => '专属客服',
-                        3 => '优先房源推荐',
-                        4 => '免费搬家服务',
-                    ]),
+                    ->options(UserLevel::$privilegeMap),
             ]);
     }
 
