@@ -5,6 +5,23 @@ namespace App\Http\Resources\House;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed $images
+ * @property mixed $id
+ * @property mixed $title
+ * @property mixed $room_count
+ * @property mixed $living_room_count
+ * @property mixed $bathroom_count
+ * @property mixed $area
+ * @property mixed $rent_price
+ * @property mixed $payment_method
+ * @property mixed $min_rental_period
+ * @property mixed $community
+ * @property mixed $address
+ * @property mixed $orientation
+ * @property mixed $floor
+ * @property mixed $total_floors
+ */
 class HouseResource extends JsonResource
 {
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\HousesController;
 use App\Http\Controllers\Api\IndustriesController;
 use App\Http\Controllers\Api\ShopsController;
 use App\Http\Controllers\Api\UploadsController;
+use App\Http\Controllers\Api\UserLevelsController;
 use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,5 +56,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // 商铺 - 详情
     Route::get('shops/{shop}', [ShopsController::class, 'show'])
         ->name('shops.show');
+
+    // 用户等级 - 列表
+    Route::get('user-levels', [UserLevelsController::class, 'index'])
+        ->name('user-levels.index');
+    // 用户等级 - 详情
+    Route::get('user-levels/{userLevel}', [UserLevelsController::class, 'show'])
+        ->name('user-levels.show');
 });
 
