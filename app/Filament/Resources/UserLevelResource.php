@@ -64,7 +64,10 @@ class UserLevelResource extends Resource
                     ->default(0),
                 Forms\Components\Radio::make('cycle')
                     ->required()
+                    ->label('计算周期')
                     ->columnSpanFull()
+                    ->inline()
+                    ->inlineLabel(false)
                     ->options([
                         0 => '月',
                         1 => '季',
@@ -80,7 +83,8 @@ class UserLevelResource extends Resource
                         0 => '特价房源查看',
                         1 => '免中介费',
                         2 => '专属客服',
-                        3 => '优先房源推荐'
+                        3 => '优先房源推荐',
+                        4 => '免费搬家服务',
                     ]),
             ]);
     }
