@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('houses/{house}/favorite', [HousesController::class, 'disfavor'])
         ->name('houses.disfavor');
     // 房源 - 收藏列表
-    Route::post('houses/favorites', [HousesController::class, 'favorites'])
+    Route::get('houses/favorites', [HousesController::class, 'favorites'])
         ->name('houses.favorites');
 
     // 商铺 - 列表
@@ -74,7 +74,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('shops/{shop}/favorite', [ShopsController::class, 'disfavor'])
         ->name('shops.disfavor');
     // 商铺 - 收藏列表
-    Route::post('shops/favorites', [ShopsController::class, 'favorites'])
+    Route::get('shops/favorites', [ShopsController::class, 'favorites'])
         ->name('shops.favorites');
 
     // 用户等级 - 列表
