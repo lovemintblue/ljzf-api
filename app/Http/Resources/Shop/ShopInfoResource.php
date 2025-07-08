@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Shop;
 
+use App\Models\Facility;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -36,12 +37,19 @@ class ShopInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = $request->user();
         $images = collect($this->images)->map(function ($image) {
             return [
                 'path' => $image,
                 'url' => formatUrl($image)
             ];
         });
+        $facilities = Facility::query()->whereIn('id', $this->facility_ids)->pluck('name')->toArray();
+        $isFavor = 0;
+        if ($user->favoriteShops()->where('shop_id', $this->id)->first()) {
+            $isFavor = 1;
+        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -62,7 +70,9 @@ class ShopInfoResource extends JsonResource
             'surroundings' => $this->surroundings,
             'description' => $this->description,
             'facility_ids' => $this->facility_ids,
+            'facilities' => $facilities,
             'industry_ids' => $this->industry_ids,
+            'is_favor' => $isFavor,
         ];
     }
 }

@@ -38,12 +38,18 @@ class HouseInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = $request->user();
         $images = collect($this->images)->map(function ($image) {
             return [
                 'path' => $image,
                 'url' => formatUrl($image)
             ];
         });
+        $isFavor = 0;
+        if ($user->favoriteHouses()->where('house_id', $this->id)->first()) {
+            $isFavor = 1;
+        }
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -67,6 +73,7 @@ class HouseInfoResource extends JsonResource
             'facility_ids' => $this->facility_ids,
             'building_number' => $this->building_number,
             'room_number' => $this->room_number,
+            'is_favor' => $isFavor,
         ];
     }
 }
