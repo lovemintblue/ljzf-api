@@ -12,6 +12,7 @@ use App\Http\Resources\House\HouseResource;
 use App\Models\House;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class HousesController extends Controller
 {
@@ -78,6 +79,47 @@ class HousesController extends Controller
             ->whereBelongsTo($user)
             ->latest()
             ->paginate();
+        return HouseResource::collection($houses);
+    }
+
+
+    /**
+     * 收藏
+     * @param Request $request
+     * @param House $house
+     * @return Response
+     */
+    public function favor(Request $request, House $house): Response
+    {
+        $user = $request->user();
+        if ($user->favoriteHouses()->find($house->id)) {
+            return response()->noContent();
+        }
+        $user->favoriteHouses()->attach($house);
+        return response()->noContent();
+    }
+
+    /**
+     * 取消收藏
+     * @param Request $request
+     * @param House $house
+     * @return Response
+     */
+    public function disfavor(Request $request, House $house): Response
+    {
+        $user = $request->user();
+        $user->favoriteHouses()->detach($house);
+        return response()->noContent();
+    }
+
+    /**
+     * 收藏列表
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function favorites(Request $request): AnonymousResourceCollection
+    {
+        $houses = $request->user()->favoriteHouses()->paginate(16);
         return HouseResource::collection($houses);
     }
 }

@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShopRequest;
 use App\Http\Resources\Shop\ShopInfoResource;
 use App\Http\Resources\Shop\ShopResource;
+use App\Models\House;
 use App\Models\Shop;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class ShopsController extends Controller
 {
@@ -69,5 +71,45 @@ class ShopsController extends Controller
     public function show(Shop $shop): ShopInfoResource
     {
         return new ShopInfoResource($shop);
+    }
+
+    /**
+     * 收藏
+     * @param Request $request
+     * @param Shop $shop
+     * @return Response
+     */
+    public function favor(Request $request, Shop $shop): Response
+    {
+        $user = $request->user();
+        if ($user->favoriteShops()->find($shop->id)) {
+            return response()->noContent();
+        }
+        $user->favoriteShops()->attach($shop);
+        return response()->noContent();
+    }
+
+    /**
+     * 取消收藏
+     * @param Request $request
+     * @param Shop $shop
+     * @return Response
+     */
+    public function disfavor(Request $request, Shop $shop): Response
+    {
+        $user = $request->user();
+        $user->favoriteShops()->detach($shop);
+        return response()->noContent();
+    }
+
+    /**
+     * 收藏列表
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function favorites(Request $request): AnonymousResourceCollection
+    {
+        $houses = $request->user()->favoriteShops()->paginate();
+        return ShopResource::collection($houses);
     }
 }

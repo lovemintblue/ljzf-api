@@ -48,7 +48,15 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源 - 详情
     Route::get('houses/{house}', [HousesController::class, 'show'])
         ->name('houses.show')->where('house', '[0-9]+');
-
+    // 房源 - 收藏
+    Route::post('houses/{house}/favorite', [HousesController::class, 'favor'])
+        ->name('houses.favor');
+    // 房源 - 取消收藏
+    Route::delete('houses/{house}/favorite', [HousesController::class, 'disfavor'])
+        ->name('houses.disfavor');
+    // 房源 - 收藏列表
+    Route::post('houses/favorites', [HousesController::class, 'favorites'])
+        ->name('houses.favorites');
 
     // 商铺 - 列表
     Route::get('shops', [ShopsController::class, 'index'])
@@ -59,6 +67,15 @@ Route::middleware('auth:sanctum')->group(function () {
     // 商铺 - 详情
     Route::get('shops/{shop}', [ShopsController::class, 'show'])
         ->name('shops.show');
+    // 商铺 - 收藏
+    Route::post('shops/{shop}/favorite', [ShopsController::class, 'favor'])
+        ->name('shops.favor');
+    // 商铺 - 取消收藏
+    Route::delete('shops/{shop}/favorite', [ShopsController::class, 'disfavor'])
+        ->name('shops.disfavor');
+    // 商铺 - 收藏列表
+    Route::post('shops/favorites', [ShopsController::class, 'favorites'])
+        ->name('shops.favorites');
 
     // 用户等级 - 列表
     Route::get('user-levels', [UserLevelsController::class, 'index'])

@@ -24,7 +24,7 @@ class UsersController extends Controller
      * @param Request $request
      * @return UserInfoResource
      */
-    public function update(Request $request)
+    public function update(Request $request): UserInfoResource
     {
         $user = $request->user();
         $user->fill($request->input());
