@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Shop;
 
 use App\Models\Facility;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -44,7 +45,7 @@ class ShopInfoResource extends JsonResource
                 'url' => formatUrl($image)
             ];
         });
-        $facilities = Facility::query()->whereIn('id', $this->facility_ids)->pluck('name')->toArray();
+        $industries = Industry::query()->whereIn('id', $this->industry_ids)->pluck('name')->toArray();
         $isFavor = 0;
         if ($user->favoriteShops()->where('shop_id', $this->id)->first()) {
             $isFavor = 1;
@@ -70,7 +71,7 @@ class ShopInfoResource extends JsonResource
             'surroundings' => $this->surroundings,
             'description' => $this->description,
             'facility_ids' => $this->facility_ids,
-            'facilities' => $facilities,
+            'industries' => $industries,
             'industry_ids' => $this->industry_ids,
             'is_favor' => $isFavor,
         ];

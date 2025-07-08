@@ -3,6 +3,7 @@
 namespace App\Http\Resources\Shop;
 
 use App\Models\Facility;
+use App\Models\Industry;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,6 +22,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $surroundings
  * @property mixed $description
  * @property mixed $facility_ids
+ * @property mixed $industry_ids
  */
 class ShopResource extends JsonResource
 {
@@ -34,7 +36,7 @@ class ShopResource extends JsonResource
         $images = collect($this->images)->map(function ($image) {
             return formatUrl($image);
         });
-        $facilities = Facility::query()->whereIn('id', $this->facility_ids)->pluck('name')->toArray();
+        $industries = Industry::query()->whereIn('id', $this->industry_ids)->pluck('name')->toArray();
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -49,7 +51,7 @@ class ShopResource extends JsonResource
             'address' => $this->address,
             'surroundings' => $this->surroundings,
             'description' => $this->description,
-            'facilities' => $facilities,
+            'industries' => $industries,
         ];
     }
 }
