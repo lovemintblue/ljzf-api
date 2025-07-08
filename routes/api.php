@@ -66,7 +66,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ->name('shops.store');
     // 商铺 - 详情
     Route::get('shops/{shop}', [ShopsController::class, 'show'])
-        ->name('shops.show');
+        ->name('shops.show')->where('shop', '[0-9]+');
     // 商铺 - 收藏
     Route::post('shops/{shop}/favorite', [ShopsController::class, 'favor'])
         ->name('shops.favor');
