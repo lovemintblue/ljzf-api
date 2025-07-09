@@ -17,6 +17,7 @@
         "laravel/sanctum": "^4.1.1",
         "laravel/tinker": "^2.10.1",
         "spatie/laravel-settings": "^3.4",
+        "twilio/sdk": "^8.6",
         "w7corp/easywechat": "^6.17"
     },
     "require-dev": {

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthorizationsController;
+use App\Http\Controllers\Api\CommunitiesController;
 use App\Http\Controllers\Api\FacilitiesController;
 use App\Http\Controllers\Api\HousesController;
 use App\Http\Controllers\Api\IndustriesController;
@@ -23,9 +24,13 @@ Route::get('facilities', [FacilitiesController::class, 'index'])
 Route::get('industries', [IndustriesController::class, 'index'])
     ->name('industries.index');
 
-// 上传图片
+// 上传 - 图片
 Route::post('uploads/image', [UploadsController::class, 'image'])
     ->name('uploads.image');
+
+// 小区 - 列表
+Route::get('communities', [CommunitiesController::class, 'index'])
+    ->name('communities.index');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {
