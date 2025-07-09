@@ -25,4 +25,13 @@ class Shop extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * 关联小区
+     * @return BelongsTo
+     */
+    public function community(): BelongsTo
+    {
+        return $this->belongsTo(Community::class);
+    }
 }
