@@ -5,6 +5,11 @@ namespace App\Http\Resources\Community;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed $id
+ * @property mixed $name
+ * @property mixed $address
+ */
 class CommunityResource extends JsonResource
 {
     /**
@@ -14,6 +19,10 @@ class CommunityResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'address' => $this->address,
+        ];
     }
 }
