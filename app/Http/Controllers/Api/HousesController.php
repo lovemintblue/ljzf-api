@@ -23,11 +23,18 @@ class HousesController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $houses = House::query()
+        $community_id = $request->input('community_id');
+        $builder = House::query()
             ->with([
                 'community:id,name'
             ])
-            ->latest()->paginate();
+            ->latest();
+
+        if ($community_id) {
+            $builder = $builder->where('community_id', $community_id);
+        }
+        
+        $houses = $builder->paginate();
         return HouseResource::collection($houses);
     }
 
