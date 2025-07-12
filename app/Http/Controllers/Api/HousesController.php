@@ -68,7 +68,7 @@ class HousesController extends Controller
      */
     public function show(House $house): HouseInfoResource
     {
-        return new HouseInfoResource($house);
+        return new HouseInfoResource($house->load(['community:id,name']));
     }
 
     /**
