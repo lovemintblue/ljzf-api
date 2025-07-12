@@ -23,17 +23,22 @@ class HousesController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $community_id = $request->input('community_id');
+        $communityId = $request->input('community_id');
+        $livingRoomCount = $request->input('living_room_count', -1);
         $builder = House::query()
             ->with([
                 'community:id,name'
             ])
             ->latest();
 
-        if ($community_id) {
-            $builder = $builder->where('community_id', $community_id);
+        if ($communityId) {
+            $builder = $builder->where('community_id', $communityId);
         }
-        
+
+        if ($livingRoomCount > 0) {
+            $builder = $builder->where('living_room_count', $livingRoomCount);
+        }
+
         $houses = $builder->paginate();
         return HouseResource::collection($houses);
     }
