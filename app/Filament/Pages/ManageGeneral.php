@@ -14,6 +14,7 @@ class ManageGeneral extends SettingsPage
     protected static string $settings = GeneralSettings::class;
 
     protected static ?string $navigationGroup = '系统';
+    
     protected static ?string $title = '基础设置';
 
     public function form(Form $form): Form

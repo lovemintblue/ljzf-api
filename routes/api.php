@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\Api\AuthorizationsController;
+use App\Http\Controllers\Api\BusinessDistrictsController;
 use App\Http\Controllers\Api\CommunitiesController;
 use App\Http\Controllers\Api\FacilitiesController;
 use App\Http\Controllers\Api\HousesController;
 use App\Http\Controllers\Api\IndustriesController;
+use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\ShopsController;
 use App\Http\Controllers\Api\UploadsController;
 use App\Http\Controllers\Api\UserLevelsController;
@@ -31,6 +33,10 @@ Route::post('uploads/image', [UploadsController::class, 'image'])
 // 小区 - 列表
 Route::get('communities', [CommunitiesController::class, 'index'])
     ->name('communities.index');
+
+// 商圈 - 列表
+Route::get('business-districts', [BusinessDistrictsController::class, 'index'])
+    ->name('business-districts.index');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {
@@ -88,5 +94,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // 用户等级 - 详情
     Route::get('user-levels/{userLevel}', [UserLevelsController::class, 'show'])
         ->name('user-levels.show');
+
+    // 消息通知 - 列表
+    Route::get('notifications', [NotificationsController::class, 'index'])
+        ->name('notifications.index');
+
 });
 

@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,4 +20,9 @@ Route::get('test', function () {
         ],
     ];
     echo json_encode($data, JSON_UNESCAPED_UNICODE);
+});
+
+
+Route::get('test2', static function () {
+
 });

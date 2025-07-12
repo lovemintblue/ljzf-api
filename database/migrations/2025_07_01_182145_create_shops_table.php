@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('shops', static function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->comment('用户ID');
+            $table->unsignedBigInteger('business_district_id')->comment('商圈ID');
             $table->string('title')->comment('标题');
             $table->tinyInteger('type')->comment('类型 0零售 1餐饮 2办公 3其他')->default(0);
             $table->decimal('area', 10)->comment('面积')->default(0);

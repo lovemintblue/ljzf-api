@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             FacilitySeeder::class,
             IndustrySeeder::class,
+            BusinessDistrictSeeder::class,
+            CommunitySeeder::class,
         ]);
     }
 }

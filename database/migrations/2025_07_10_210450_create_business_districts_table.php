@@ -10,8 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::table('houses', static function (Blueprint $table) {
-            $table->unsignedBigInteger('community_id')->comment('小区ID')->default(0);
+        Schema::create('business_districts', static function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->comment('名称');
+            $table->timestamps();
+            $table->comment('商圈表');
         });
     }
 
@@ -20,8 +23,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::table('houses', static function (Blueprint $table) {
-            $table->dropColumn('community_id');
-        });
+        Schema::dropIfExists('business_districts');
     }
 };

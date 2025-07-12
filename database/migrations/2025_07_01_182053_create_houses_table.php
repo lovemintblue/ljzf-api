@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('houses', static function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->comment('用户ID');
+            $table->unsignedBigInteger('community_id')->comment('小区ID')->default(0);
             $table->string('title')->comment('标题');
             $table->string('contact_name')->comment('联系人');
             $table->string('contact_phone')->comment('联系电话');
@@ -30,8 +31,6 @@ return new class extends Migration {
             $table->enum('payment_method', ['押一付一', '押一付三', '押一付六', '押二付一', '半年付', '年付'])->comment('付款方式')->default('押一付三');
             $table->string('min_rental_period')->comment('起租时长 0月 1季 2年')->default(0);
             $table->json('images')->comment('房源照片')->nullable();
-            $table->string('community')->comment('小区')->nullable();
-            $table->string('address')->comment('地址')->nullable();
             $table->json('facility_ids')->comment('配套设施ids')->nullable();
             $table->string('building_number')->comment('栋数')->nullable();
             $table->string('room_number')->comment('房间号')->nullable();
