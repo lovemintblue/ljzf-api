@@ -23,7 +23,11 @@ class HousesController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $houses = House::query()->latest()->paginate();
+        $houses = House::query()
+            ->with([
+                'community:id,name'
+            ])
+            ->latest()->paginate();
         return HouseResource::collection($houses);
     }
 
