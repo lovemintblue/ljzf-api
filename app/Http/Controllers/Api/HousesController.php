@@ -30,11 +30,12 @@ class HousesController extends Controller
         $type = $request->input('type');
         $minArea = $request->input('min_area');
         $maxArea = $request->input('max_area');
+        $sort = $request->input('sort', '');
+        $direction = $request->input('direction', '');
         $builder = House::query()
             ->with([
                 'community:id,name'
-            ])
-            ->latest();
+            ]);
 
         if ($communityId) {
             $builder = $builder->where('community_id', $communityId);
@@ -62,6 +63,12 @@ class HousesController extends Controller
             } else {
                 $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
             }
+        }
+
+        if (!empty($sort) && !empty($direction)) {
+            $builder = $builder->orderBy($sort, $direction);
+        } else {
+            $builder = $builder->latest();
         }
 
         $houses = $builder->paginate();
