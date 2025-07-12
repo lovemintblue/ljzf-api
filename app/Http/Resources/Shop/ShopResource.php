@@ -17,12 +17,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $deposit_price
  * @property mixed $property_fee
  * @property mixed $payment_method
- * @property mixed $business_district
  * @property mixed $address
  * @property mixed $surroundings
  * @property mixed $description
  * @property mixed $facility_ids
  * @property mixed $industry_ids
+ * @property mixed $businessDistrict
  */
 class ShopResource extends JsonResource
 {
@@ -39,6 +39,7 @@ class ShopResource extends JsonResource
         $industries = Industry::query()->whereIn('id', $this->industry_ids)->pluck('name')->toArray();
         return [
             'id' => $this->id,
+            'business_district' => $this->businessDistrict,
             'title' => $this->title,
             'type' => $this->type,
             'area' => $this->area,
@@ -47,7 +48,6 @@ class ShopResource extends JsonResource
             'property_fee' => $this->property_fee,
             'payment_method' => $this->payment_method,
             'images' => $images,
-            'business_district' => $this->business_district,
             'address' => $this->address,
             'surroundings' => $this->surroundings,
             'description' => $this->description,

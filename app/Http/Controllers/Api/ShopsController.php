@@ -22,6 +22,9 @@ class ShopsController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $shops = Shop::query()
+            ->with([
+                'businessDistrict:id,name'
+            ])
             ->latest()
             ->paginate();
         return ShopResource::collection($shops);

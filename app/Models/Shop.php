@@ -34,4 +34,13 @@ class Shop extends Model
     {
         return $this->belongsTo(Community::class);
     }
+
+    /**
+     * 关联商圈
+     * @return BelongsTo
+     */
+    public function businessDistrict(): BelongsTo
+    {
+        return $this->belongsTo(BusinessDistrict::class);
+    }
 }
