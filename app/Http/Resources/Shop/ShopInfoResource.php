@@ -28,6 +28,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $description
  * @property mixed $facility_ids
  * @property mixed $industry_ids
+ * @property mixed $business_district_id
  */
 class ShopInfoResource extends JsonResource
 {
@@ -66,7 +67,7 @@ class ShopInfoResource extends JsonResource
             'contact_name' => $this->contact_name,
             'contact_phone' => $this->contact_phone,
             'images' => $images,
-            'business_district' => $this->business_district,
+            'business_district_id' => $this->business_district_id,
             'address' => $this->address,
             'surroundings' => $this->surroundings,
             'description' => $this->description,
