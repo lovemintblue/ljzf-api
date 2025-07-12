@@ -25,6 +25,8 @@ class HousesController extends Controller
     {
         $communityId = $request->input('community_id');
         $livingRoomCount = $request->input('living_room_count', -1);
+        $minRentPrice = $request->input('min_rent_price', -1);
+        $maxRentPrice = $request->input('max_rent_price', -1);
         $builder = House::query()
             ->with([
                 'community:id,name'
@@ -37,6 +39,14 @@ class HousesController extends Controller
 
         if ($livingRoomCount > 0) {
             $builder = $builder->where('living_room_count', $livingRoomCount);
+        }
+
+        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
+            if ((int)$maxRentPrice === 0) {
+                $builder = $builder->where('rent_price', '>', $minRentPrice);
+            } else {
+                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
+            }
         }
 
         $houses = $builder->paginate();
