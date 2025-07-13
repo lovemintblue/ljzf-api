@@ -16,7 +16,7 @@ class UsersController extends Controller
     public function me(Request $request): UserInfoResource
     {
         $user = $request->user();
-        return new UserInfoResource($user);
+        return new UserInfoResource($user->loadCount(['favoriteHouses', 'favoriteShops']));
     }
 
     /**
