@@ -30,8 +30,8 @@ class HousesController extends Controller
         $minRentPrice = $request->input('min_rent_price', -1);
         $maxRentPrice = $request->input('max_rent_price', -1);
         $type = $request->input('type', -1);
-        $minArea = $request->input('min_area');
-        $maxArea = $request->input('max_area');
+        $minArea = $request->input('min_area', 0);
+        $maxArea = $request->input('max_area', 0);
         $sort = $request->input('sort', '');
         $direction = $request->input('direction', '');
         $builder = House::query()
