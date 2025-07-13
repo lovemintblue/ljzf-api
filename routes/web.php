@@ -23,6 +23,8 @@ Route::get('test', function () {
 });
 
 
-Route::get('test2', static function () {
-
+Route::get('test2', static function (\Illuminate\Http\Request $request) {
+    $ip = $request->ip();
+    $info = (new \App\Services\MapService())->ip($ip);
+    dd($info);
 });

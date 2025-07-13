@@ -38,7 +38,6 @@ class HousesController extends Controller
             ->with([
                 'community:id,name'
             ]);
-
         if (!empty($keyword)) {
             $builder = $builder->where(function (Builder $query) use ($keyword) {
                 return $query->where('title', 'like', '%' . $keyword . '%')
@@ -49,7 +48,7 @@ class HousesController extends Controller
         if ($communityId) {
             $builder = $builder->where('community_id', $communityId);
         }
-
+        
         if ($livingRoomCount > 0) {
             $builder = $builder->where('living_room_count', $livingRoomCount);
         }
