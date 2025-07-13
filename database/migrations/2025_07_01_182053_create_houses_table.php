@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->integer('floor')->comment('楼层')->default(0);
             $table->integer('total_floors')->comment('总楼层')->default(0);
             $table->enum('orientation', ['东', '南', '西', '北', '东南', '东北', '西南', '西北'])->comment('朝向')->default('东');
-            $table->enum('renovation', ['毛坯房', '简装修', '精装修'])->comment('装修')->default('毛坯');
+            $table->enum('renovation', ['毛坯房', '简装修', '精装修'])->comment('装修')->default('毛坯房');
             $table->decimal('rent_price', 10)->comment('租金')->default(0);
             $table->enum('payment_method', ['押一付一', '押一付三', '押二付一', '半年付', '年付'])->comment('付款方式')->default('押一付三');
             $table->string('min_rental_period')->comment('起租时长 0月 1季 2年')->default(0);
