@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             IndustrySeeder::class,
             BusinessDistrictSeeder::class,
             CommunitySeeder::class,
+            SqlDataSeeder::class,
         ]);
     }
 }
