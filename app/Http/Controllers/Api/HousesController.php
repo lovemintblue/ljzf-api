@@ -46,9 +46,9 @@ class HousesController extends Controller
             });
         }
 
-//        if ($communityId) {
-//            $builder = $builder->where('community_id', $communityId);
-//        }
+        if ($communityId) {
+            $builder = $builder->where('community_id', $communityId);
+        }
 //
 //        if ($livingRoomCount > 0) {
 //            $builder = $builder->where('living_room_count', $livingRoomCount);
