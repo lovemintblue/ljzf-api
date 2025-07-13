@@ -29,7 +29,7 @@ class HousesController extends Controller
         $livingRoomCount = $request->input('living_room_count', -1);
         $minRentPrice = $request->input('min_rent_price', -1);
         $maxRentPrice = $request->input('max_rent_price', -1);
-        $type = $request->input('type');
+        $type = $request->input('type', -1);
         $minArea = $request->input('min_area');
         $maxArea = $request->input('max_area');
         $sort = $request->input('sort', '');
@@ -61,18 +61,18 @@ class HousesController extends Controller
                 $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
             }
         }
-//
-//        if ($type > -1) {
-//            $builder = $builder->where('type', $type);
-//        }
-//
-//        if ($minArea >= 0 && $maxArea >= 0) {
-//            if ((int)$minArea === 0) {
-//                $builder = $builder->where('area', '>', $minArea);
-//            } else {
-//                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
-//            }
-//        }
+
+        if ($type > -1) {
+            $builder = $builder->where('type', $type);
+        }
+
+        if ($minArea >= 0 && $maxArea >= 0) {
+            if ((int)$minArea === 0) {
+                $builder = $builder->where('area', '>', $minArea);
+            } else {
+                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
+            }
+        }
 
         if (!empty($sort) && !empty($direction)) {
             $builder = $builder->orderBy($sort, $direction);
