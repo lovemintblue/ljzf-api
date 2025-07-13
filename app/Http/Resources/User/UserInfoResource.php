@@ -31,6 +31,7 @@ class UserInfoResource extends JsonResource
             'phone' => $this->phone,
             'favorite_count' => $favoriteCount,
             'houses_count' => $this->houses_count,
+            'notifications_count' => 0,
         ];
     }
 }
