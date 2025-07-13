@@ -42,6 +42,9 @@ Route::get('business-districts', [BusinessDistrictsController::class, 'index'])
 // 行政区划 - 列表
 Route::get('districts', [DistrictsController::class, 'index'])
     ->name('districts.index');
+// 行政区划 - 根据名称获取ID
+Route::get('districts/get-children-by-name', [DistrictsController::class, 'getChildrenByName'])
+    ->name('districts.get-children-by-name');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {
