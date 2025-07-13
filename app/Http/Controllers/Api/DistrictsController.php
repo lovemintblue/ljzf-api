@@ -31,7 +31,7 @@ class DistrictsController extends Controller
      * @return AnonymousResourceCollection
      * @throws ConnectionException
      */
-    public function getChildrenByName(Request $request): AnonymousResourceCollection
+    public function getChildrenByIp(Request $request): AnonymousResourceCollection
     {
         $ip = $request->ip();
         $info = (new \App\Services\MapService())->ip($ip);
