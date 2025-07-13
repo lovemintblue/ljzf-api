@@ -6,6 +6,7 @@ namespace App\Models;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -57,6 +58,15 @@ class User extends Authenticatable
         return $this->belongsToMany(Shop::class, 'user_favorite_shops')
             ->withTimestamps()
             ->orderBy('user_favorite_shops.created_at', 'desc');
+    }
+
+    /**
+     * 关联房源
+     * @return HasMany
+     */
+    public function houses(): HasMany
+    {
+        return $this->hasMany(House::class);
     }
 
     /**
