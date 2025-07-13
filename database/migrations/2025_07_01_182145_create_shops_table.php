@@ -23,11 +23,14 @@ return new class extends Migration {
             $table->decimal('rent_price', 10)->comment('租金')->default(0);
             $table->decimal('deposit_price', 10)->comment('押金')->default(0);
             $table->decimal('property_fee', 10)->comment('物业费')->default(0);
-            $table->enum('payment_method', ['押一付一', '押一付三', '押一付六', '押二付一', '半年付', '年付'])->comment('付款方式')->default('押一付三');
+            $table->enum('payment_method', ['押一付三', '押二付三', '押三付三', '半年付', '年付'])->comment('付款方式')->default('押一付三');
             $table->string('contact_name')->comment('联系人');
             $table->string('contact_phone')->comment('联系电话');
             $table->json('images')->comment('商铺照片')->nullable();
             $table->string('business_district')->comment('商圈')->nullable();
+            $table->string('province')->comment('省份')->nullable();
+            $table->string('city')->comment('城市')->nullable();
+            $table->string('district')->comment('区县')->nullable();
             $table->string('address')->comment('详细地址')->nullable();
             $table->string('surroundings')->comment('周边环境')->nullable();
             $table->string('description')->comment('描述')->nullable();
