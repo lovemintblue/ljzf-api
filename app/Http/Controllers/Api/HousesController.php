@@ -46,33 +46,33 @@ class HousesController extends Controller
             });
         }
 
-        if ($communityId) {
-            $builder = $builder->where('community_id', $communityId);
-        }
-
-        if ($livingRoomCount > 0) {
-            $builder = $builder->where('living_room_count', $livingRoomCount);
-        }
-
-        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
-            if ((int)$maxRentPrice === 0) {
-                $builder = $builder->where('rent_price', '>', $minRentPrice);
-            } else {
-                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
-            }
-        }
-
-        if ($type > -1) {
-            $builder = $builder->where('type', $type);
-        }
-
-        if ($minArea >= 0 && $maxArea >= 0) {
-            if ((int)$minArea === 0) {
-                $builder = $builder->where('area', '>', $minArea);
-            } else {
-                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
-            }
-        }
+//        if ($communityId) {
+//            $builder = $builder->where('community_id', $communityId);
+//        }
+//
+//        if ($livingRoomCount > 0) {
+//            $builder = $builder->where('living_room_count', $livingRoomCount);
+//        }
+//
+//        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
+//            if ((int)$maxRentPrice === 0) {
+//                $builder = $builder->where('rent_price', '>', $minRentPrice);
+//            } else {
+//                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
+//            }
+//        }
+//
+//        if ($type > -1) {
+//            $builder = $builder->where('type', $type);
+//        }
+//
+//        if ($minArea >= 0 && $maxArea >= 0) {
+//            if ((int)$minArea === 0) {
+//                $builder = $builder->where('area', '>', $minArea);
+//            } else {
+//                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
+//            }
+//        }
 
         if (!empty($sort) && !empty($direction)) {
             $builder = $builder->orderBy($sort, $direction);
