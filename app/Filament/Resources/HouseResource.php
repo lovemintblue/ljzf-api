@@ -100,59 +100,32 @@ class HouseResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
+                Tables\Columns\TextColumn::make('user.nickname')
+                    ->label('发布人')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title')
+                    ->label('标题')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contact_name')
+                    ->label('联系人')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contact_phone')
+                    ->label('联系电话')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('room_count')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('living_room_count')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('bathroom_count')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('area')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('floor')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('total_floors')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('orientation'),
-                Tables\Columns\TextColumn::make('renovation'),
-                Tables\Columns\TextColumn::make('rent_price')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('payment_method'),
-                Tables\Columns\TextColumn::make('min_rental_period')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('community')
+                Tables\Columns\TextColumn::make('community.name')
+                    ->label('小区')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
+                    ->label('详细地址')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('创建时间')
+                    ->dateTime('Y-m-d H:i:s')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

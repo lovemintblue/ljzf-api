@@ -49,8 +49,7 @@ class HousesController extends Controller
         if (!empty($district)) {
             $builder = $builder->whereLike('district', '%' . $district . '%');
         }
-
-
+        
         if ($communityId) {
             $builder = $builder->where('community_id', $communityId);
         }
