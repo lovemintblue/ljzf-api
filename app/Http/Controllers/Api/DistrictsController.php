@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\District\DistrictInfoResource;
 use App\Http\Resources\District\DistrictResource;
 use App\Models\District;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -28,10 +29,13 @@ class DistrictsController extends Controller
      * 根据名称获取下级列表
      * @param Request $request
      * @return AnonymousResourceCollection
+     * @throws ConnectionException
      */
     public function getChildrenByName(Request $request): AnonymousResourceCollection
     {
-        $name = $request->input('name');
+        $ip = $request->ip();
+        $info = (new \App\Services\MapService())->ip($ip);
+        $name = $info['ad_info']['city'];
         $parent = District::query()->whereLike('full_name', '%' . $name . '%')->first();
         $districts = District::query()->where('parent_id', $parent->id)->get();
         DistrictResource::wrap('data');
