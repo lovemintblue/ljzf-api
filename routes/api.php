@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\FacilitiesController;
 use App\Http\Controllers\Api\HousesController;
 use App\Http\Controllers\Api\IndustriesController;
 use App\Http\Controllers\Api\NotificationsController;
+use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\ShopsController;
 use App\Http\Controllers\Api\UploadsController;
 use App\Http\Controllers\Api\UserLevelsController;
@@ -45,6 +46,10 @@ Route::get('districts', [DistrictsController::class, 'index'])
 // 行政区划 - 根据名称获取ID
 Route::get('districts/get-children-by-ip', [DistrictsController::class, 'getChildrenByIp'])
     ->name('districts.get-children-by-ip');
+
+// 设置 - 基础
+Route::get('settings/general', [SettingsController::class, 'general'])
+    ->name('settings.general');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {
