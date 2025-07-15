@@ -2,14 +2,18 @@
     @foreach($getState() as $item)
         <div class="flex flex-row space-x-2">
             @if($item === 0)
-                <x-filament::badge>
-                    房源
-                </x-filament::badge>
+                <div>
+                    <x-filament::badge>
+                        房源
+                    </x-filament::badge>
+                </div>
             @endif
             @if($item === 1)
-                <x-filament::badge>
-                    商铺
-                </x-filament::badge>
+                <div>
+                    <x-filament::badge>
+                        商铺
+                    </x-filament::badge>
+                </div>
             @endif
         </div>
     @endforeach
