@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -41,7 +42,7 @@ class FacilityResource extends Resource
                     ->label('名称')
                     ->columnSpanFull()
                     ->required(),
-                Forms\Components\Radio::make('type')
+                Forms\Components\CheckboxList::make('type')
                     ->label('类型')
                     ->options([
                         0 => '房源',
@@ -64,6 +65,8 @@ class FacilityResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('名称')
                     ->searchable(),
+                CheckboxColumn::make('type')
+                    ->label('类型')
             ])
             ->filters([
                 //

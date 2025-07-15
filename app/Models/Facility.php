@@ -11,4 +11,8 @@ class Facility extends Model
 {
     public $timestamps = false;
     protected $guarded = [];
+
+    protected $casts = [
+        'type' => 'json'
+    ];
 }
