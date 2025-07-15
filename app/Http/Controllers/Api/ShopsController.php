@@ -62,13 +62,13 @@ class ShopsController extends Controller
 //            }
 //        }
 //
-//        if ($minArea >= 0 && $maxArea >= 0) {
-//            if ((int)$minArea === -1) {
-//                $builder = $builder->where('area', '>', $minArea);
-//            } else {
-//                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
-//            }
-//        }
+        if ($minArea >= 0 && $maxArea >= 0) {
+            if ((int)$minArea === -1) {
+                $builder = $builder->where('area', '>', $minArea);
+            } else {
+                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
+            }
+        }
 
         if (!empty($sort) && !empty($direction)) {
             $builder = $builder->orderBy($sort, $direction);
