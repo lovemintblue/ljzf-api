@@ -25,6 +25,10 @@ class HouseResource extends Resource
 
     protected static ?string $label = '房源';
 
+    /**
+     * @param Form $form
+     * @return Form
+     */
     public static function form(Form $form): Form
     {
         return $form
@@ -96,6 +100,10 @@ class HouseResource extends Resource
             ]);
     }
 
+    /**
+     * @param Table $table
+     * @return Table
+     */
     public static function table(Table $table): Table
     {
         return $table
