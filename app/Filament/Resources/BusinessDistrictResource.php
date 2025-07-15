@@ -16,10 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class BusinessDistrictResource extends Resource
 {
     protected static ?string $model = BusinessDistrict::class;
-
-    protected static ?string $navigationGroup = '房源';
-
-    protected static ?string $navigationLabel = '商圈列表';
+    
+    protected static ?string $navigationLabel = '商圈';
 
     protected static ?string $label = '商圈';
 

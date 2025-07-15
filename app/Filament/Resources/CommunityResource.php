@@ -19,10 +19,8 @@ class CommunityResource extends Resource
     protected static ?string $model = Community::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
-
-    protected static ?string $navigationGroup = '房源';
-
-    protected static ?string $navigationLabel = '小区列表';
+    
+    protected static ?string $navigationLabel = '小区';
 
     protected static ?string $label = '小区';
 
@@ -64,8 +62,7 @@ class CommunityResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime('Y-m-d H:i:s')
-                    ->label('创建时间')
-                    ->sortable()
+                    ->label('创建时间'),
             ])
             ->filters([
                 //
