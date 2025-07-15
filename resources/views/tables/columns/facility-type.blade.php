@@ -1,5 +1,5 @@
 <div class="px-4 py-3">
-    @foreach($getState() as $item)
+    @foreach(json_decode($getState(),true) as $item)
         @if($item === 0)
             <x-filament::badge>
                 房源
