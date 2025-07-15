@@ -28,6 +28,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $facility_ids
  * @property mixed $building_number
  * @property mixed $room_number
+ * @property mixed $province
+ * @property mixed $city
+ * @property mixed $district
  */
 class HouseInfoResource extends JsonResource
 {
@@ -69,6 +72,9 @@ class HouseInfoResource extends JsonResource
             'min_rental_period' => $this->min_rental_period,
             'images' => $images,
             'community' => $this->community,
+            'province' => $this->province,
+            'city' => $this->city,
+            'district' => $this->district,
             'address' => $this->address,
             'facility_ids' => $this->facility_ids,
             'building_number' => $this->building_number,
