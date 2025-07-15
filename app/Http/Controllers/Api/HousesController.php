@@ -35,6 +35,7 @@ class HousesController extends Controller
         $sort = $request->input('sort', '');
         $direction = $request->input('direction', '');
         $district = $request->input('district', '');
+        $orientation = $request->input('orientation', '');
         $builder = House::query()
             ->with([
                 'community:id,name'
@@ -47,9 +48,10 @@ class HousesController extends Controller
         }
 
         if (!empty($district)) {
-            $builder = $builder->whereLike('district', '%' . $district . '%');
+            $district = explode(',', $district);
+            $builder = $builder->whereIn('district', $district);
         }
-        
+
         if ($communityId) {
             $builder = $builder->where('community_id', $communityId);
         }
@@ -76,6 +78,11 @@ class HousesController extends Controller
             } else {
                 $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
             }
+        }
+
+        if (!empty($orientation)) {
+            $orientation = explode(',', $orientation);
+            $builder = $builder->whereIn('orientation', $orientation);
         }
 
         if (!empty($sort) && !empty($direction)) {

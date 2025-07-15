@@ -8,6 +8,7 @@ use App\Http\Resources\Shop\ShopInfoResource;
 use App\Http\Resources\Shop\ShopResource;
 use App\Models\House;
 use App\Models\Shop;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -21,12 +22,63 @@ class ShopsController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $shops = Shop::query()
+        $keyword = $request->input('keyword', '');
+        $district = $request->input('district', '');
+        $minRentPrice = $request->input('min_rent_price', -1);
+        $maxRentPrice = $request->input('max_rent_price', -1);
+        $type = $request->input('type', '');
+        $minArea = $request->input('min_area', 0);
+        $maxArea = $request->input('max_area', 0);
+        $sort = $request->input('sort', '');
+        $direction = $request->input('direction', '');
+
+        $builder = Shop::query()
             ->with([
                 'businessDistrict:id,name'
             ])
-            ->latest()
-            ->paginate();
+            ->latest();
+
+        if (!empty($keyword)) {
+            $builder = $builder->where(function (Builder $query) use ($keyword) {
+                return $query->where('title', 'like', '%' . $keyword . '%')
+                    ->orWhere('address', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        if (!empty($district)) {
+            $district = explode(',', $district);
+            $builder = $builder->whereIn('district', $district);
+        }
+
+        if (!empty($type)) {
+            $type = explode(',', $type);
+            $builder = $builder->whereIn('type', $type);
+        }
+
+        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
+            if ((int)$maxRentPrice === -1) {
+                $builder = $builder->where('rent_price', '>', $minRentPrice);
+            } else {
+                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
+            }
+        }
+
+        if ($minArea >= 0 && $maxArea >= 0) {
+            if ((int)$minArea === -1) {
+                $builder = $builder->where('area', '>', $minArea);
+            } else {
+                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
+            }
+        }
+
+        if (!empty($sort) && !empty($direction)) {
+            $builder = $builder->orderBy($sort, $direction);
+        } else {
+            $builder = $builder->latest();
+        }
+
+
+        $shops = $builder->paginate();
         return ShopResource::collection($shops);
     }
 
