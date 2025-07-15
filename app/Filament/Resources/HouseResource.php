@@ -25,6 +25,8 @@ class HouseResource extends Resource
 
     protected static ?string $label = '房源';
 
+    protected static ?int $navigationSort = 1;
+
     /**
      * @param Form $form
      * @return Form
@@ -109,9 +111,7 @@ class HouseResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.nickname')
-                    ->label('发布人')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('发布人'),
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
                     ->searchable(),

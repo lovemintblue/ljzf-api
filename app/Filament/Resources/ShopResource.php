@@ -25,6 +25,8 @@ class ShopResource extends Resource
 
     protected static ?string $label = '商铺';
 
+    protected static ?int $navigationSort = 2;
+
     /**
      * @param Form $form
      * @return Form
@@ -90,14 +92,18 @@ class ShopResource extends Resource
             ]);
     }
 
+    /**
+     * @param Table $table
+     * @return Table
+     */
     public static function table(Table $table): Table
     {
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('user.nickname')
-                    ->label('用户昵称')
-                    ->sortable(),
+                    ->label('发布人')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
                     ->searchable(),
@@ -135,7 +141,6 @@ class ShopResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s')
-                    ->sortable()
             ])
             ->filters([
                 //
