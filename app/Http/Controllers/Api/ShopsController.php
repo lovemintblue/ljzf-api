@@ -54,14 +54,14 @@ class ShopsController extends Controller
 //            $builder = $builder->whereIn('type', $type);
 //        }
 //
-//        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
-//            if ((int)$maxRentPrice === -1) {
-//                $builder = $builder->where('rent_price', '>', $minRentPrice);
-//            } else {
-//                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
-//            }
-//        }
-//
+        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
+            if ((int)$maxRentPrice === -1) {
+                $builder = $builder->where('rent_price', '>', $minRentPrice);
+            } else {
+                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
+            }
+        }
+
         if ($minArea >= 0 && $maxArea >= 0) {
             if ((int)$minArea === -1) {
                 $builder = $builder->where('area', '>', $minArea);
