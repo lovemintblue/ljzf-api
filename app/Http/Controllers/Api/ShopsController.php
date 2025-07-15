@@ -35,8 +35,7 @@ class ShopsController extends Controller
         $builder = Shop::query()
             ->with([
                 'businessDistrict:id,name'
-            ])
-            ->latest();
+            ]);
 
         if (!empty($keyword)) {
             $builder = $builder->where(function (Builder $query) use ($keyword) {
@@ -74,7 +73,6 @@ class ShopsController extends Controller
         if (!empty($sort) && !empty($direction)) {
             $builder = $builder->orderBy($sort, $direction);
         } else {
-            dd("ok");
             $builder = $builder->latest();
         }
 
