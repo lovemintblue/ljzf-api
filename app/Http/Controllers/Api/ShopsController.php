@@ -24,11 +24,11 @@ class ShopsController extends Controller
     {
         $keyword = $request->input('keyword', '');
         $district = $request->input('district', '');
-        $minRentPrice = $request->input('min_rent_price', -1);
-        $maxRentPrice = $request->input('max_rent_price', -1);
+        $minRentPrice = $request->input('min_rent_price', 0);
+        $maxRentPrice = $request->input('max_rent_price', 0);
         $type = $request->input('type', '');
-        $minArea = $request->input('min_area', -1);
-        $maxArea = $request->input('max_area', -1);
+        $minArea = $request->input('min_area', 0);
+        $maxArea = $request->input('max_area', 0);
         $sort = $request->input('sort', '');
         $direction = $request->input('direction', '');
 
@@ -54,20 +54,12 @@ class ShopsController extends Controller
             $builder = $builder->whereIn('type', $type);
         }
 
-        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
-            if ((int)$maxRentPrice === -1) {
-                $builder = $builder->where('rent_price', '>', $minRentPrice);
-            } else {
-                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
-            }
+        if ($minRentPrice > 0 && $maxRentPrice > 0) {
+            $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
         }
 
-        if ($minArea >= 0 && $maxArea >= 0) {
-            if ((int)$minArea === -1) {
-                $builder = $builder->where('area', '>', $minArea);
-            } else {
-                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
-            }
+        if ($minArea > 0 && $maxArea > 0) {
+            $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
         }
 
         if (!empty($sort) && !empty($direction)) {
