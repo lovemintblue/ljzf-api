@@ -27,8 +27,8 @@ class ShopsController extends Controller
         $minRentPrice = $request->input('min_rent_price', -1);
         $maxRentPrice = $request->input('max_rent_price', -1);
         $type = $request->input('type', '');
-        $minArea = $request->input('min_area', 0);
-        $maxArea = $request->input('max_area', 0);
+        $minArea = $request->input('min_area', -1);
+        $maxArea = $request->input('max_area', -1);
         $sort = $request->input('sort', '');
         $direction = $request->input('direction', '');
 
