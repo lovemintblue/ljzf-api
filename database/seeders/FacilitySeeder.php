@@ -33,6 +33,7 @@ class FacilitySeeder extends Seeder
         foreach ($list as $item) {
             $facility = new Facility();
             $facility->name = $item;
+            $facility->type = [0, 1];
             $facility->save();
         }
     }

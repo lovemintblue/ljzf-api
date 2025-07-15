@@ -19,7 +19,7 @@ class FacilitiesController extends Controller
     {
         $type = $request->input('type', 0);
         $facilities = Facility::query()
-            ->where('type', $type)
+            ->whereJsonContains('type', (int)$type)
             ->get();
         FacilityResource::wrap('data');
         return FacilityResource::collection($facilities);

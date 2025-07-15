@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property mixed|string $name
+ * @property int[]|mixed $type
  */
 class Facility extends Model
 {
