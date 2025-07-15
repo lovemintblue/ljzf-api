@@ -101,6 +101,12 @@ class ShopResource extends Resource
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('contact_name')
+                    ->label('联系人')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('contact_phone')
+                    ->label('联系电话')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('area')
                     ->label('面积')
                     ->numeric()
@@ -111,6 +117,9 @@ class ShopResource extends Resource
                     ->label('租金')
                     ->numeric()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('renovation')
+                    ->label('装修')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('province')
                     ->label('省份')
                     ->searchable(),

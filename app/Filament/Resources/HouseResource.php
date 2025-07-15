@@ -121,6 +121,9 @@ class HouseResource extends Resource
                 Tables\Columns\TextColumn::make('contact_phone')
                     ->label('联系电话')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('renovation')
+                    ->label('装修')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('community.name')
                     ->label('小区')
                     ->searchable(),
