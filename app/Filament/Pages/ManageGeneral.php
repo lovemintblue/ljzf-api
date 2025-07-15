@@ -45,7 +45,8 @@ class ManageGeneral extends SettingsPage
                                 TiptapEditor::make('join_us')
                                     ->profile('default')
                                     ->label('')
-                                    ->maxContentWidth('5xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;'])
+                                    ->maxContentWidth('3xl')
                                     ->required()
                             ]),
                         Tabs\Tab::make('Tab 3')
@@ -54,7 +55,8 @@ class ManageGeneral extends SettingsPage
                                 TiptapEditor::make('company_intro')
                                     ->profile('default')
                                     ->label('')
-                                    ->maxContentWidth('5xl')
+                                    ->maxContentWidth('3xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;'])
                                     ->required()
                             ]),
                         Tabs\Tab::make('Tab 4')
@@ -63,7 +65,8 @@ class ManageGeneral extends SettingsPage
                                 TiptapEditor::make('privacy_policy')
                                     ->profile('default')
                                     ->label('')
-                                    ->maxContentWidth('5xl')
+                                    ->maxContentWidth('3xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;'])
                                     ->required()
                             ]),
                     ])
