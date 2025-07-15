@@ -44,31 +44,31 @@ class ShopsController extends Controller
             });
         }
 
-        if (!empty($district)) {
-            $district = explode(',', $district);
-            $builder = $builder->whereIn('district', $district);
-        }
-
-        if (!empty($type)) {
-            $type = explode(',', $type);
-            $builder = $builder->whereIn('type', $type);
-        }
-
-        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
-            if ((int)$maxRentPrice === -1) {
-                $builder = $builder->where('rent_price', '>', $minRentPrice);
-            } else {
-                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
-            }
-        }
-
-        if ($minArea >= 0 && $maxArea >= 0) {
-            if ((int)$minArea === -1) {
-                $builder = $builder->where('area', '>', $minArea);
-            } else {
-                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
-            }
-        }
+//        if (!empty($district)) {
+//            $district = explode(',', $district);
+//            $builder = $builder->whereIn('district', $district);
+//        }
+//
+//        if (!empty($type)) {
+//            $type = explode(',', $type);
+//            $builder = $builder->whereIn('type', $type);
+//        }
+//
+//        if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
+//            if ((int)$maxRentPrice === -1) {
+//                $builder = $builder->where('rent_price', '>', $minRentPrice);
+//            } else {
+//                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
+//            }
+//        }
+//
+//        if ($minArea >= 0 && $maxArea >= 0) {
+//            if ((int)$minArea === -1) {
+//                $builder = $builder->where('area', '>', $minArea);
+//            } else {
+//                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
+//            }
+//        }
 
         if (!empty($sort) && !empty($direction)) {
             $builder = $builder->orderBy($sort, $direction);
