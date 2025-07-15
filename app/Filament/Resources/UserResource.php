@@ -25,6 +25,8 @@ class UserResource extends Resource
 
     protected static ?string $label = '用户';
 
+    protected static ?int $navigationSort = 1;
+
     /**
      * @param Form $form
      * @return Form
