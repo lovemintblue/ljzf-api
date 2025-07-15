@@ -44,16 +44,16 @@ class ShopsController extends Controller
             });
         }
 
-//        if (!empty($district)) {
-//            $district = explode(',', $district);
-//            $builder = $builder->whereIn('district', $district);
-//        }
-//
-//        if (!empty($type)) {
-//            $type = explode(',', $type);
-//            $builder = $builder->whereIn('type', $type);
-//        }
-//
+        if (!empty($district)) {
+            $district = explode(',', $district);
+            $builder = $builder->whereIn('district', $district);
+        }
+
+        if (!empty($type)) {
+            $type = explode(',', $type);
+            $builder = $builder->whereIn('type', $type);
+        }
+
         if ($minRentPrice >= 0 && $maxRentPrice >= 0) {
             if ((int)$maxRentPrice === -1) {
                 $builder = $builder->where('rent_price', '>', $minRentPrice);
