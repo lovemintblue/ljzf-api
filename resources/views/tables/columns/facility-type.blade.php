@@ -1,6 +1,6 @@
 <div class="px-4 py-3">
     @foreach($getState() as $item)
-        <div class="flex flex-row space-x-2">
+        <div class="flex">
             @if($item === 0)
                 <div>
                     <x-filament::badge>
