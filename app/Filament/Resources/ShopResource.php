@@ -25,6 +25,10 @@ class ShopResource extends Resource
 
     protected static ?string $label = '商铺';
 
+    /**
+     * @param Form $form
+     * @return Form
+     */
     public static function form(Form $form): Form
     {
         return $form
@@ -89,55 +93,40 @@ class ShopResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('user.nickname')
+                    ->label('用户昵称')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('title')
+                    ->label('标题')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('type')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('area')
+                    ->label('面积')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('floor')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('total_floors')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('renovation'),
+                Tables\Columns\TextColumn::make('renovation')
+                    ->label('朝向'),
                 Tables\Columns\TextColumn::make('rent_price')
+                    ->label('租金')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('deposit_price')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('property_fee')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('payment_method'),
-                Tables\Columns\TextColumn::make('contact_name')
+                Tables\Columns\TextColumn::make('province')
+                    ->label('省份')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('contact_phone')
+                Tables\Columns\TextColumn::make('city')
+                    ->label('城市')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('business_district')
+                Tables\Columns\TextColumn::make('district')
+                    ->label('区县')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('surroundings')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('description')
+                    ->label('地址')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->label('创建时间')
+                    ->dateTime('Y-m-d H:i:s')
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

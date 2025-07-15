@@ -121,11 +121,17 @@ class HouseResource extends Resource
                 Tables\Columns\TextColumn::make('contact_phone')
                     ->label('联系电话')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('type')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('community.name')
                     ->label('小区')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('province')
+                    ->label('省份')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('city')
+                    ->label('城市')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('district')
+                    ->label('区县')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
                     ->label('详细地址')
