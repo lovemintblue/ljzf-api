@@ -23,7 +23,7 @@ class CommunitiesController extends Controller
         $keyword = $request->input('keyword', '');
         $builder = Community::query()->latest();
         if (!empty($keyword)) {
-            $builder = $builder->whereLike('name', $keyword);
+            $builder = $builder->whereLike('name', '%' . $keyword . '%');
         }
         $communities = $builder->paginate();
         return CommunityResource::collection($communities);
