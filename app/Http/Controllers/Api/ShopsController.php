@@ -74,6 +74,7 @@ class ShopsController extends Controller
         if (!empty($sort) && !empty($direction)) {
             $builder = $builder->orderBy($sort, $direction);
         } else {
+            dd("ok");
             $builder = $builder->latest();
         }
 
