@@ -41,8 +41,8 @@ Route::post('uploads/file', [UploadsController::class, 'file'])
 Route::get('communities', [CommunitiesController::class, 'index'])
     ->name('communities.index');
 // 小区 - 详情
-Route::get('communities', [CommunitiesController::class, 'index'])
-    ->name('communities.index');
+Route::get('communities/{community}', [CommunitiesController::class, 'show'])
+    ->name('communities.show');
 
 // 商圈 - 列表
 Route::get('business-districts', [BusinessDistrictsController::class, 'index'])
