@@ -23,6 +23,7 @@ class ShopsController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $keyword = $request->input('keyword', '');
+        $businessDistrictId = $request->input('business_district_id', 0);
         $district = $request->input('district', '');
         $minRentPrice = $request->input('min_rent_price', 0);
         $maxRentPrice = $request->input('max_rent_price', 0);
@@ -33,14 +34,18 @@ class ShopsController extends Controller
         $direction = $request->input('direction', '');
 
         $builder = Shop::query()
-            ->with([
-                'businessDistrict:id,name'
-            ]);
+            ->with('community:id,name');
 
         if (!empty($keyword)) {
             $builder = $builder->where(function (Builder $query) use ($keyword) {
                 return $query->where('title', 'like', '%' . $keyword . '%')
                     ->orWhere('address', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        if (!empty($businessDistrictId)) {
+            $builder = $builder->whereHas('community', function (Builder $query) use ($businessDistrictId) {
+                return $query->where('business_district_id', $businessDistrictId);
             });
         }
 
@@ -67,7 +72,6 @@ class ShopsController extends Controller
         } else {
             $builder = $builder->latest();
         }
-
 
         $shops = $builder->paginate();
         return ShopResource::collection($shops);

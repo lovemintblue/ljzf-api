@@ -42,7 +42,6 @@ class ShopResource extends JsonResource
         $industries = Industry::query()->whereIn('id', $this->industry_ids)->pluck('name')->toArray();
         return [
             'id' => $this->id,
-            'business_district' => $this->businessDistrict,
             'title' => $this->title,
             'type' => $this->type,
             'area' => $this->area,
