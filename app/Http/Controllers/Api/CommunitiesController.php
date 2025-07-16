@@ -6,6 +6,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Community\CommunityInfoResource;
 use App\Http\Resources\Community\CommunityResource;
 use App\Models\Community;
 use Illuminate\Http\Request;
@@ -27,5 +28,15 @@ class CommunitiesController extends Controller
         }
         $communities = $builder->paginate();
         return CommunityResource::collection($communities);
+    }
+
+    /**
+     * 详情
+     * @param Community $community
+     * @return CommunityInfoResource
+     */
+    public function show(Community $community): CommunityInfoResource
+    {
+        return new CommunityInfoResource($community);
     }
 }

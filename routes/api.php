@@ -32,7 +32,15 @@ Route::get('industries', [IndustriesController::class, 'index'])
 Route::post('uploads/image', [UploadsController::class, 'image'])
     ->name('uploads.image');
 
+// 上传 - 文件
+Route::post('uploads/file', [UploadsController::class, 'file'])
+    ->name('uploads.file');
+
+
 // 小区 - 列表
+Route::get('communities', [CommunitiesController::class, 'index'])
+    ->name('communities.index');
+// 小区 - 详情
 Route::get('communities', [CommunitiesController::class, 'index'])
     ->name('communities.index');
 
