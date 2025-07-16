@@ -11,6 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('communities', static function (Blueprint $table) {
+            $table->unsignedBigInteger('business_district_id')->comment('商圈ID');
             $table->string('province')->comment('省份')->nullable();
             $table->string('city')->comment('城市')->nullable();
             $table->string('district')->comment('区县')->nullable();
@@ -23,7 +24,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::table('communities', static function (Blueprint $table) {
-            $table->dropColumn('province', 'city', 'district');
+            $table->dropColumn('province', 'city', 'district', 'business_district_id');
         });
     }
 };
