@@ -38,7 +38,7 @@ class HousesController extends Controller
         $orientation = $request->input('orientation', '');
         $builder = House::query()
             ->with([
-                'community:id,name,address'
+                'community'
             ]);
         if (!empty($keyword)) {
             $builder = $builder->where(function (Builder $query) use ($keyword) {

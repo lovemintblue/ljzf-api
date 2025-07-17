@@ -34,7 +34,7 @@ class ShopsController extends Controller
         $direction = $request->input('direction', '');
 
         $builder = Shop::query()
-            ->with('community:id,name');
+            ->with('community');
 
         if (!empty($keyword)) {
             $builder = $builder->where(function (Builder $query) use ($keyword) {
@@ -125,7 +125,7 @@ class ShopsController extends Controller
      */
     public function show(Shop $shop): ShopInfoResource
     {
-        return new ShopInfoResource($shop);
+        return new ShopInfoResource($shop->load('community'));
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Shop;
 
+use App\Http\Resources\Community\CommunityInfoResource;
 use App\Models\Facility;
 use App\Models\Industry;
 use Illuminate\Http\Request;
@@ -32,6 +33,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $province
  * @property mixed $city
  * @property mixed $district
+ * @property mixed $community
  */
 class ShopInfoResource extends JsonResource
 {
@@ -81,6 +83,7 @@ class ShopInfoResource extends JsonResource
             'description' => $this->description,
             'facility_ids' => $this->facility_ids,
             'industries' => $industries,
+            'community' => new CommunityInfoResource($this->community),
             'industry_ids' => $this->industry_ids,
             'is_favor' => $isFavor,
         ];

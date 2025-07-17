@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\House;
 
+use App\Http\Resources\Community\CommunityInfoResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -73,7 +74,7 @@ class HouseInfoResource extends JsonResource
             'payment_method' => $this->payment_method,
             'min_rental_period' => $this->min_rental_period,
             'images' => $images,
-            'community' => $this->community,
+            'community' => new CommunityInfoResource($this->community),
             'province' => $this->province,
             'city' => $this->city,
             'district' => $this->district,
