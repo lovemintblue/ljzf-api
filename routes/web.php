@@ -24,5 +24,15 @@ Route::get('test', function () {
 
 
 Route::get('test2', static function (\Illuminate\Http\Request $request) {
-    
+    $data = [
+        [
+            'path' => '1751700054_xCSW5HaI9P.jpeg',
+            'url' => ''
+        ],
+        [
+            'path' => '1751700054_xCSW5HaI9P.jpeg',
+            'url' => ''
+        ],
+    ];
+    echo json_encode($data, JSON_UNESCAPED_UNICODE);
 });

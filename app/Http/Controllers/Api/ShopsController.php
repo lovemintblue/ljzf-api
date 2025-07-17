@@ -95,6 +95,11 @@ class ShopsController extends Controller
             $data['images'] = [];
         }
 
+        if (!empty($data['video'])) {
+            $video = json_decode($data['video'], true);
+            $data['video'] = $video['path'];
+        }
+
         if (!empty($data['facility_ids'])) {
             $data['facility_ids'] = json_decode($data['facility_ids'], true);
         } else {
@@ -106,6 +111,7 @@ class ShopsController extends Controller
         } else {
             $data['industry_ids'] = [];
         }
+
 
         $shop->fill($data);
         $shop->user()->associate($user);

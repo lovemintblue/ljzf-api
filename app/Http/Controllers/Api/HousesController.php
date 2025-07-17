@@ -119,6 +119,11 @@ class HousesController extends Controller
             $data['facility_ids'] = [];
         }
 
+        if (!empty($data['video'])) {
+            $video = json_decode($data['video'], true);
+            $data['video'] = $video['path'];
+        }
+
         $house->fill($data);
         $house->user()->associate($user);
         $house->save();
