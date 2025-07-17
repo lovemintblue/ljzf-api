@@ -111,8 +111,7 @@ class ShopsController extends Controller
         } else {
             $data['industry_ids'] = [];
         }
-
-
+        
         $shop->fill($data);
         $shop->user()->associate($user);
         $shop->save();
