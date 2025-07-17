@@ -22,6 +22,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $orientation
  * @property mixed $floor
  * @property mixed $total_floors
+ * @property mixed $created_at
  */
 class HouseResource extends JsonResource
 {
@@ -53,6 +54,7 @@ class HouseResource extends JsonResource
             'orientation' => $this->orientation,
             'floor' => $this->floor,
             'total_floors' => $this->total_floors,
+            'created_at' => $this->created_at->diffForHumans(),
         ];
     }
 }

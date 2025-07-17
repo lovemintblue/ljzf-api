@@ -33,6 +33,7 @@ class ShopsController extends Controller
         $maxArea = $request->input('max_area', 0);
         $sort = $request->input('sort', '');
         $direction = $request->input('direction', '');
+        $newType = $request->input('new_type', '');
 
         $builder = Shop::query()
             ->with('community');
@@ -47,6 +48,23 @@ class ShopsController extends Controller
         if (!empty($ids)) {
             $ids = explode(',', $ids);
             $builder = $builder->whereIn('id', $ids);
+        }
+
+        if (!empty($newType)) {
+            switch ($newType) {
+                case 'today':
+                    $builder = $builder->whereDate('created_at', today());
+                    break;
+                case 'three_days':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(3), today()]);
+                    break;
+                case 'week':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(7), today()]);
+                    break;
+                case 'month':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(30), today()]);
+                    break;
+            }
         }
 
         if (!empty($businessDistrictId)) {

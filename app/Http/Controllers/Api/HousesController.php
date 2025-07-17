@@ -38,6 +38,8 @@ class HousesController extends Controller
         $direction = $request->input('direction', '');
         $district = $request->input('district', '');
         $orientation = $request->input('orientation', '');
+        $newType = $request->input('new_type', '');
+        
         $builder = House::query()
             ->with([
                 'community'
@@ -48,7 +50,7 @@ class HousesController extends Controller
                     ->orWhere('address', 'like', '%' . $keyword . '%');
             });
         }
-        
+
         if (!empty($ids)) {
             $ids = explode(',', $ids);
             $builder = $builder->whereIn('id', $ids);
@@ -57,6 +59,23 @@ class HousesController extends Controller
         if (!empty($district)) {
             $district = explode(',', $district);
             $builder = $builder->whereIn('district', $district);
+        }
+
+        if (!empty($newType)) {
+            switch ($newType) {
+                case 'today':
+                    $builder = $builder->whereDate('created_at', today());
+                    break;
+                case 'three_days':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(3), today()]);
+                    break;
+                case 'week':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(7), today()]);
+                    break;
+                case 'month':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(30), today()]);
+                    break;
+            }
         }
 
         if ($communityId) {

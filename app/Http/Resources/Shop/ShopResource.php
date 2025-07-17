@@ -30,6 +30,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $video
  * @property mixed $cover_image
  * @property mixed $community
+ * @property mixed $created_at
  */
 class ShopResource extends JsonResource
 {
@@ -64,6 +65,7 @@ class ShopResource extends JsonResource
             'surroundings' => $this->surroundings,
             'description' => $this->description,
             'industries' => $industries,
+            'created_at' => $this->created_at->diffForHumans(),
         ];
     }
 }
