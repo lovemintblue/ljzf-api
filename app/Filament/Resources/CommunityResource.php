@@ -43,17 +43,14 @@ class CommunityResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('province')
                     ->label('省份')
-                    ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('city')
                     ->label('城市')
-                    ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('district')
                     ->label('区县')
-                    ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('address')
