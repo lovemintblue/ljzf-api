@@ -51,6 +51,22 @@ class CommunityResource extends Resource
                 Forms\Components\TextInput::make('district')
                     ->label('区县')
                     ->maxLength(255),
+                Forms\Components\TextInput::make('built_year')
+                    ->label('建成年代'),
+                Forms\Components\TextInput::make('property_fee')
+                    ->label('物业费(元/月/㎡)'),
+                Forms\Components\TextInput::make('property_company')
+                    ->label('物业公司'),
+                Forms\Components\TextInput::make('developer')
+                    ->label('开发商'),
+                Forms\Components\TextInput::make('building_count')
+                    ->label('楼栋总数'),
+                Forms\Components\TextInput::make('house_count')
+                    ->label('房屋总数'),
+                Forms\Components\TextInput::make('average_rent_price')
+                    ->label('租金均价(元/月)'),
+                Forms\Components\TextInput::make('average_sale_price')
+                    ->label('售价均价(元/㎡)'),
                 Forms\Components\Textarea::make('address')
                     ->label('详细地址')
                     ->autosize()
