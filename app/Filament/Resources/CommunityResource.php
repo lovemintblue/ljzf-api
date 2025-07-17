@@ -32,6 +32,7 @@ class CommunityResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(3)
             ->schema([
                 Forms\Components\FileUpload::make('image')
                     ->label('图片')
@@ -43,15 +44,12 @@ class CommunityResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('province')
                     ->label('省份')
-                    ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('city')
                     ->label('城市')
-                    ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('district')
                     ->label('区县')
-                    ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('address')
                     ->label('详细地址')
@@ -74,6 +72,8 @@ class CommunityResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('图片'),
                 Tables\Columns\TextColumn::make('businessDistrict.name')
                     ->label('商圈')
                     ->badge()
