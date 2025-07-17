@@ -23,6 +23,7 @@ class ShopsController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $keyword = $request->input('keyword', '');
+        $ids = $request->input('ids', '');
         $businessDistrictId = $request->input('business_district_id', 0);
         $district = $request->input('district', '');
         $minRentPrice = $request->input('min_rent_price', 0);
@@ -41,6 +42,11 @@ class ShopsController extends Controller
                 return $query->where('title', 'like', '%' . $keyword . '%')
                     ->orWhere('address', 'like', '%' . $keyword . '%');
             });
+        }
+
+        if (!empty($ids)) {
+            $ids = explode(',', $ids);
+            $builder = $builder->whereIn('id', $ids);
         }
 
         if (!empty($businessDistrictId)) {

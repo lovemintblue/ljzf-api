@@ -10,6 +10,7 @@ use App\Http\Requests\HouseRequest;
 use App\Http\Resources\House\HouseInfoResource;
 use App\Http\Resources\House\HouseResource;
 use App\Models\House;
+use App\Models\HouseViewHistory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -25,6 +26,7 @@ class HousesController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $keyword = $request->input('keyword', '');
+        $ids = $request->input('ids', '');
         $communityId = $request->input('community_id');
         $livingRoomCount = $request->input('living_room_count', -1);
         $minRentPrice = $request->input('min_rent_price', -1);
@@ -45,6 +47,11 @@ class HousesController extends Controller
                 return $query->where('title', 'like', '%' . $keyword . '%')
                     ->orWhere('address', 'like', '%' . $keyword . '%');
             });
+        }
+        
+        if (!empty($ids)) {
+            $ids = explode(',', $ids);
+            $builder = $builder->whereIn('id', $ids);
         }
 
         if (!empty($district)) {
