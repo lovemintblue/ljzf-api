@@ -37,6 +37,8 @@ class HouseResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'video' => formatUrl($this->video),
+            'cover_image' => formatUrl($this->cover_image),
             'images' => $images,
             'room_count' => $this->room_count,
             'living_room_count' => $this->living_room_count,

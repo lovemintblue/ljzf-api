@@ -26,6 +26,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $province
  * @property mixed $city
  * @property mixed $district
+ * @property mixed $video
+ * @property mixed $cover_image
  */
 class ShopResource extends JsonResource
 {
@@ -42,6 +44,8 @@ class ShopResource extends JsonResource
         $industries = Industry::query()->whereIn('id', $this->industry_ids)->pluck('name')->toArray();
         return [
             'id' => $this->id,
+            'video' => formatUrl($this->video),
+            'cover_image' => formatUrl($this->cover_image),
             'title' => $this->title,
             'type' => $this->type,
             'area' => $this->area,

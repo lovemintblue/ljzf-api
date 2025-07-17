@@ -57,6 +57,8 @@ class ShopInfoResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'video' => formatUrl($this->video),
+            'cover_image' => formatUrl($this->cover_image),
             'title' => $this->title,
             'type' => $this->type,
             'area' => $this->area,
