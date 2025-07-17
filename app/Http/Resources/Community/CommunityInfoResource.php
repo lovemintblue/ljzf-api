@@ -5,6 +5,10 @@ namespace App\Http\Resources\Community;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed $id
+ * @property mixed $image
+ */
 class CommunityInfoResource extends JsonResource
 {
     /**
@@ -14,6 +18,19 @@ class CommunityInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'image' => formatUrl($this->image),
+            'name' => $this->name,
+            'address' => $this->address,
+            'built_year' => $this->built_year,
+            'property_fee' => $this->property_fee,
+            'property_company' => $this->property_company,
+            'developer' => $this->developer,
+            'building_count' => $this->building_count,
+            'house_count' => $this->house_count,
+            'average_rent_price' => $this->average_rent_price,
+            'average_sale_price' => $this->average_sale_price,
+        ];
     }
 }

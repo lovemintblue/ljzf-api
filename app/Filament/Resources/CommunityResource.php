@@ -33,6 +33,9 @@ class CommunityResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\FileUpload::make('image')
+                    ->label('图片')
+                    ->columnSpanFull(),
                 Forms\Components\TextInput::make('name')
                     ->label('名称')
                     ->required()
