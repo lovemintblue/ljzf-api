@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Observers\HouseObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Random\RandomException;
@@ -9,6 +11,7 @@ use Random\RandomException;
 /**
  * @property mixed $id
  */
+#[ObservedBy(HouseObserver::class)]
 class House extends Model
 {
     protected $guarded = [];
