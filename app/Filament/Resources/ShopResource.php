@@ -35,6 +35,8 @@ class ShopResource extends Resource
     {
         return $form
             ->schema([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('编号'),
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
