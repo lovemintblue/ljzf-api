@@ -35,8 +35,7 @@ class ShopResource extends Resource
     {
         return $form
             ->schema([
-                Tables\Columns\TextColumn::make('no')
-                    ->label('编号'),
+
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
@@ -103,6 +102,8 @@ class ShopResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
+                Tables\Columns\TextColumn::make('no')
+                    ->label('编号'),
                 Tables\Columns\TextColumn::make('user.nickname')
                     ->label('发布人')
                     ->searchable(),
