@@ -49,15 +49,18 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 
     $api = 'http://api.tianditu.gov.cn/v2/search';
 
-    // 将 postStr 参数转换为 JSON 字符串
-    $postStr = json_encode([
+    $postData = [
         'keyword' => '小区',
-        'specify' => '156110000', // 注意：specify 需为字符串格式
-        'queryType' => '12',
-        'start' => 0,
-        'count' => 1,
-        'dataTypes' => '120201',
-    ]);
+        'specify' => '156110000', // 行政区划代码
+        'queryType' => 12,        // 查询类型（周边搜索）
+        'start' => 0,             // 起始记录
+        'count' => 300,           // 返回数量
+        'dataTypes' => '120201'   // 单一数据类型（门址点），或逗号分隔的多个类型
+    ];
+
+// 转换为JSON字符串
+    $postStr = json_encode($postData);
+
 
     $response = Http::get($api, [
         'postStr' => $postStr,
