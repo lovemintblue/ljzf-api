@@ -69,6 +69,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'type' => 'query',
         'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
     ]);
+    dd($response->json());
     $totalCount = $response->json()['count'] ?? 0; // 总数据条数
     dd($totalCount);
     // 若总条数≤100，支持分页；否则仅获取前100条
