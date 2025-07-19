@@ -73,6 +73,8 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     // 若总条数≤100，支持分页；否则仅获取前100条
     $maxStart = max(0, $totalCount - $pageSize);
     do {
+        Log::info($start);
+        Log::info($maxStart);
         if ($start > $maxStart) {
             Log::info('------');
             Log::info($start);
