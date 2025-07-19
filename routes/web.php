@@ -53,7 +53,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $postStr = json_encode([
         'keyword' => '小区',
         'specify' => '156110000', // 注意：specify 需为字符串格式
-        'queryType' => 12,
+        'queryType' => '12',
         'start' => 0,
         'count' => 100,
 //        'dataTypes' => '120201',
