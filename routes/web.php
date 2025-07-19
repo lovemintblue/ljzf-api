@@ -56,9 +56,9 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
             'queryType' => 12,
             'start' => 0,
             'dataTypes' => 120201,
-            'type' => 'query',
-            'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
-        ]
+        ],
+        'type' => 'query',
+        'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
     ]);
     dd($response->json());
 });
