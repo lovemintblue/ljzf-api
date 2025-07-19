@@ -74,7 +74,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $maxStart = $totalCount > 100 ? 0 : ($totalCount - $pageSize);
     do {
 
-        if ($start > $maxStart) {
+        if ($start > $totalCount) {
             Log::info('------');
             Log::info($start);
             Log::info($maxStart);
