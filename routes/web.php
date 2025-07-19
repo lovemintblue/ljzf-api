@@ -49,7 +49,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 
     // 构建请求参数
     $postStr = json_encode([
-        'specify' => '156371700',
+        'specify' => '156360700',
         'queryType' => 13,
         'start' => 0,
         'count' => 10,
@@ -66,6 +66,6 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'type' => 'query',
         'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
     ]);
-    dd($response->json());
+    dd($response->json()['pois']);
 });
 
