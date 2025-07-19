@@ -99,7 +99,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         $currentData = $response->json()['pois'] ?? [];
         $allData = array_merge($allData, $currentData);
         $start += $pageSize;
-    } while (count($currentData) === $pageSize); // 若返回数据不足pageSize，说明已无更多数据
+    } while (count($currentData) !== $pageSize); // 若返回数据不足pageSize，说明已无更多数据
     dd($allData);
     return $allData;
 //    $list = [];
