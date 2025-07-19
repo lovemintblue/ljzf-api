@@ -50,9 +50,9 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 
     // 构建请求参数
     $postStr = json_encode([
-        'specify' => '156360702',
+        'specify' => '156431021',
         'queryType' => 13,
-        'start' => 100,
+        'start' => 0,
         'count' => 100,
         'dataTypes' => '120201',
         'show' => 2
@@ -86,7 +86,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         }
         Log::info('---循环---');
         $postStr = json_encode([
-            'specify' => '156360702',
+            'specify' => '156431021',
             'queryType' => 13,
             'start' => $start,
             'count' => $pageSize,
