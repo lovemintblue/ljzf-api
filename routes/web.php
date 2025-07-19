@@ -54,7 +54,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'specify' => '156110000', // 行政区划代码
         'queryType' => 12,        // 查询类型（周边搜索）
         'start' => 0,             // 起始记录
-        'count' => 300,           // 返回数量
+        'count' => 100,           // 返回数量
         'dataTypes' => '120201'   // 单一数据类型（门址点），或逗号分隔的多个类型
     ];
 
