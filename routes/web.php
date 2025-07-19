@@ -51,7 +51,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     // 构建请求参数
     $postStr = json_encode([
         'specify' => '156431021',
-//        'queryType' => 13,
+        'queryType' => 13,
         'start' => 50,
         'count' => 50,
         'dataTypes' => '120201',
