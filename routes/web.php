@@ -68,13 +68,10 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'type' => 'query',
         'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
     ]);
-    dd($response->json());
-    $totalCount = $totalData['data']['total'] ?? 0; // 总数据条数
-    dd($totalCount);
+    $totalCount = $response->json()['count'] ?? 0; // 总数据条数
     // 若总条数≤100，支持分页；否则仅获取前100条
     $maxStart = $totalCount > 100 ? 0 : ($totalCount - $pageSize);
     do {
-        dd($start, $maxStart);
         if ($start > $maxStart) {
             break; // 超过最大允许的start，停止请求
         }
@@ -95,7 +92,6 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         $allData = array_merge($allData, $currentData);
 
         $start += $pageSize;
-        dd($currentData);
     } while (count($currentData) === $pageSize); // 若返回数据不足pageSize，说明已无更多数据
     dd($allData);
     return $allData;
