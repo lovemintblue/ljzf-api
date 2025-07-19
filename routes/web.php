@@ -52,17 +52,17 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $postData = [
         'keyword' => '小区',
         'specify' => '156110000', // 行政区划代码
-        'queryType' => 12,        // 查询类型（周边搜索）
-        'start' => 0,             // 起始记录
-        'count' => 100,           // 返回数量
-        'dataTypes' => '120201'   // 单一数据类型（门址点），或逗号分隔的多个类型
+        'queryType' => 10,        // 修改为行政区划搜索（根据实际需求调整）
+        'start' => 0,
+        'count' => 100,
+        'dataTypes' => '120100'   // 使用有效数据类型编码（兴趣点）
     ];
 
 // 转换为JSON字符串
     $postStr = json_encode($postData);
 
 
-    $response = Http::asJson()->get($api, [
+    $response = Http::get($api, [
         'postStr' => $postStr,
         'type' => 'query',
         'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
