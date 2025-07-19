@@ -3,6 +3,7 @@
 use App\Models\House;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -74,9 +75,13 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     do {
 
         if ($start > $maxStart) {
+            Log::info('------');
+            Log::info($start);
+            Log::info($maxStart);
+            Log::info('------');
             break; // 超过最大允许的start，停止请求
         }
-        \Illuminate\Support\Facades\Log::info('---循环---');
+        Log::info('---循环---');
         $postStr = json_encode([
             'specify' => '156360702',
             'queryType' => 13,
