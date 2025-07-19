@@ -48,19 +48,8 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 //    }
 
     $api = 'http://api.tianditu.gov.cn/v2/search';
-
-    $postData = [
-        'keyword' => 'http://api.tianditu.gov.cn/v2/search?postStr={"keyWord":"商厦","queryType":12,"start":0,"count":10,"specify":"156110108"}&type=query&tk=5731ae54a2b2ab10697a929c5b6b8e11',
-        'specify' => '156110108', // 行政区划代码
-        'queryType' => 12,        // 修改为行政区划搜索（根据实际需求调整）
-        'start' => 0,
-        'count' => 10,
-    ];
-
-// 转换为JSON字符串
-    $postStr = json_encode($postData);
     
-    $response = Http::get($api);
+    $response = Http::get('http://api.tianditu.gov.cn/v2/search?postStr={"keyWord":"商厦","queryType":12,"start":0,"count":10,"specify":"156110108"}&type=query&tk=5731ae54a2b2ab10697a929c5b6b8e11');
     dd($response->json());
 });
 
