@@ -53,7 +53,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'queryType' => 12,
         'start' => 0,
         'count' => 10,
-        'specify' => '156110108'
+        'specify' => '156000000'
     ]);
 
     // 构建API URL
