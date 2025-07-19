@@ -47,8 +47,8 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 //        $shop->save();
 //    }
 
-    $api = 'http://api.tianditu.gov.cn/v2/search';
-    $response = Http::asJson()->get($api, [
+    $api = 'http://api.tianditu.gov.cn/v2/search?';
+    $response = Http::get($api, [
         'postStr' => [
             'keyword' => '小区',
             'specify' => '156110000',
