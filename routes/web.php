@@ -55,7 +55,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'queryType' => 12,        // 修改为行政区划搜索（根据实际需求调整）
         'start' => 0,
         'count' => 100,
-        'dataTypes' => '120100'   // 使用有效数据类型编码（兴趣点）
+        'dataTypes' => '120100,'   // 使用有效数据类型编码（兴趣点）
     ];
 
 // 转换为JSON字符串
