@@ -71,14 +71,15 @@ class AdminPanelProvider extends PanelProvider
                     ]),
             ])
             ->brandName('乐家租房')
-            ->topNavigation()
             ->navigationGroups([
                 '数据',
                 '用户',
                 '房源',
                 '系统'
             ])
+            ->sidebarWidth('15rem')
             ->authGuard('admin')
+            ->sidebarCollapsibleOnDesktop()
             ->maxContentWidth(MaxWidth::Full)
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->authMiddleware([
