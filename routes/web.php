@@ -53,7 +53,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'specify' => '156431021',
         'queryType' => 13,
         'start' => 50,
-        'count' => 51,
+        'count' => 50,
         'dataTypes' => '120201',
         'show' => 2
     ]);
