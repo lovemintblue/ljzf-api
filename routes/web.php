@@ -71,10 +71,10 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     ]);
     $totalCount = $response->json()['count'] ?? 0; // 总数据条数
     // 若总条数≤100，支持分页；否则仅获取前100条
-    $maxStart = $totalCount > 100 ? 0 : ($totalCount - $pageSize);
+    $maxStart = $totalCount > 100 ? ($totalCount - $pageSize) : 0;
     do {
 
-        if ($start > $totalCount) {
+        if ($start > $maxStart) {
             Log::info('------');
             Log::info($start);
             Log::info($maxStart);
