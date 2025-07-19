@@ -52,7 +52,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'specify' => '156360702',
         'queryType' => 13,
         'start' => 0,
-        'count' => 100,
+        'count' => 300,
         'dataTypes' => '120201',
         'show' => 2
     ]);
@@ -69,7 +69,9 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 
     $list = [];
     foreach ($response->json()['pois'] as $item) {
-        $list[] = $item['city'] . $item['county'] . '-' . $item['name'] . $item['lonlat'];
+        if (Str::contains($item['name'], '富力现代城')) {
+            $list[] = $item['city'] . $item['county'] . '-' . $item['name'] . $item['lonlat'];
+        }
     }
     dd($list);
 });
