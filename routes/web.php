@@ -62,7 +62,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $postStr = json_encode($postData);
 
 
-    $response = Http::post($api, [
+    $response = Http::asForm()->post($api, [
         'postStr' => $postData,
         'type' => 'query',
         'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
