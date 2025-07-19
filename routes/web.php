@@ -52,8 +52,8 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $postStr = json_encode([
         'specify' => '156431021',
         'queryType' => 13,
-        'start' => 100,
-        'count' => 50,
+        'start' => 99,
+        'count' => 150,
         'dataTypes' => '120201',
         'show' => 2
     ]);
