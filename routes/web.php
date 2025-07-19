@@ -51,10 +51,10 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $response = Http::asJson()->get($api, [
         'postStr' => [
             'keyword' => '小区',
-            'mapBound' => 'maxy',
-            'level' => 1,
+            'specify' => '156110000',
             'queryType' => 12,
             'start' => 0,
+            'count' => 300,
             'dataTypes' => 120201,
         ],
         'type' => 'query',
