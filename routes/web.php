@@ -47,9 +47,24 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 //        $shop->save();
 //    }
 
-    $api = 'http://api.tianditu.gov.cn/v2/search';
+    // 构建请求参数
+    $postStr = json_encode([
+        'keyWord' => '商厦',
+        'queryType' => 12,
+        'start' => 0,
+        'count' => 10,
+        'specify' => '156110108'
+    ]);
 
-    $response = Http::get('http://api.tianditu.gov.cn/v2/search?postStr={"keyWord":"商厦","queryType":"12","start":0,"count":10,"specify":"156000000"}&type=query&tk=5731ae54a2b2ab10697a929c5b6b8e11');
+    // 构建API URL
+    $url = "http://api.tianditu.gov.cn/v2/search";
+
+    // 发送HTTP请求
+    $response = Http::get($url, [
+        'postStr' => $postStr,
+        'type' => 'query',
+        'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
+    ]);
     dd($response->json());
 });
 
