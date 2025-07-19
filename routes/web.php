@@ -75,7 +75,6 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         if ($start > $maxStart) {
             break; // 超过最大允许的start，停止请求
         }
-
         $postStr = json_encode([
             'keyWord' => '',
             'queryType' => 12,
@@ -84,13 +83,12 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
             'specify' => '156360702',
             'dataTypes' => '120300'
         ]);
-
         $response = Http::get("http://api.tianditu.gov.cn/v2/search", [
             'postStr' => $postStr,
             'type' => 'query',
             'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
         ]);
-
+        dd($response->json());
         $currentData = $response->json()['data']['searchinfo'] ?? [];
         $allData = array_merge($allData, $currentData);
 
