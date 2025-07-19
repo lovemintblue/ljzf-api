@@ -52,7 +52,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $postData = [
         'keyword' => '小区',
         'specify' => '156110000', // 行政区划代码
-        'queryType' => 10,        // 修改为行政区划搜索（根据实际需求调整）
+        'queryType' => 12,        // 修改为行政区划搜索（根据实际需求调整）
         'start' => 0,
         'count' => 100,
         'dataTypes' => '120100'   // 使用有效数据类型编码（兴趣点）
