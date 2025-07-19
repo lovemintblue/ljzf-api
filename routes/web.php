@@ -49,7 +49,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 
     // 构建请求参数
     $postStr = json_encode([
-        'keyWord' => '',
+        'keyWord' => '小区',
         'queryType' => 12,
         'start' => 0,
         'count' => 10,
