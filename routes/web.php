@@ -52,7 +52,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'specify' => '156360700',
         'queryType' => 13,
         'start' => 0,
-        'count' => 10,
+        'count' => 100,
         'dataTypes' => '120201',
         'show' => 2
     ]);
@@ -67,5 +67,9 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
     ]);
     dd($response->json()['pois']);
+
+    foreach ($response->json()['pois'] as $item) {
+        $list[] = $item['name'] . $item['lonlat'];
+    }
 });
 
