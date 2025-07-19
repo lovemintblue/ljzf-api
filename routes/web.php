@@ -56,7 +56,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'queryType' => '12',
         'start' => 0,
         'count' => 100,
-//        'dataTypes' => '120201',
+        'dataTypes' => '120201',
     ]);
 
     $response = Http::get($api, [
