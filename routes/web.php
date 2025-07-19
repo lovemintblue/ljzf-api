@@ -88,8 +88,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
             'type' => 'query',
             'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
         ]);
-        dd($response->json());
-        $currentData = $response->json()['data']['searchinfo'] ?? [];
+        $currentData = $response->json()['pois'] ?? [];
         $allData = array_merge($allData, $currentData);
         $start += $pageSize;
     } while (count($currentData) === $pageSize); // 若返回数据不足pageSize，说明已无更多数据
