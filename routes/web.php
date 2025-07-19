@@ -66,10 +66,11 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
         'type' => 'query',
         'tk' => '5731ae54a2b2ab10697a929c5b6b8e11'
     ]);
-    dd($response->json()['pois']);
 
+    $list = [];
     foreach ($response->json()['pois'] as $item) {
-        $list[] = $item['name'] . $item['lonlat'];
+        $list[] = $item['city'] . $item['county'] . '-' . $item['name'] . $item['lonlat'];
     }
+    dd($list);
 });
 
