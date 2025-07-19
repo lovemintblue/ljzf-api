@@ -47,10 +47,10 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
 //        $shop->save();
 //    }
 
-    $api = 'http://api.tianditu.gov.cn/v2/search?';
+    $api = 'http://api.tianditu.gov.cn/v2/search';
     $response = Http::get($api, [
         'postStr' => [
-            'keyword' => '小区',
+            'keyWord' => '小区',
             'specify' => '156110000',
             'queryType' => 12,
             'start' => 0,
