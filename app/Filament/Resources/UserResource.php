@@ -35,14 +35,11 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\FileUpload::make('avatar')
+                    ->label('头像')
+                    ->required(),
                 Forms\Components\TextInput::make('name')
-                    ->required(),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required(),
-                Forms\Components\DateTimePicker::make('email_verified_at'),
-                Forms\Components\TextInput::make('password')
-                    ->password()
+                    ->label('名称')
                     ->required(),
             ]);
     }
@@ -54,7 +51,10 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
+                Tables\Columns\ImageColumn::make('avatar')
+                    ->label('头像'),
                 Tables\Columns\TextColumn::make('nickname')
                     ->label('用户昵称')
                     ->searchable(),
@@ -63,10 +63,12 @@ class UserResource extends Resource
                     ->searchable(),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('状态'),
+                Tables\Columns\TextColumn::make('latest_visit_at')
+                    ->label('上次访问时间')
+                    ->since(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d')
-                    ->sortable()
             ])
             ->filters([
                 //
