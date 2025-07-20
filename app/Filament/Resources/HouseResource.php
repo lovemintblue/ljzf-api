@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\HouseResource\Pages;
 use App\Filament\Resources\HouseResource\RelationManagers;
 use App\Models\House;
+use App\Models\Shop;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -162,6 +163,20 @@ class HouseResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\Action::make('通过')
+                    ->color('success')
+                    ->visible(fn(Shop $record) => (int)$record->audit_status === 0)
+                    ->action(function (Shop $record) {
+                        $record->audit_status = 1;
+                        $record->save();
+                    }),
+                Tables\Actions\Action::make('驳回')
+                    ->color('danger')
+                    ->visible(fn(Shop $record) => (int)$record->audit_status === 0)
+                    ->action(function (Shop $record) {
+                        $record->audit_status = 2;
+                        $record->save();
+                    }),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
