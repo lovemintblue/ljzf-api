@@ -13,6 +13,9 @@ class ManageHouses extends ManageRecords
 
     protected static string $resource = HouseResource::class;
 
+    /**
+     * @return array|Actions\Action[]|Actions\ActionGroup[]
+     */
     protected function getHeaderActions(): array
     {
         return [

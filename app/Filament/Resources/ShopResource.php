@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -149,6 +150,9 @@ class ShopResource extends Resource
                     ->searchable(),
                 Tables\Columns\ToggleColumn::make('is_show')
                     ->label('是否显示'),
+                ViewColumn::make('audit_status')
+                    ->label('审核状态')
+                    ->view('tables.columns.audit-status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s')
