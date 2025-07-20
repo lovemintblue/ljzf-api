@@ -110,6 +110,8 @@ class HouseResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('ID')
+                    ->label('ID'),
                 Tables\Columns\TextColumn::make('no')
                     ->label('编号'),
                 Tables\Columns\TextColumn::make('user.nickname')
