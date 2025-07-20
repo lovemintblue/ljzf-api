@@ -102,7 +102,7 @@ class ShopResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('ID')
+                Tables\Columns\TextColumn::make('id')
                     ->label('ID'),
                 Tables\Columns\TextColumn::make('no')
                     ->label('编号'),
