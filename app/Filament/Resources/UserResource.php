@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
+use App\Models\UserLevel;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -37,9 +38,18 @@ class UserResource extends Resource
             ->schema([
                 Forms\Components\FileUpload::make('avatar')
                     ->label('头像')
+                    ->columnSpanFull()
                     ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->label('名称')
+                Forms\Components\Select::make('user_level_id')
+                    ->label('VIP等级')
+                    ->native(false)
+                    ->columnSpanFull()
+                    ->options(UserLevel::query()->pluck('name', 'id')->prepend([
+                        0 => '无等级'
+                    ])->toArray()),
+                Forms\Components\TextInput::make('nickname')
+                    ->label('昵称')
+                    ->columnSpanFull()
                     ->required(),
             ]);
     }
@@ -61,6 +71,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->label('手机号')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('userLevel.name')
+                    ->label('VIP等级')
+                    ->badge(),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('状态'),
                 Tables\Columns\TextColumn::make('latest_visit_at')
