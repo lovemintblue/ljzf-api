@@ -147,6 +147,8 @@ class ShopResource extends Resource
                 Tables\Columns\TextColumn::make('address')
                     ->label('地址')
                     ->searchable(),
+                Tables\Columns\ToggleColumn::make('is_show')
+                    ->label('是否显示'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s')
