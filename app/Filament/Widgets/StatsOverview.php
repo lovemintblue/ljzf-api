@@ -18,7 +18,7 @@ class StatsOverview extends BaseWidget
         $todayShopCount = Shop::query()->whereDate('created_at', today())->count();
         $userCount = User::query()->count();
         $todayUserCount = User::query()->whereDate('created_at', today())->count();
-
+        $todayActiveUserCount = User::query()->whereDate('latest_visit_at', today())->count();
         return [
             Stat::make('房源数量', $houseCount),
             Stat::make('今日新增房源', $todayHouseCount),
@@ -26,7 +26,7 @@ class StatsOverview extends BaseWidget
             Stat::make('今日新增商铺', $todayShopCount),
             Stat::make('用户总数', $userCount),
             Stat::make('今日新增用户', $todayUserCount),
-            Stat::make('今日活跃用户', 0),
+            Stat::make('今日活跃用户', $todayActiveUserCount),
         ];
     }
 }
