@@ -10,6 +10,7 @@ use Random\RandomException;
 
 /**
  * @property mixed $id
+ * @property mixed $audit_status
  */
 #[ObservedBy(HouseObserver::class)]
 class House extends Model

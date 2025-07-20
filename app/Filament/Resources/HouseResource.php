@@ -165,15 +165,15 @@ class HouseResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('通过')
                     ->color('success')
-                    ->visible(fn(Shop $record) => (int)$record->audit_status === 0)
-                    ->action(function (Shop $record) {
+                    ->visible(fn(House $record) => (int)$record->audit_status === 0)
+                    ->action(function (House $record) {
                         $record->audit_status = 1;
                         $record->save();
                     }),
                 Tables\Actions\Action::make('驳回')
                     ->color('danger')
-                    ->visible(fn(Shop $record) => (int)$record->audit_status === 0)
-                    ->action(function (Shop $record) {
+                    ->visible(fn(House $record) => (int)$record->audit_status === 0)
+                    ->action(function (House $record) {
                         $record->audit_status = 2;
                         $record->save();
                     }),
