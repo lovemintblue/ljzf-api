@@ -111,10 +111,14 @@ class HouseResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
+                Tables\Columns\ImageColumn::make('cover_image')
+                    ->label('封面图'),
                 Tables\Columns\TextColumn::make('id')
-                    ->label('ID'),
+                    ->label('ID')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('no')
-                    ->label('编号'),
+                    ->label('编号')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('user.nickname')
                     ->label('发布人'),
                 Tables\Columns\TextColumn::make('title')

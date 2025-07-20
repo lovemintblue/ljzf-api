@@ -75,6 +75,12 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('userLevel.name')
                     ->label('VIP等级')
                     ->badge(),
+                Tables\Columns\TextColumn::make('province')
+                    ->label('省份')
+                    ->badge(),
+                Tables\Columns\TextColumn::make('city')
+                    ->label('城市')
+                    ->badge(),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('状态'),
                 Tables\Columns\TextColumn::make('latest_visit_at')
