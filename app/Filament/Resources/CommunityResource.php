@@ -79,6 +79,8 @@ class CommunityResource extends Resource
                     ->columnSpanFull()
                     ->options(BusinessDistrict::query()->pluck('name', 'id')),
                 Map::make('map')
+                    ->columnSpanFull()
+                    ->defaultCenter(31.2304, 121.4737)
                     ->label('选择地址')
             ]);
     }
