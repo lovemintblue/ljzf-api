@@ -1,7 +1,7 @@
 {{-- 引入腾讯地图SDK --}}
-@script
+@assets
 <script src="https://map.qq.com/api/gljs?v=1.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
-@endscript
+@endassets
 <x-dynamic-component
     :component="$getFieldWrapperView()"
     :field="$field"
