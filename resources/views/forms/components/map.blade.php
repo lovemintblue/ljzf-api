@@ -1,8 +1,7 @@
 {{-- 引入腾讯地图SDK --}}
-@assets
-<script src="https://map.qq.com/api/gljs?v=1.exp&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77"></script>
-@endassets
 <x-dynamic-component
+    x-load
+    x-load-src="{{ \Filament\Support\Facades\FilamentAsset::getScriptSrc('tencent-map-sdk') }}"
     :component="$getFieldWrapperView()"
     :field="$field"
 >
@@ -12,60 +11,82 @@
             map: null,
             marker: null,
 
-            // 初始化地图（确保 SDK 加载完成）
-            initMap() {
-                // 循环等待 SDK 加载完成（每 300ms 检查一次）
-                if (!window.tencentMapLoaded) {
-                    console.log('等待腾讯地图 SDK 加载...');
-                    setTimeout(() => this.initMap(), 300); // 递归等待
+            // 使用箭头函数确保正确的this指向
+            initMap: async function() {
+                // 等待SDK加载完成
+                await this.waitForMapSdk();
+
+                // 确保容器元素存在
+                const container = document.getElementById('container');
+                if (!container) {
+                    console.error('地图容器元素不存在');
                     return;
                 }
 
-                // SDK 已加载，执行地图初始化
-                const mapContainer = $el.querySelector('div'); // 获取地图容器
-                this.map = new qq.maps.Map(mapContainer, {
-                    center: new qq.maps.LatLng({{ $defaultLat }}, {{ $defaultLng }}),
+                // 设置中心点坐标
+                const center = new TMap.LatLng(39.984104, 116.307503);
+
+                // 初始化地图
+                this.map = new TMap.Map('container', {
+                    center: center,
                     zoom: 13
                 });
 
-                // 处理已有经纬度数据（如果存在）
-                if (this.state?.latitude && this.state?.longitude) {
-                    const position = new qq.maps.LatLng(this.state.latitude, this.state.longitude);
-                    this.marker = new qq.maps.Marker({
+                // 添加点击事件监听
+                this.map.on('click', (e) => {
+                    const position = e.latLng;
+                    this.state = {
+                        latitude: position.lat,
+                        longitude: position.lng
+                    };
+
+                    // 更新位置信息显示
+                    document.getElementById('position').textContent =
+                        `${position.lat.toFixed(6)}, ${position.lng.toFixed(6)}`;
+
+                    // 更新标记点
+                    this.updateMarker(position);
+                });
+
+                // 如果已有位置数据，显示标记点
+                if (this.state && this.state.latitude && this.state.longitude) {
+                    const position = new TMap.LatLng(this.state.latitude, this.state.longitude);
+                    this.updateMarker(position);
+                    this.map.setCenter(position);
+                }
+            },
+
+            // 等待地图SDK加载完成
+            waitForMapSdk: function() {
+                return new Promise((resolve) => {
+                    const checkInterval = setInterval(() => {
+                        if (window.TMap) {
+                            clearInterval(checkInterval);
+                            resolve();
+                        }
+                    }, 200);
+                });
+            },
+
+            // 更新地图标记点
+            updateMarker: function(position) {
+                // 如果标记点已存在，更新位置
+                if (this.marker) {
+                    this.marker.setPosition(position);
+                } else {
+                    // 否则创建新标记点
+                    this.marker = new TMap.Marker({
                         position: position,
                         map: this.map
                     });
-                    this.map.setCenter(position); // 定位到已有坐标
                 }
-
-                // 监听地图点击事件，更新标记和状态
-                const self = this;
-                qq.maps.event.addListener(this.map, 'click', function(event) {
-                    const latitude = event.latLng.getLat();
-                    const longitude = event.latLng.getLng();
-                    self.state = { latitude, longitude }; // 同步到 Livewire
-
-                    // 更新标记点
-                    if (self.marker) {
-                        self.marker.setPosition(event.latLng);
-                    } else {
-                        self.marker = new qq.maps.Marker({
-                            position: event.latLng,
-                            map: self.map
-                        });
-                    }
-                });
             }
         }"
         x-init="initMap()"
     >
-        {{-- 地图容器 --}}
-        <div style="width: 100%; height: 400px; border: 1px solid #e2e8f0; border-radius: 4px;"></div>
-
-        {{-- 经纬度显示（可选，用于调试或用户确认） --}}
-        <div class="mt-2 text-sm text-gray-500">
-            选中经纬度：
-            <span x-text="state ? state.latitude + ', ' + state.longitude : '未选择'"></span>
+        <div id="container" class="w-full h-[400px] border border-gray-300 rounded-lg shadow-sm"></div>
+        <div class="mt-2 text-sm text-gray-600">
+            当前点击坐标为：<span id="position">未选择</span>
         </div>
     </div>
 </x-dynamic-component>
