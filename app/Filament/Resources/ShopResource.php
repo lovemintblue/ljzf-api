@@ -164,6 +164,7 @@ class ShopResource extends Resource
                 Tables\Actions\Action::make('通过')
                     ->color('success')
                     ->visible(fn(Shop $record) => (int)$record->audit_status === 0)
+                    ->requiresConfirmation()
                     ->action(function (Shop $record) {
                         $record->audit_status = 1;
                         $record->save();
@@ -171,6 +172,7 @@ class ShopResource extends Resource
                 Tables\Actions\Action::make('驳回')
                     ->color('danger')
                     ->visible(fn(Shop $record) => (int)$record->audit_status === 0)
+                    ->requiresConfirmation()
                     ->action(function (Shop $record) {
                         $record->audit_status = 2;
                         $record->save();

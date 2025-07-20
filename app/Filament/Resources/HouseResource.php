@@ -166,6 +166,7 @@ class HouseResource extends Resource
                 Tables\Actions\Action::make('通过')
                     ->color('success')
                     ->visible(fn(House $record) => (int)$record->audit_status === 0)
+                    ->requiresConfirmation()
                     ->action(function (House $record) {
                         $record->audit_status = 1;
                         $record->save();
@@ -173,6 +174,7 @@ class HouseResource extends Resource
                 Tables\Actions\Action::make('驳回')
                     ->color('danger')
                     ->visible(fn(House $record) => (int)$record->audit_status === 0)
+                    ->requiresConfirmation()
                     ->action(function (House $record) {
                         $record->audit_status = 2;
                         $record->save();
