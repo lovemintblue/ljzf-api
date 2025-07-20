@@ -37,6 +37,7 @@ class ShopsController extends Controller
 
         $builder = Shop::query()
             ->where('is_show', 1)
+            ->where('audit_status', 1)
             ->with('community');
 
         if (!empty($keyword)) {
