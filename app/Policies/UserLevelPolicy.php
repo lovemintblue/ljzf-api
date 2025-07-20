@@ -63,7 +63,7 @@ class UserLevelPolicy
      */
     public function forceDelete(AdminUser $adminUser, UserLevel $userLevel): bool
     {
-        return $adminUser->can('force_delete_user::level');
+        return $adminUser->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class UserLevelPolicy
      */
     public function forceDeleteAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('force_delete_any_user::level');
+        return $adminUser->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class UserLevelPolicy
      */
     public function restore(AdminUser $adminUser, UserLevel $userLevel): bool
     {
-        return $adminUser->can('restore_user::level');
+        return $adminUser->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class UserLevelPolicy
      */
     public function restoreAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('restore_any_user::level');
+        return $adminUser->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class UserLevelPolicy
      */
     public function replicate(AdminUser $adminUser, UserLevel $userLevel): bool
     {
-        return $adminUser->can('replicate_user::level');
+        return $adminUser->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class UserLevelPolicy
      */
     public function reorder(AdminUser $adminUser): bool
     {
-        return $adminUser->can('reorder_user::level');
+        return $adminUser->can('{{ Reorder }}');
     }
 }

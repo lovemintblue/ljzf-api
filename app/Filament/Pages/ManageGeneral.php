@@ -46,8 +46,7 @@ class ManageGeneral extends SettingsPage
                                     ->profile('default')
                                     ->label('')
                                     ->extraInputAttributes(['style' => 'min-height: 12rem;'])
-                                    ->maxContentWidth('3xl')
-                                    ->required()
+                                    ->maxContentWidth('3xl'),
                             ]),
                         Tabs\Tab::make('Tab 3')
                             ->label('公司介绍')
@@ -56,8 +55,7 @@ class ManageGeneral extends SettingsPage
                                     ->profile('default')
                                     ->label('')
                                     ->maxContentWidth('3xl')
-                                    ->extraInputAttributes(['style' => 'min-height: 12rem;'])
-                                    ->required()
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                             ]),
                         Tabs\Tab::make('Tab 4')
                             ->label('隐私协议')
@@ -66,8 +64,7 @@ class ManageGeneral extends SettingsPage
                                     ->profile('default')
                                     ->label('')
                                     ->maxContentWidth('3xl')
-                                    ->extraInputAttributes(['style' => 'min-height: 12rem;'])
-                                    ->required()
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                             ]),
                     ])
             ]);

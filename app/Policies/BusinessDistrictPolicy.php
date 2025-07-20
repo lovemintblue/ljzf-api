@@ -63,7 +63,7 @@ class BusinessDistrictPolicy
      */
     public function forceDelete(AdminUser $adminUser, BusinessDistrict $businessDistrict): bool
     {
-        return $adminUser->can('force_delete_business::district');
+        return $adminUser->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class BusinessDistrictPolicy
      */
     public function forceDeleteAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('force_delete_any_business::district');
+        return $adminUser->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class BusinessDistrictPolicy
      */
     public function restore(AdminUser $adminUser, BusinessDistrict $businessDistrict): bool
     {
-        return $adminUser->can('restore_business::district');
+        return $adminUser->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class BusinessDistrictPolicy
      */
     public function restoreAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('restore_any_business::district');
+        return $adminUser->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class BusinessDistrictPolicy
      */
     public function replicate(AdminUser $adminUser, BusinessDistrict $businessDistrict): bool
     {
-        return $adminUser->can('replicate_business::district');
+        return $adminUser->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class BusinessDistrictPolicy
      */
     public function reorder(AdminUser $adminUser): bool
     {
-        return $adminUser->can('reorder_business::district');
+        return $adminUser->can('{{ Reorder }}');
     }
 }

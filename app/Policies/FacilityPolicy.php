@@ -63,7 +63,7 @@ class FacilityPolicy
      */
     public function forceDelete(AdminUser $adminUser, Facility $facility): bool
     {
-        return $adminUser->can('force_delete_facility');
+        return $adminUser->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class FacilityPolicy
      */
     public function forceDeleteAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('force_delete_any_facility');
+        return $adminUser->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class FacilityPolicy
      */
     public function restore(AdminUser $adminUser, Facility $facility): bool
     {
-        return $adminUser->can('restore_facility');
+        return $adminUser->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class FacilityPolicy
      */
     public function restoreAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('restore_any_facility');
+        return $adminUser->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class FacilityPolicy
      */
     public function replicate(AdminUser $adminUser, Facility $facility): bool
     {
-        return $adminUser->can('replicate_facility');
+        return $adminUser->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class FacilityPolicy
      */
     public function reorder(AdminUser $adminUser): bool
     {
-        return $adminUser->can('reorder_facility');
+        return $adminUser->can('{{ Reorder }}');
     }
 }

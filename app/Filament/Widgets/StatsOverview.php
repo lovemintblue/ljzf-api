@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\House;
 use App\Models\Shop;
+use App\Models\User;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -15,11 +16,17 @@ class StatsOverview extends BaseWidget
         $todayHouseCount = House::query()->whereDate('created_at', today())->count();
         $shopCount = Shop::query()->count();
         $todayShopCount = Shop::query()->whereDate('created_at', today())->count();
+        $userCount = User::query()->count();
+        $todayUserCount = User::query()->whereDate('created_at', today())->count();
+
         return [
             Stat::make('房源数量', $houseCount),
             Stat::make('今日新增房源', $todayHouseCount),
             Stat::make('商铺数量', $shopCount),
             Stat::make('今日新增商铺', $todayShopCount),
+            Stat::make('用户总数', $userCount),
+            Stat::make('今日新增用户', $todayUserCount),
+            Stat::make('今日活跃用户', 0),
         ];
     }
 }

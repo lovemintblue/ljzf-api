@@ -63,7 +63,7 @@ class ShopPolicy
      */
     public function forceDelete(AdminUser $adminUser, Shop $shop): bool
     {
-        return $adminUser->can('force_delete_shop');
+        return $adminUser->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class ShopPolicy
      */
     public function forceDeleteAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('force_delete_any_shop');
+        return $adminUser->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class ShopPolicy
      */
     public function restore(AdminUser $adminUser, Shop $shop): bool
     {
-        return $adminUser->can('restore_shop');
+        return $adminUser->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class ShopPolicy
      */
     public function restoreAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('restore_any_shop');
+        return $adminUser->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class ShopPolicy
      */
     public function replicate(AdminUser $adminUser, Shop $shop): bool
     {
-        return $adminUser->can('replicate_shop');
+        return $adminUser->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class ShopPolicy
      */
     public function reorder(AdminUser $adminUser): bool
     {
-        return $adminUser->can('reorder_shop');
+        return $adminUser->can('{{ Reorder }}');
     }
 }

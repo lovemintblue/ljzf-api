@@ -30,6 +30,11 @@ class SystemInstall extends Command
         $this->call('migrate');
         $this->call('db:seed');
         $this->call('storage:link');
+        $this->call('shield:super-admin');
+        $this->call('shield:generate', [
+            '--all' => true,
+            '--panel' => 'admin'
+        ]);
         $this->info('---系统初始化完成---');
     }
 }

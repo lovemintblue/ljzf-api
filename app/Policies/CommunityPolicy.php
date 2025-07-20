@@ -63,7 +63,7 @@ class CommunityPolicy
      */
     public function forceDelete(AdminUser $adminUser, Community $community): bool
     {
-        return $adminUser->can('force_delete_community');
+        return $adminUser->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class CommunityPolicy
      */
     public function forceDeleteAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('force_delete_any_community');
+        return $adminUser->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class CommunityPolicy
      */
     public function restore(AdminUser $adminUser, Community $community): bool
     {
-        return $adminUser->can('restore_community');
+        return $adminUser->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class CommunityPolicy
      */
     public function restoreAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('restore_any_community');
+        return $adminUser->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class CommunityPolicy
      */
     public function replicate(AdminUser $adminUser, Community $community): bool
     {
-        return $adminUser->can('replicate_community');
+        return $adminUser->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class CommunityPolicy
      */
     public function reorder(AdminUser $adminUser): bool
     {
-        return $adminUser->can('reorder_community');
+        return $adminUser->can('{{ Reorder }}');
     }
 }

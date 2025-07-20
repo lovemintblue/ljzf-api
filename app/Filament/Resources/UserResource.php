@@ -61,6 +61,8 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('phone')
                     ->label('手机号')
                     ->searchable(),
+                Tables\Columns\ToggleColumn::make('status')
+                    ->label('状态'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d')

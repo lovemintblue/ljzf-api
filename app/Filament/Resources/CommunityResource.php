@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommunityResource\Pages;
 use App\Filament\Resources\CommunityResource\RelationManagers;
+use App\Forms\Components\Map;
 use App\Models\BusinessDistrict;
 use App\Models\Community;
 use Filament\Forms;
@@ -76,7 +77,9 @@ class CommunityResource extends Resource
                 Forms\Components\Select::make('business_district_id')
                     ->label('关联商圈')
                     ->columnSpanFull()
-                    ->options(BusinessDistrict::query()->pluck('name', 'id'))
+                    ->options(BusinessDistrict::query()->pluck('name', 'id')),
+                Map::make('map')
+                    ->label('选择地址')
             ]);
     }
 

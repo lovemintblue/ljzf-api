@@ -63,7 +63,7 @@ class IndustryPolicy
      */
     public function forceDelete(AdminUser $adminUser, Industry $industry): bool
     {
-        return $adminUser->can('force_delete_industry');
+        return $adminUser->can('{{ ForceDelete }}');
     }
 
     /**
@@ -71,7 +71,7 @@ class IndustryPolicy
      */
     public function forceDeleteAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('force_delete_any_industry');
+        return $adminUser->can('{{ ForceDeleteAny }}');
     }
 
     /**
@@ -79,7 +79,7 @@ class IndustryPolicy
      */
     public function restore(AdminUser $adminUser, Industry $industry): bool
     {
-        return $adminUser->can('restore_industry');
+        return $adminUser->can('{{ Restore }}');
     }
 
     /**
@@ -87,7 +87,7 @@ class IndustryPolicy
      */
     public function restoreAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('restore_any_industry');
+        return $adminUser->can('{{ RestoreAny }}');
     }
 
     /**
@@ -95,7 +95,7 @@ class IndustryPolicy
      */
     public function replicate(AdminUser $adminUser, Industry $industry): bool
     {
-        return $adminUser->can('replicate_industry');
+        return $adminUser->can('{{ Replicate }}');
     }
 
     /**
@@ -103,6 +103,6 @@ class IndustryPolicy
      */
     public function reorder(AdminUser $adminUser): bool
     {
-        return $adminUser->can('reorder_industry');
+        return $adminUser->can('{{ Reorder }}');
     }
 }
