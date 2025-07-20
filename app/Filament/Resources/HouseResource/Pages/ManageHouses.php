@@ -3,15 +3,32 @@
 namespace App\Filament\Resources\HouseResource\Pages;
 
 use App\Filament\Resources\HouseResource;
+use App\Models\House;
 use Asmit\ResizedColumn\HasResizableColumn;
 use Filament\Actions;
 use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Components\Tab;
+use Illuminate\Database\Eloquent\Builder;
 
 class ManageHouses extends ManageRecords
 {
     use HasResizableColumn;
 
     protected static string $resource = HouseResource::class;
+
+    public function getTabs(): array
+    {
+        return [
+            '全部' => Tab::make(),
+            '未审核' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('audit_status', 0))
+                ->badge(House::query()->where('audit_status', 0)->count()),
+            '审核通过' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('audit_status', 1)),
+            '审核驳回' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('audit_status', 2)),
+        ];
+    }
 
     /**
      * @return array|Actions\Action[]|Actions\ActionGroup[]
