@@ -153,7 +153,6 @@ class HouseResource extends Resource
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s')
-                    ->sortable()
             ])
             ->filters([
                 //

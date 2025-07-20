@@ -39,8 +39,9 @@ class HousesController extends Controller
         $district = $request->input('district', '');
         $orientation = $request->input('orientation', '');
         $newType = $request->input('new_type', '');
-        
+
         $builder = House::query()
+            ->where('is_show', 1)
             ->with([
                 'community'
             ]);

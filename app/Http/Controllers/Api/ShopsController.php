@@ -36,6 +36,7 @@ class ShopsController extends Controller
         $newType = $request->input('new_type', '');
 
         $builder = Shop::query()
+            ->where('is_show', 1)
             ->with('community');
 
         if (!empty($keyword)) {

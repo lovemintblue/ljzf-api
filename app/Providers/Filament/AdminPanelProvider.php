@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Pages\Auth\Login;
+use Asmit\ResizedColumn\ResizedColumnPlugin;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use App\Filament\Pages\Dashboard;
 use Filament\Http\Middleware\Authenticate;
@@ -69,6 +70,8 @@ class AdminPanelProvider extends PanelProvider
                         'default' => 1,
                         'sm' => 2,
                     ]),
+                ResizedColumnPlugin::make()
+                    ->preserveOnDB()
             ])
             ->brandName('乐家租房')
             ->navigationGroups([
