@@ -38,8 +38,9 @@ class UserResource extends Resource
             ->schema([
                 Forms\Components\FileUpload::make('avatar')
                     ->label('头像')
-                    ->columnSpanFull()
-                    ->required(),
+                    ->image()
+                    ->avatar()
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('user_level_id')
                     ->label('VIP等级')
                     ->native(false)
