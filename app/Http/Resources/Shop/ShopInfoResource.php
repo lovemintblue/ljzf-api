@@ -34,6 +34,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $city
  * @property mixed $district
  * @property mixed $community
+ * @property mixed $created_at
  */
 class ShopInfoResource extends JsonResource
 {
@@ -86,6 +87,7 @@ class ShopInfoResource extends JsonResource
             'community' => new CommunityInfoResource($this->community),
             'industry_ids' => $this->industry_ids,
             'is_favor' => $isFavor,
+            'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }
 }

@@ -34,19 +34,19 @@
 
                 // 添加点击事件监听
                 this.map.on('click', (e) => {
+                console.log('12313123')
                     const position = e.latLng;
                     this.state = {
                         latitude: position.lat,
                         longitude: position.lng
                     };
-
                     // 更新位置信息显示
                     document.getElementById('position').textContent =
                         `${position.lat.toFixed(6)}, ${position.lng.toFixed(6)}`;
-
                     // 更新标记点
                     this.updateMarker(position);
                 });
+
 
                 // 如果已有位置数据，显示标记点
                 if (this.state && this.state.latitude && this.state.longitude) {
@@ -71,15 +71,10 @@
             // 更新地图标记点
             updateMarker: function(position) {
                 // 如果标记点已存在，更新位置
-                if (this.marker) {
-                    this.marker.setPosition(position);
-                } else {
-                    // 否则创建新标记点
-                    this.marker = new TMap.Marker({
+           new TMap.MultiMarker({
                         position: position,
                         map: this.map
                     });
-                }
             }
         }"
         x-init="initMap()"
