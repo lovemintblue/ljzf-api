@@ -18,7 +18,7 @@ class ManageCommunities extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+//            Actions\CreateAction::make(),
             Actions\Action::make('创建')
                 ->form([
                     Select::make('keyword')
