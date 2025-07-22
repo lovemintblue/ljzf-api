@@ -18,10 +18,8 @@ class IndustryResource extends Resource
     protected static ?string $model = Industry::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
-
-    protected static ?string $navigationGroup = '房源';
-
-    protected static ?string $navigationLabel = '行业列表';
+    
+    protected static ?string $navigationLabel = '行业';
 
     protected static ?string $label = '行业';
 

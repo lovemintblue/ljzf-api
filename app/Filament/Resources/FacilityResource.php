@@ -21,11 +21,9 @@ class FacilityResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
 
-    protected static ?string $navigationGroup = '房源';
+    protected static ?string $navigationLabel = '配套';
 
-    protected static ?string $navigationLabel = '配套设施';
-
-    protected static ?string $label = '配套设施';
+    protected static ?string $label = '配套';
 
     /**
      * @param Form $form

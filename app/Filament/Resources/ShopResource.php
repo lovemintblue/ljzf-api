@@ -26,7 +26,7 @@ class ShopResource extends Resource
 
     protected static ?string $label = '商铺';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     /**
      * @param Form $form

@@ -4,5 +4,5 @@ namespace App\Models;
 
 class AuditShop extends Shop
 {
-    //
+    protected $table = 'shops';
 }

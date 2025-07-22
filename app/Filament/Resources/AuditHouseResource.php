@@ -27,7 +27,7 @@ class AuditHouseResource extends Resource
 
     protected static ?string $label = '房源';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     /**
      * @param Form $form
