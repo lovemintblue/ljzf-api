@@ -84,6 +84,7 @@ class AdminPanelProvider extends PanelProvider
                 '数据',
                 '用户',
                 '房源',
+                '商铺',
                 '系统'
             ])
             ->sidebarWidth('15rem')
