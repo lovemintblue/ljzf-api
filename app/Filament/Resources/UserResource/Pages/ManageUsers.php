@@ -10,13 +10,12 @@ use Filament\Resources\Pages\ManageRecords;
 class ManageUsers extends ManageRecords
 {
     use HasResizableColumn;
-    
+
     protected static string $resource = UserResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
         ];
     }
 }

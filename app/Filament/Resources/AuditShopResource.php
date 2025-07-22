@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ShopResource\Pages;
-use App\Filament\Resources\ShopResource\RelationManagers;
+use App\Filament\Resources\AuditShopResource\Pages;
+use App\Filament\Resources\AuditShopResource\RelationManagers;
+use App\Models\AuditShop;
 use App\Models\Shop;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -14,15 +15,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ShopResource extends Resource
+class AuditShopResource extends Resource
 {
-    protected static ?string $model = Shop::class;
+    protected static ?string $model = AuditShop::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
 
     protected static ?string $navigationGroup = '商铺';
 
-    protected static ?string $navigationLabel = '商铺列表';
+    protected static ?string $navigationLabel = '审核列表';
 
     protected static ?string $label = '商铺';
 
@@ -36,6 +37,7 @@ class ShopResource extends Resource
     {
         return $form
             ->schema([
+
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
@@ -189,7 +191,7 @@ class ShopResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageShops::route('/'),
+            'index' => Pages\ManageAuditShops::route('/'),
         ];
     }
 }

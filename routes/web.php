@@ -12,17 +12,21 @@ Route::get('/', function () {
 });
 
 Route::get('test', function () {
-    $data = [
-        [
-            'path' => '1751700054_xCSW5HaI9P.jpeg',
-            'url' => 'https://ljzf-api.zcylovezhx.com/storage/1751700054_xCSW5HaI9P.jpeg',
-        ],
-        [
-            'path' => '1751700054_xCSW5HaI9P.jpeg',
-            'url' => 'https://ljzf-api.zcylovezhx.com/storage/1751700054_xCSW5HaI9P.jpeg',
-        ],
-    ];
-    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+//    $data = [
+//        [
+//            'path' => '1751700054_xCSW5HaI9P.jpeg',
+//            'url' => 'https://ljzf-api.zcylovezhx.com/storage/1751700054_xCSW5HaI9P.jpeg',
+//        ],
+//        [
+//            'path' => '1751700054_xCSW5HaI9P.jpeg',
+//            'url' => 'https://ljzf-api.zcylovezhx.com/storage/1751700054_xCSW5HaI9P.jpeg',
+//        ],
+//    ];
+//    echo json_encode($data, JSON_UNESCAPED_UNICODE);
+
+    $data = \App\Models\BusinessDistrict::query()->pluck('name', 'id')->toArray();
+
+    Log::info($data);
 });
 
 

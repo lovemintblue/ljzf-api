@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ShopResource\Pages;
-use App\Filament\Resources\ShopResource\RelationManagers;
-use App\Models\Shop;
+use App\Filament\Resources\AuditHouseResource\Pages;
+use App\Filament\Resources\AuditHouseResource\RelationManagers;
+use App\Models\AuditHouse;
+use App\Models\House;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,19 +15,19 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ShopResource extends Resource
+class AuditHouseResource extends Resource
 {
-    protected static ?string $model = Shop::class;
+    protected static ?string $model = AuditHouse::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
 
-    protected static ?string $navigationGroup = '商铺';
+    protected static ?string $navigationGroup = '房源';
 
-    protected static ?string $navigationLabel = '商铺列表';
+    protected static ?string $navigationLabel = '审核列表';
 
-    protected static ?string $label = '商铺';
+    protected static ?string $label = '房源';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 1;
 
     /**
      * @param Form $form
@@ -42,10 +43,33 @@ class ShopResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('contact_name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('contact_phone')
+                    ->tel()
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('type')
                     ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\TextInput::make('status')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\TextInput::make('room_count')
+                    ->required()
+                    ->numeric()
+                    ->default(1),
+                Forms\Components\TextInput::make('living_room_count')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\TextInput::make('bathroom_count')
+                    ->required()
+                    ->numeric()
+                    ->default(1),
                 Forms\Components\TextInput::make('area')
                     ->required()
                     ->numeric()
@@ -58,37 +82,24 @@ class ShopResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\TextInput::make('orientation')
+                    ->required(),
                 Forms\Components\TextInput::make('renovation')
                     ->required(),
                 Forms\Components\TextInput::make('rent_price')
                     ->required()
                     ->numeric()
                     ->default(0.00),
-                Forms\Components\TextInput::make('deposit_price')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
-                Forms\Components\TextInput::make('property_fee')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
                 Forms\Components\TextInput::make('payment_method')
                     ->required(),
-                Forms\Components\TextInput::make('contact_name')
+                Forms\Components\TextInput::make('min_rental_period')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('contact_phone')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->default(0),
                 Forms\Components\TextInput::make('images'),
-                Forms\Components\TextInput::make('business_district')
+                Forms\Components\TextInput::make('community')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('surroundings')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('description')
                     ->maxLength(255),
             ]);
     }
@@ -111,8 +122,7 @@ class ShopResource extends Resource
                     ->label('编号')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.nickname')
-                    ->label('发布人')
-                    ->searchable(),
+                    ->label('发布人'),
                 Tables\Columns\TextColumn::make('title')
                     ->label('标题')
                     ->searchable(),
@@ -122,18 +132,11 @@ class ShopResource extends Resource
                 Tables\Columns\TextColumn::make('contact_phone')
                     ->label('联系电话')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('area')
-                    ->label('面积')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('renovation')
-                    ->label('朝向'),
-                Tables\Columns\TextColumn::make('rent_price')
-                    ->label('租金')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('renovation')
                     ->label('装修')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('community.name')
+                    ->label('小区')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('province')
                     ->label('省份')
@@ -145,7 +148,7 @@ class ShopResource extends Resource
                     ->label('区县')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
-                    ->label('地址')
+                    ->label('详细地址')
                     ->searchable(),
                 Tables\Columns\ToggleColumn::make('is_show')
                     ->label('是否显示'),
@@ -162,17 +165,17 @@ class ShopResource extends Resource
             ->actions([
                 Tables\Actions\Action::make('通过')
                     ->color('success')
-                    ->visible(fn(Shop $record) => (int)$record->audit_status === 0)
+                    ->visible(fn(House $record) => (int)$record->audit_status === 0)
                     ->requiresConfirmation()
-                    ->action(function (Shop $record) {
+                    ->action(function (House $record) {
                         $record->audit_status = 1;
                         $record->save();
                     }),
                 Tables\Actions\Action::make('驳回')
                     ->color('danger')
-                    ->visible(fn(Shop $record) => (int)$record->audit_status === 0)
+                    ->visible(fn(House $record) => (int)$record->audit_status === 0)
                     ->requiresConfirmation()
-                    ->action(function (Shop $record) {
+                    ->action(function (House $record) {
                         $record->audit_status = 2;
                         $record->save();
                     }),
@@ -189,7 +192,7 @@ class ShopResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageShops::route('/'),
+            'index' => Pages\ManageAuditHouses::route('/'),
         ];
     }
 }
