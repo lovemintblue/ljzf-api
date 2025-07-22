@@ -77,7 +77,7 @@ class CommunityResource extends Resource
                     ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('business_district_is')
+                Forms\Components\Select::make('business_district_id')
                     ->label('关联商圈')
                     ->options(BusinessDistrict::query()->pluck('name', 'id'))
                     ->native(false)

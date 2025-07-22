@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\CommunityResource\Pages;
 
 use App\Filament\Resources\CommunityResource;
+use App\Models\BusinessDistrict;
 use App\Models\Community;
 use Filament\Actions;
 use Filament\Forms\Components\Select;
@@ -21,6 +22,10 @@ class ManageCommunities extends ManageRecords
 //            Actions\CreateAction::make(),
             Actions\Action::make('创建')
                 ->form([
+                    Select::make('business_district_id')
+                        ->label('关联商圈')
+                        ->options(BusinessDistrict::query()->pluck('name', 'id'))
+                        ->native(false),
                     Select::make('keyword')
                         ->label('选择数据')
                         ->native(false)
@@ -71,6 +76,7 @@ class ManageCommunities extends ManageRecords
                     $data = $data[0];
 
                     $community = new Community();
+                    $community->business_district_id = $data['business_district_id'];
                     $community->name = $data['title'];
                     $community->province = $data['ad_info']['province'];
                     $community->city = $data['ad_info']['city'];
