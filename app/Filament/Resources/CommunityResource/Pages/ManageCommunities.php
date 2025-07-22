@@ -63,7 +63,9 @@ class ManageCommunities extends ManageRecords
                         })
                 ])
                 ->action(function (array $data): void {
-
+                    $businessDistrictId = $data['business_district_id'] ?? 0;
+                    $community = new Community();
+                    $community->business_district_id = $businessDistrictId;
                     $keyword = $data['keyword'];
                     $api = 'https://apis.map.qq.com/ws/place/v1/search';
                     $response = Http::get($api, [
@@ -75,8 +77,7 @@ class ManageCommunities extends ManageRecords
                     $data = $response->json()['data'] ?? [];
                     $data = $data[0];
 
-                    $community = new Community();
-                    $community->business_district_id = $data['business_district_id'];
+
                     $community->name = $data['title'];
                     $community->province = $data['ad_info']['province'];
                     $community->city = $data['ad_info']['city'];
