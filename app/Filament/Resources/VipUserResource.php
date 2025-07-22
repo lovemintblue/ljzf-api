@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\VipUserResource\Pages;
 use App\Filament\Resources\VipUserResource\RelationManagers;
+use App\Models\User;
 use App\Models\UserLevel;
 use App\Models\VipUser;
 use Filament\Forms;
@@ -63,6 +64,9 @@ class VipUserResource extends Resource
     {
         return $table
             ->defaultSort('created_at', 'desc')
+            ->query(function (User $query) {
+                return $query->where('user_level_id', '>', 0);
+            })
             ->columns([
                 Tables\Columns\ImageColumn::make('avatar')
                     ->label('头像'),

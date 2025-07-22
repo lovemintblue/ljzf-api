@@ -37,7 +37,6 @@ class AuditShopResource extends Resource
     {
         return $form
             ->schema([
-
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
@@ -103,6 +102,9 @@ class AuditShopResource extends Resource
     {
         return $table
             ->defaultSort('created_at', 'desc')
+            ->query(function (Shop $query) {
+                return $query->where('audit_status', 0);
+            })
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
                     ->label('封面图'),
