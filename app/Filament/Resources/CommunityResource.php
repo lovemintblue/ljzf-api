@@ -77,67 +77,10 @@ class CommunityResource extends Resource
                     ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
-                Select::make('business_district_id')
-                    ->label('选择数据')
+                Forms\Components\Select::make('business_district_is')
+                    ->label('关联商圈')
+                    ->options(BusinessDistrict::query()->pluck('name', 'id'))
                     ->native(false)
-                    ->searchable()
-                    ->columnSpanFull()
-                    ->getSearchResultsUsing(function (string $search) {
-                        $api = 'https://apis.map.qq.com/ws/place/v1/search';
-                        try {
-                            $response = Http::get($api, [
-                                'key' => 'CLLBZ-CEXKX-K5R4V-7ZQPA-VIQ33-4EBX5',
-                                'boundary' => 'nearby(25.817816,114.921171,1000,1)',
-                                'filter' => 'category=住宅区',
-                                'keyword' => $search,
-                            ]);
-
-                            if ($response->failed()) {
-                                Log::error('API请求失败', ['response' => $response->body()]);
-                                return [];
-                            }
-
-                            $data = $response->json()['data'] ?? [];
-
-                            // 关键修改：将API数据转换为Filament期望的格式
-                            $data = collect($data)->map(function ($item) {
-                                return [
-                                    $item['title'] => $item['title'],
-                                ];
-                            })->toArray();
-//                            Log::info($data);
-                            return $data;
-                        } catch (\Exception $e) {
-                            Log::error('API请求异常', ['message' => $e->getMessage()]);
-                            return [];
-                        }
-                    })
-                    ->live()
-                    ->afterStateUpdated(function ($state, Forms\Set $set) {
-                        // 打印选中的值到日志
-                        Log::info('选中的值', ['value' => $state]);
-
-                        $api = 'https://apis.map.qq.com/ws/place/v1/search';
-                        $response = Http::get($api, [
-                            'key' => 'CLLBZ-CEXKX-K5R4V-7ZQPA-VIQ33-4EBX5',
-                            'boundary' => 'nearby(25.817816,114.921171,1000,1)',
-                            'filter' => 'category=住宅区',
-                            'keyword' => $state,
-                        ]);
-
-                        if ($response->failed()) {
-                            Log::error('API请求失败', ['response' => $response->body()]);
-                            return [];
-                        }
-
-                        $data = $response->json()['data'] ?? [];
-                        Log::info($data);
-                        $set('address', $data[0]['address']);
-                        // 如果你想在前端显示，可以使用通知
-                        // Notification::make()
-                        //     ->title('已选择: ' . $state)
-                        //     ->send();
-                    }),
             ]);
     }
 
@@ -148,6 +91,7 @@ class CommunityResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
                     ->label('图片'),
