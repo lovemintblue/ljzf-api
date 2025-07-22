@@ -111,6 +111,7 @@ class CommunityResource extends Resource
                         }
                     })
                     ->live()
+                    ->reactive()
                     ->afterStateUpdated(function ($state) {
                         // 打印选中的值到日志
                         Log::info('选中的值', ['value' => $state]);
