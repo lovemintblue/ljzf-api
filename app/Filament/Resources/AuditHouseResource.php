@@ -141,20 +141,6 @@ class AuditHouseResource extends Resource
                 Tables\Columns\TextColumn::make('community.name')
                     ->label('小区')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('province')
-                    ->label('省份')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('city')
-                    ->label('城市')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('district')
-                    ->label('区县')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address')
-                    ->label('详细地址')
-                    ->searchable(),
-                Tables\Columns\ToggleColumn::make('is_show')
-                    ->label('是否显示'),
                 ViewColumn::make('audit_status')
                     ->label('审核状态')
                     ->view('tables.columns.audit-status'),

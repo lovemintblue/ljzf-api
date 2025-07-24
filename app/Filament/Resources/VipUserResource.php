@@ -26,7 +26,6 @@ class VipUserResource extends Resource
     protected static ?string $navigationLabel = '会员列表';
 
     protected static ?string $label = '用户';
-
     protected static ?int $navigationSort = 1;
 
     /**
