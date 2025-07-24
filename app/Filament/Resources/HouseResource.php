@@ -64,55 +64,75 @@ class HouseResource extends Resource
                 Forms\Components\Radio::make('type')
                     ->label('类型')
                     ->required()
+                    ->inline()
+                    ->inlineLabel(false)
                     ->options([
                         0 => '整租',
                         1 => '合租'
                     ])
                     ->default(0),
-                Forms\Components\TextInput::make('status')
+                Forms\Components\Radio::make('status')
+                    ->label('状态')
                     ->required()
-                    ->numeric()
+                    ->inline()
+                    ->inlineLabel(false)
+                    ->options([
+                        0 => '空置',
+                        1 => '在租',
+                        2 => '转租'
+                    ])
                     ->default(0),
                 Forms\Components\TextInput::make('room_count')
+                    ->label('室')
                     ->required()
                     ->numeric()
                     ->default(1),
                 Forms\Components\TextInput::make('living_room_count')
+                    ->label('厅')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\TextInput::make('bathroom_count')
+                    ->label('卫')
                     ->required()
                     ->numeric()
                     ->default(1),
                 Forms\Components\TextInput::make('area')
+                    ->label('面积')
                     ->required()
                     ->numeric()
                     ->default(0.00),
                 Forms\Components\TextInput::make('floor')
+                    ->label('楼层')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\TextInput::make('total_floors')
+                    ->label('总楼层')
                     ->required()
                     ->numeric()
                     ->default(0),
                 Forms\Components\TextInput::make('orientation')
+                    ->label('朝向')
                     ->required(),
                 Forms\Components\TextInput::make('renovation')
+                    ->label('装修')
                     ->required(),
                 Forms\Components\TextInput::make('rent_price')
+                    ->label('租金')
                     ->required()
                     ->numeric()
                     ->default(0.00),
                 Forms\Components\TextInput::make('payment_method')
+                    ->label('付款方式')
                     ->required(),
                 Forms\Components\TextInput::make('min_rental_period')
+                    ->label('起租时长')
                     ->required()
                     ->maxLength(255)
                     ->default(0),
-
                 Forms\Components\TextInput::make('community.name')
+                    ->label('小区')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
                     ->label('详细地址')
