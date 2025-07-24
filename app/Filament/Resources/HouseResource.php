@@ -112,6 +112,9 @@ class HouseResource extends Resource
     {
         return $table
             ->defaultSort('created_at', 'desc')
+            ->query(function (House $query) {
+                return $query->where('audit_status', 1);
+            })
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
                     ->label('封面图'),
