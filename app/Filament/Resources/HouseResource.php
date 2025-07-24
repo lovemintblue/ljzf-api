@@ -38,6 +38,10 @@ class HouseResource extends Resource
         return $form
             ->columns(4)
             ->schema([
+                Forms\Components\FileUpload::make('video')
+                    ->label('视频')->columnSpan(2),
+                Forms\Components\FileUpload::make('cover_image')
+                    ->label('封面图')->columnSpan(2),
                 Forms\Components\FileUpload::make('images')
                     ->label('图片')
                     ->columnSpanFull()
