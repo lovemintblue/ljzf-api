@@ -125,36 +125,8 @@ class ShopResource extends Resource
                 Tables\Columns\TextColumn::make('contact_phone')
                     ->label('联系电话')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('area')
-                    ->label('面积')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('renovation')
-                    ->label('朝向'),
-                Tables\Columns\TextColumn::make('rent_price')
-                    ->label('租金')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('renovation')
-                    ->label('装修')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('province')
-                    ->label('省份')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('city')
-                    ->label('城市')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('district')
-                    ->label('区县')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address')
-                    ->label('地址')
-                    ->searchable(),
                 Tables\Columns\ToggleColumn::make('is_show')
                     ->label('是否显示'),
-                ViewColumn::make('audit_status')
-                    ->label('审核状态')
-                    ->view('tables.columns.audit-status'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s')
