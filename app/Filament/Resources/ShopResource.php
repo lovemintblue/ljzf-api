@@ -35,6 +35,7 @@ class ShopResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(4)
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
