@@ -36,7 +36,13 @@ class HouseResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
+            ->columns(4)
             ->schema([
+                Forms\Components\FileUpload::make('images')
+                    ->label('图片')
+                    ->columnSpanFull()
+                    ->multiple()
+                    ->panelLayout('grid'),
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
@@ -93,7 +99,7 @@ class HouseResource extends Resource
                     ->required()
                     ->maxLength(255)
                     ->default(0),
-                Forms\Components\TextInput::make('images'),
+
                 Forms\Components\TextInput::make('community')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
