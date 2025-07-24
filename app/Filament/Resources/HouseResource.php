@@ -48,18 +48,26 @@ class HouseResource extends Resource
                     ->multiple()
                     ->panelLayout('grid'),
                 Forms\Components\TextInput::make('title')
+                    ->label('标题')
+                    ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('contact_name')
+                    ->label('联系人')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('contact_phone')
+                    ->label('联系人电话')
                     ->tel()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('type')
+                Forms\Components\Radio::make('type')
+                    ->label('类型')
                     ->required()
-                    ->numeric()
+                    ->options([
+                        0 => '整租',
+                        1 => '合租'
+                    ])
                     ->default(0),
                 Forms\Components\TextInput::make('status')
                     ->required()
@@ -104,9 +112,11 @@ class HouseResource extends Resource
                     ->maxLength(255)
                     ->default(0),
 
-                Forms\Components\TextInput::make('community')
+                Forms\Components\TextInput::make('community.name')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
+                    ->label('详细地址')
+                    ->columnSpanFull()
                     ->maxLength(255),
             ]);
     }
