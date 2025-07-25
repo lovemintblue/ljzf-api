@@ -58,9 +58,8 @@ class FacilityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('icon')
-                    ->label('图标')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('icon')
+                    ->label('图标'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('名称')
                     ->searchable(),
