@@ -87,9 +87,9 @@ class AdminPanelProvider extends PanelProvider
                 '商铺',
                 '系统'
             ])
-            ->sidebarWidth('15rem')
             ->authGuard('admin')
             ->sidebarCollapsibleOnDesktop()
+            ->sidebarWidth('15rem')
             ->maxContentWidth(MaxWidth::Full)
             ->viteTheme('resources/css/filament/admin/theme.css')
             ->authMiddleware([
