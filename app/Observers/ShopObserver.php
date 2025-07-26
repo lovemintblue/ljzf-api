@@ -19,9 +19,7 @@ class ShopObserver
      */
     public function saving(Shop $shop): void
     {
-        if (!$shop->no) {
-            $shop->no = 'S' . $shop->id;
-        }
+        $shop->no = 'S' . $shop->id;
     }
 
     /**

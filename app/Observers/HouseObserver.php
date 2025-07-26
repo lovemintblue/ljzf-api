@@ -25,9 +25,7 @@ class HouseObserver
      */
     public function saving(House $house): void
     {
-        if (!$house->no) {
-            $house->no = 'H' . $house->id;
-        }
+        $house->no = 'H' . $house->id;
     }
 
     /**
