@@ -32,11 +32,12 @@ Route::get('test', function () {
 
 Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $houses = House::query()->whereNull('longitude')->get();
-    foreach ($houses as $house) {
-        $info = (new \App\Services\MapService())->geoCoder($house->address);
-        $house->longitude = $info['location']['lng'];
-        $house->latitude = $info['location']['lat'];
-        $house->save();
-    }
+    dd($houses->toArray());
+//    foreach ($houses as $house) {
+//        $info = (new \App\Services\MapService())->geoCoder($house->address);
+//        $house->longitude = $info['location']['lng'];
+//        $house->latitude = $info['location']['lat'];
+//        $house->save();
+//    }
 });
 
