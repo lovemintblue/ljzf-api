@@ -14,6 +14,12 @@ class HouseObserver
         $house->no = 'H' . $house->id;
     }
 
+    public function created(House $house): void
+    {
+        $house->no = 'H' . $house->id;
+        $house->saveQuietly();
+    }
+
     /**
      * Handle the House "saving" event.
      */
