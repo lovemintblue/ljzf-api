@@ -31,7 +31,7 @@ Route::get('test', function () {
 
 
 Route::get('test2', static function (\Illuminate\Http\Request $request) {
-    $houses = House::query()->get();
+    $houses = House::query()->whereNull('longitude')->get();
     foreach ($houses as $house) {
         $info = (new \App\Services\MapService())->geoCoder($house->address);
         $house->longitude = $info['location']['lng'];
