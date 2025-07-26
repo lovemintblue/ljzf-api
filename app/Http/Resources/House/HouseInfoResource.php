@@ -36,6 +36,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $status
  * @property mixed $longitude
  * @property mixed $latitude
+ * @property mixed $video
+ * @property mixed $cover_image
  */
 class HouseInfoResource extends JsonResource
 {
