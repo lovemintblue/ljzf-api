@@ -34,6 +34,7 @@ Route::get('test2', static function (\Illuminate\Http\Request $request) {
     $houses = House::query()->get();
     foreach ($houses as $house) {
         $info = (new \App\Services\MapService())->geoCoder($house->address);
+        dd($info['location']);
         $house->longitude = $info['location']['lng'];
         $house->latitude = $info['location']['lat'];
         $house->save();
