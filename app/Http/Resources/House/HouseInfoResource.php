@@ -3,6 +3,7 @@
 namespace App\Http\Resources\House;
 
 use App\Http\Resources\Community\CommunityInfoResource;
+use App\Models\Facility;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -38,6 +39,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $latitude
  * @property mixed $video
  * @property mixed $cover_image
+ * @property mixed $no
  */
 class HouseInfoResource extends JsonResource
 {
@@ -60,8 +62,16 @@ class HouseInfoResource extends JsonResource
             $isFavor = 1;
         }
 
+        $facilities = Facility::query()->whereIn('id', $this->facility_ids)->map(function ($facility) {
+            return [
+                'icon' => formatUrl($facility->icon),
+                'name' => $facility->name,
+            ];
+        });
+
         return [
             'id' => $this->id,
+            'no' => $this->no,
             'video' => formatUrl($this->video),
             'cover_image' => formatUrl($this->cover_image),
             'title' => $this->title,
@@ -86,6 +96,7 @@ class HouseInfoResource extends JsonResource
             'district' => $this->district,
             'address' => $this->address,
             'facility_ids' => $this->facility_ids,
+            'facilities' => $facilities,
             'building_number' => $this->building_number,
             'room_number' => $this->room_number,
             'status' => $this->status,

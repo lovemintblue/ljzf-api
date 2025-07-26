@@ -25,6 +25,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $created_at
  * @property mixed $video
  * @property mixed $cover_image
+ * @property mixed $no
  */
 class HouseResource extends JsonResource
 {
@@ -40,6 +41,7 @@ class HouseResource extends JsonResource
         });
         return [
             'id' => $this->id,
+            'no' => $this->no,
             'title' => $this->title,
             'video' => formatUrl($this->video),
             'cover_image' => formatUrl($this->cover_image),
