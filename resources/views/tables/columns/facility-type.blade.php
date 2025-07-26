@@ -1,14 +1,14 @@
 <div class="px-4 py-3">
     @foreach($getState() as $item)
         <div class="flex">
-            @if($item === 0)
+            @if((int)$item === 0)
                 <div>
                     <x-filament::badge>
                         房源
                     </x-filament::badge>
                 </div>
             @endif
-            @if($item === 1)
+            @if((int)$item === 1)
                 <div>
                     <x-filament::badge>
                         商铺
