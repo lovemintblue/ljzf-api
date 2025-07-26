@@ -11,7 +11,7 @@ class ShopObserver
      */
     public function creating(Shop $shop): void
     {
-        $shop->no = Shop::generateUniqueNO();
+        $shop->no = 'S' . $shop->id;
     }
 
     /**
@@ -20,7 +20,7 @@ class ShopObserver
     public function saving(Shop $shop): void
     {
         if (!$shop->no) {
-            $shop->no = Shop::generateUniqueNO();
+            $shop->no = 'S' . $shop->id;
         }
     }
 

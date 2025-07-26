@@ -69,7 +69,7 @@ class ShopInfoResource extends JsonResource
             'floor' => $this->floor,
             'total_floors' => $this->total_floors,
             'renovation' => $this->renovation,
-            'rent_price' => $this->rent_price,
+            'rent_price' => (int)$this->rent_price,
             'deposit_price' => $this->deposit_price,
             'property_fee' => $this->property_fee,
             'payment_method' => $this->payment_method,

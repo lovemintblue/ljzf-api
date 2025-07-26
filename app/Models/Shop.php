@@ -11,12 +11,16 @@ use Random\RandomException;
 /**
  * @property mixed $id
  * @property int|mixed $audit_status
+ * @property mixed|string $no
  */
 #[ObservedBy(ShopObserver::class)]
 class Shop extends Model
 {
     protected $guarded = [];
 
+    /**
+     * @var string[]
+     */
     protected $casts = [
         'images' => 'json',
         'facility_ids' => 'json',

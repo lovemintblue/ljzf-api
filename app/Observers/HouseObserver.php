@@ -11,7 +11,7 @@ class HouseObserver
      */
     public function creating(House $house): void
     {
-        $house->no = House::generateUniqueNO();
+        $house->no = 'H' . $house->id;
     }
 
     /**
@@ -20,7 +20,7 @@ class HouseObserver
     public function saving(House $house): void
     {
         if (!$house->no) {
-            $house->no = House::generateUniqueNO();
+            $house->no = 'H' . $house->id;
         }
     }
 

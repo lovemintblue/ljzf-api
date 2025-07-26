@@ -72,7 +72,7 @@ class HouseInfoResource extends JsonResource
             'total_floors' => $this->total_floors,
             'orientation' => $this->orientation,
             'renovation' => $this->renovation,
-            'rent_price' => $this->rent_price,
+            'rent_price' => (int)$this->rent_price,
             'payment_method' => $this->payment_method,
             'min_rental_period' => $this->min_rental_period,
             'images' => $images,
