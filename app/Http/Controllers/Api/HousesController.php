@@ -149,7 +149,7 @@ class HousesController extends Controller
 
         if (!empty($data['video'])) {
             $video = json_decode($data['video'], true);
-            $data['video'] = $video[0]['path'];
+            $data['video'] = $video['path'];
         }
 
         $house->fill($data);
