@@ -62,7 +62,7 @@ class HouseInfoResource extends JsonResource
             $isFavor = 1;
         }
 
-        $facilities = Facility::query()->whereIn('id', $this->facility_ids)->map(function ($facility) {
+        $facilities = Facility::query()->whereIn('id', $this->facility_ids)->get()->map(function ($facility) {
             return [
                 'icon' => formatUrl($facility->icon),
                 'name' => $facility->name,
