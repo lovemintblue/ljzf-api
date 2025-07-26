@@ -49,7 +49,7 @@ class HouseResource extends JsonResource
             'room_count' => $this->room_count,
             'living_room_count' => $this->living_room_count,
             'bathroom_count' => $this->bathroom_count,
-            'area' => $this->area,
+            'area' => (int)$this->area,
             'rent_price' => (int)$this->rent_price,
             'payment_method' => $this->payment_method,
             'min_rental_period' => $this->min_rental_period,

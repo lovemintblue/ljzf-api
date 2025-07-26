@@ -81,7 +81,7 @@ class HouseInfoResource extends JsonResource
             'room_count' => $this->room_count,
             'living_room_count' => $this->living_room_count,
             'bathroom_count' => $this->bathroom_count,
-            'area' => $this->area,
+            'area' => (int)$this->area,
             'floor' => $this->floor,
             'total_floors' => $this->total_floors,
             'orientation' => $this->orientation,
