@@ -23,6 +23,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $floor
  * @property mixed $total_floors
  * @property mixed $created_at
+ * @property mixed $video
+ * @property mixed $cover_image
  */
 class HouseResource extends JsonResource
 {

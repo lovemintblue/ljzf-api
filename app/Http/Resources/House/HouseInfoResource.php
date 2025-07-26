@@ -34,6 +34,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $district
  * @property mixed $created_at
  * @property mixed $status
+ * @property mixed $longitude
+ * @property mixed $latitude
  */
 class HouseInfoResource extends JsonResource
 {
@@ -85,6 +87,8 @@ class HouseInfoResource extends JsonResource
             'building_number' => $this->building_number,
             'room_number' => $this->room_number,
             'status' => $this->status,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
             'is_favor' => $isFavor,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
