@@ -31,17 +31,26 @@ Route::get('test', function () {
 
 
 Route::get('test2', static function (\Illuminate\Http\Request $request) {
-    $communities = \App\Models\Community::query()->whereNull('longitude')->inRandomOrder()->get();
-    foreach ($communities as $community) {
-        $info = (new \App\Services\MapService())->geoCoder($community->address);
+    $houses = \App\Models\House::query()->with('community')->whereNull('longitude')->inRandomOrder()->get();
+    foreach ($houses as $house) {
 
-        Log::info('--打印信息--');
-        Log::info($info);
+        $address = $house->address;
 
-        $community->longitude = $info['location']['lng'];
-        $community->latitude = $info['location']['lat'];
-        $community->save();
-        Log::info('--更新成功--');
+        if (empty($address)) {
+            $house->longitude = $house->community->longitude;
+            $house->latitude = $house->community->latitude;
+            $house->save();
+        } else {
+            $info = (new \App\Services\MapService())->geoCoder($house->address);
+            Log::info('--打印信息--');
+            Log::info($info);
+            $house->longitude = $info['location']['lng'];
+            $house->latitude = $info['location']['lat'];
+            $house->save();
+            Log::info('--更新成功--');
+        }
+
+
     }
 });
 
