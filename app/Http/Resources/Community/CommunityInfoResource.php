@@ -8,6 +8,18 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @property mixed $id
  * @property mixed $image
+ * @property mixed $name
+ * @property mixed $built_year
+ * @property mixed $address
+ * @property mixed $property_fee
+ * @property mixed $property_company
+ * @property mixed $developer
+ * @property mixed $building_count
+ * @property mixed $house_count
+ * @property mixed $average_sale_price
+ * @property mixed $average_rent_price
+ * @property mixed $longitude
+ * @property mixed $latitude
  */
 class CommunityInfoResource extends JsonResource
 {
@@ -31,6 +43,8 @@ class CommunityInfoResource extends JsonResource
             'house_count' => $this->house_count,
             'average_rent_price' => $this->average_rent_price,
             'average_sale_price' => $this->average_sale_price,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
         ];
     }
 }

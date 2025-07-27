@@ -161,11 +161,18 @@ class HousesController extends Controller
 
     /**
      * 详情
+     * @param Request $request
      * @param House $house
      * @return HouseInfoResource
      */
-    public function show(House $house): HouseInfoResource
+    public function show(Request $request, House $house): HouseInfoResource
     {
+        $user = $request->user();
+        $houseViewHistory = new HouseViewHistory();
+        $houseViewHistory->user()->associate($user);
+        $houseViewHistory->house()->associate($house);
+        $houseViewHistory->save();
+
         return new HouseInfoResource($house->load(['community:id,name']));
     }
 

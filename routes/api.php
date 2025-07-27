@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CommunitiesController;
 use App\Http\Controllers\Api\DistrictsController;
 use App\Http\Controllers\Api\FacilitiesController;
 use App\Http\Controllers\Api\HousesController;
+use App\Http\Controllers\Api\HouseViewHistoriesController;
 use App\Http\Controllers\Api\IndexController;
 use App\Http\Controllers\Api\IndustriesController;
 use App\Http\Controllers\Api\NotificationsController;
@@ -125,5 +126,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('notifications', [NotificationsController::class, 'index'])
         ->name('notifications.index');
 
+    // 房源浏览记录 - 列表
+    Route::get('house-view-histories', [HouseViewHistoriesController::class, 'index'])
+        ->name('house-view-histories.index');
 });
 

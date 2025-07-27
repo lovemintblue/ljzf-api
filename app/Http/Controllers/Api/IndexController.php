@@ -1,4 +1,7 @@
 <?php
+/**
+ * 首页
+ */
 
 namespace App\Http\Controllers\Api;
 

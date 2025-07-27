@@ -1,25 +1,31 @@
 <?php
 /**
- * 通知
+ * 房源浏览记录 Controller
  */
 
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Notification\NotificationResource;
+use App\Http\Resources\HouseViewHistory\HouseViewHistoryResource;
+use App\Models\House;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-class NotificationsController extends Controller
+class HouseViewHistoriesController extends Controller
 {
     /**
+     * 列表
      * @param Request $request
      * @return AnonymousResourceCollection
      */
     public function index(Request $request): AnonymousResourceCollection
     {
         $user = $request->user();
-        $notifications = $user->notifications()->orderByDesc('created_at')->paginate();
-        return NotificationResource::collection($notifications);
+        $houseViewHistories = $user
+            ->houseViewHistories()
+            ->latest()
+            ->paginate();
+
+        return HouseViewHistoryResource::collection($houseViewHistories);
     }
 }

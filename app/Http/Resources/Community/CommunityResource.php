@@ -9,6 +9,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $id
  * @property mixed $name
  * @property mixed $address
+ * @property mixed $longitude
+ * @property mixed $latitude
  */
 class CommunityResource extends JsonResource
 {
@@ -23,6 +25,8 @@ class CommunityResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'address' => $this->address,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
         ];
     }
 }

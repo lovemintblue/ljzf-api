@@ -1,4 +1,7 @@
 <?php
+/**
+ * 商铺 Controller
+ */
 
 namespace App\Http\Controllers\Api;
 
@@ -6,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ShopRequest;
 use App\Http\Resources\Shop\ShopInfoResource;
 use App\Http\Resources\Shop\ShopResource;
-use App\Models\House;
 use App\Models\Shop;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;

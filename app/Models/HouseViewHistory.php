@@ -1,4 +1,7 @@
 <?php
+/**
+ * 房源浏览记录
+ */
 
 namespace App\Models;
 
@@ -19,10 +22,9 @@ class HouseViewHistory extends Model
     }
 
     /**
-     * 关联房源
      * @return BelongsTo
      */
-    public function shop(): BelongsTo
+    public function house(): BelongsTo
     {
         return $this->belongsTo(House::class);
     }
