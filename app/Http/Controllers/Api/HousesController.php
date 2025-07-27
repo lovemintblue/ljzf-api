@@ -43,6 +43,7 @@ class HousesController extends Controller
         $builder = House::query()
             ->where('is_show', 1)
             ->where('audit_status', 1)
+            ->where('is_draft', 0)
             ->with([
                 'community'
             ]);
@@ -176,8 +177,11 @@ class HousesController extends Controller
     public function myIndex(Request $request): AnonymousResourceCollection
     {
         $user = $request->user();
+        $isDraft = $request->input('is_draft', 0);
+
         $houses = House::query()
             ->whereBelongsTo($user)
+            ->where('is_draft', $isDraft)
             ->latest()
             ->paginate();
         return HouseResource::collection($houses);
