@@ -169,7 +169,6 @@ class HousesController extends Controller
     {
         $user = $request->user();
 
-        
         $houseViewHistory = new HouseViewHistory();
         $houseViewHistory->user()->associate($user);
         $houseViewHistory->house()->associate($house);

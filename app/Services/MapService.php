@@ -32,7 +32,6 @@ class MapService
         if ((int)$data['status'] === 0) {
             return $data['result'];
         }
-
         return [];
     }
 

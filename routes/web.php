@@ -31,13 +31,17 @@ Route::get('test', function () {
 
 
 Route::get('test2', static function (\Illuminate\Http\Request $request) {
-    $houses = House::query()->whereNull('longitude')->get();
-    dd($houses->toArray());
-//    foreach ($houses as $house) {
-//        $info = (new \App\Services\MapService())->geoCoder($house->address);
-//        $house->longitude = $info['location']['lng'];
-//        $house->latitude = $info['location']['lat'];
-//        $house->save();
-//    }
+    $houses = House::query()->whereNull('longitude')->inRandomOrder()->get();
+    foreach ($houses as $house) {
+        $info = (new \App\Services\MapService())->geoCoder($house->address);
+
+        Log::info('--打印信息--');
+        Log::info($info);
+
+        $house->longitude = $info['location']['lng'];
+        $house->latitude = $info['location']['lat'];
+        $house->save();
+        Log::info('--更新成功--');
+    }
 });
 
