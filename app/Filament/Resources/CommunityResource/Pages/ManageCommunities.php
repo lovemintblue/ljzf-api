@@ -54,7 +54,6 @@ class ManageCommunities extends ManageRecords
                                         $item['title'] => $item['title'],
                                     ];
                                 })->toArray();
-//                            Log::info($data);
                                 return $data;
                             } catch (\Exception $e) {
                                 Log::error('API请求异常', ['message' => $e->getMessage()]);
@@ -84,6 +83,8 @@ class ManageCommunities extends ManageRecords
                     $community->city = $data['ad_info']['city'];
                     $community->district = $data['ad_info']['district'];
                     $community->address = $data['address'];
+                    $community->longitude = $data['location']['lng'];
+                    $community->latitude = $data['location']['lat'];
                     $community->save();
 
                     Notification::make()->title('创建成功')->success()->send();

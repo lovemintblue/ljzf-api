@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $city
  * @property mixed $district
  * @property mixed $address
+ * @property mixed $longitude
+ * @property mixed $latitude
  */
 class Community extends Model
 {
