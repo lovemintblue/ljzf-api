@@ -27,12 +27,12 @@ class MapService
     public function geoCoder(string $address): mixed
     {
         // 根据地址解析经纬度
-        $api = "https://apis.map.qq.com/ws/geocoder/v1/?address=$address&key=I4XBZ-B36HB-QBXUO-J42TZ-GADMH-JMFIF";
+        $api = "https://apis.map.qq.com/ws/geocoder/v1??address=$address&key=I4XBZ-B36HB-QBXUO-J42TZ-GADMH-JMFIF";
         $data = Http::get($api)->json();
+        Log::info($data);
         if ((int)$data['status'] === 0) {
             return $data['result'];
         }
-        Log::info($data);
         return [];
     }
 
