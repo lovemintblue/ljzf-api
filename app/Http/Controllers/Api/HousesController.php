@@ -168,6 +168,8 @@ class HousesController extends Controller
     public function show(Request $request, House $house): HouseInfoResource
     {
         $user = $request->user();
+
+        
         $houseViewHistory = new HouseViewHistory();
         $houseViewHistory->user()->associate($user);
         $houseViewHistory->house()->associate($house);
