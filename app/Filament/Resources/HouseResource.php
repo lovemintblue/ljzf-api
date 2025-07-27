@@ -115,6 +115,21 @@ class HouseResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0),
+                Forms\Components\TextInput::make('building_number')
+                    ->label('栋数')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\TextInput::make('unit')
+                    ->label('单元')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
+                Forms\Components\TextInput::make('room_number')
+                    ->label('房间号')
+                    ->required()
+                    ->numeric()
+                    ->default(0),
                 Forms\Components\TextInput::make('orientation')
                     ->label('朝向')
                     ->required(),
@@ -136,6 +151,15 @@ class HouseResource extends Resource
                     ->default(0),
                 Forms\Components\TextInput::make('community.name')
                     ->label('小区')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('province')
+                    ->label('省份')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('city')
+                    ->label('城市')
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('district')
+                    ->label('区县')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
                     ->label('详细地址')
