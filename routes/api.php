@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\CommunitiesController;
 use App\Http\Controllers\Api\DistrictsController;
 use App\Http\Controllers\Api\FacilitiesController;
 use App\Http\Controllers\Api\HousesController;
+use App\Http\Controllers\Api\IndexController;
 use App\Http\Controllers\Api\IndustriesController;
 use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\SettingsController;
@@ -58,6 +59,10 @@ Route::get('districts/get-children-by-ip', [DistrictsController::class, 'getChil
 // 设置 - 基础
 Route::get('settings/general', [SettingsController::class, 'general'])
     ->name('settings.general');
+
+// 首页 - 统计数据
+Route::get('index/statistics', [IndexController::class, 'statistics'])
+    ->name('index.statistics');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {

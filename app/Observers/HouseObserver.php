@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\House;
+use Carbon\Carbon;
 
 class HouseObserver
 {
@@ -26,6 +27,12 @@ class HouseObserver
     public function saving(House $house): void
     {
         $house->no = 'H' . $house->id;
+
+        $oldIsShow = $house->getOriginal('is_show');
+        if ($oldIsShow !== $house->is_show && (int)$house->is_show === 0) {
+            $house->hidden_at = Carbon::now();
+        }
+
     }
 
     /**
