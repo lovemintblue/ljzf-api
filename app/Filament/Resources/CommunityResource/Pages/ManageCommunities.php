@@ -24,6 +24,7 @@ class ManageCommunities extends ManageRecords
                 ->form([
                     Select::make('business_district_id')
                         ->label('关联商圈')
+                        ->multiple()
                         ->options(BusinessDistrict::query()->pluck('name', 'id'))
                         ->native(false),
                     Select::make('keyword')

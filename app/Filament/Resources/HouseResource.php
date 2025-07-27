@@ -51,7 +51,7 @@ class HouseResource extends Resource
                     ->multiple()
                     ->panelLayout('grid'),
                 Forms\Components\TextInput::make('title')
-                    ->label('标题')
+                    ->label('房号')
                     ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
@@ -188,11 +188,11 @@ class HouseResource extends Resource
                 Tables\Columns\TextColumn::make('no')
                     ->label('编号')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('房号')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('user.nickname')
                     ->label('发布人'),
-                Tables\Columns\TextColumn::make('title')
-                    ->label('标题')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('contact_name')
                     ->label('联系人')
                     ->searchable(),
