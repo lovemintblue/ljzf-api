@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property int|mixed $business_district_id
+ * @property mixed $name
+ * @property mixed $province
+ * @property mixed $city
+ * @property mixed $district
+ * @property mixed $address
  */
 class Community extends Model
 {

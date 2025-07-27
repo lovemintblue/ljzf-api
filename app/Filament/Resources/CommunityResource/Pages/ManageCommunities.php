@@ -77,6 +77,7 @@ class ManageCommunities extends ManageRecords
                     $data = $response->json()['data'] ?? [];
                     $data = $data[0];
 
+                    Log::info($data);
 
                     $community->name = $data['title'];
                     $community->province = $data['ad_info']['province'];
