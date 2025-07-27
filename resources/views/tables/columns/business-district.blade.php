@@ -3,7 +3,7 @@
     <div class="flex flex-row">
         @if(!empty($getState()))
             @foreach(BusinessDistrict::query()->whereIn('id', $getState())->get() as $item)
-                <div class="ml-2">
+                <div style="margin-left: 2px">
                     <x-filament::badge>
                         {{$item->name ?? ''}}
                     </x-filament::badge>
