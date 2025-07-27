@@ -22,7 +22,7 @@ class ManageCommunities extends ManageRecords
 //            Actions\CreateAction::make(),
             Actions\Action::make('创建')
                 ->form([
-                    Select::make('business_district_id')
+                    Select::make('business_district_ids')
                         ->label('关联商圈')
                         ->multiple()
                         ->options(BusinessDistrict::query()->pluck('name', 'id'))
@@ -63,9 +63,9 @@ class ManageCommunities extends ManageRecords
                         })
                 ])
                 ->action(function (array $data): void {
-                    $businessDistrictId = $data['business_district_id'] ?? 0;
+                    $businessDistrictIds = $data['business_district_ids'] ?? [];
                     $community = new Community();
-                    $community->business_district_id = $businessDistrictId;
+                    $community->business_district_ids = $businessDistrictIds;
                     $keyword = $data['keyword'];
                     $api = 'https://apis.map.qq.com/ws/place/v1/search';
                     $response = Http::get($api, [

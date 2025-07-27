@@ -14,11 +14,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $address
  * @property mixed $longitude
  * @property mixed $latitude
+ * @property array|mixed $business_district_ids
  */
 class Community extends Model
 {
     protected $guarded = [];
-    
+
     protected $casts = [
         'business_district_ids' => 'json',
     ];
