@@ -31,7 +31,7 @@ Route::get('test', function () {
 
 
 Route::get('test2', static function (\Illuminate\Http\Request $request) {
-    $houses = \App\Models\House::query()->with('community')->whereNull('longitude')->inRandomOrder()->get();
+    $houses = \App\Models\House::query()->with('community')->whereNull('longitude')->get();
     foreach ($houses as $house) {
 
         $address = $house->address;
