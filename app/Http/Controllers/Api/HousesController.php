@@ -178,6 +178,37 @@ class HousesController extends Controller
     }
 
     /**
+     * 编辑
+     * @param HouseRequest $request
+     * @param House $house
+     * @return HouseInfoResource
+     */
+    public function update(HouseRequest $request, House $house): HouseInfoResource
+    {
+        $user = $request->user();
+        $data = $request->all();
+        if (!empty($data['images'])) {
+            $images = json_decode($data['images'], true);
+            $data['images'] = collect($images)->pluck('path')->toArray();
+        } else {
+            $data['images'] = [];
+        }
+        if (!empty($data['facility_ids'])) {
+            $data['facility_ids'] = json_decode($data['facility_ids'], true);
+        } else {
+            $data['facility_ids'] = [];
+        }
+        if (!empty($data['video'])) {
+            $video = json_decode($data['video'], true);
+            $data['video'] = $video['path'];
+        }
+        $house->fill($data);
+        $house->user()->associate($user);
+        $house->update();
+        return new HouseInfoResource($house);
+    }
+
+    /**
      * 我的
      * @param Request $request
      * @return AnonymousResourceCollection

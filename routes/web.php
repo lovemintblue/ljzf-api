@@ -25,32 +25,10 @@ Route::get('test', function () {
 //    echo json_encode($data, JSON_UNESCAPED_UNICODE);
 
     $data = \App\Models\BusinessDistrict::query()->pluck('name', 'id')->toArray();
-
-    Log::info($data);
 });
 
 
 Route::get('test2', static function (\Illuminate\Http\Request $request) {
-    $houses = \App\Models\House::query()->with('community')->whereNull('longitude')->get();
-    foreach ($houses as $house) {
 
-        $address = $house->address;
-
-        if (empty($address)) {
-            $house->longitude = $house->community->longitude;
-            $house->latitude = $house->community->latitude;
-            $house->save();
-        } else {
-            $info = (new \App\Services\MapService())->geoCoder($house->address);
-            Log::info('--打印信息--');
-            Log::info($info);
-            $house->longitude = $info['location']['lng'];
-            $house->latitude = $info['location']['lat'];
-            $house->save();
-            Log::info('--更新成功--');
-        }
-
-
-    }
 });
 
