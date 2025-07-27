@@ -58,6 +58,8 @@ class HouseResource extends JsonResource
             'orientation' => $this->orientation,
             'floor' => $this->floor,
             'total_floors' => $this->total_floors,
+            'unit' => $this->unit,
+            'deposit_method' => $this->deposit_method,
             'created_at' => $this->created_at->diffForHumans(),
         ];
     }
