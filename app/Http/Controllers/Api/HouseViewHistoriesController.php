@@ -24,6 +24,7 @@ class HouseViewHistoriesController extends Controller
         $user = $request->user();
         $houseViewHistories = HouseViewHistory::query()
             ->whereBelongsTo($user)
+            ->with('house')
             ->latest()
             ->paginate();
 
