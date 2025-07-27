@@ -18,6 +18,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Community extends Model
 {
     protected $guarded = [];
+    
+    protected $casts = [
+        'business_district_ids' => 'json',
+    ];
 
     /**
      * 关联商圈

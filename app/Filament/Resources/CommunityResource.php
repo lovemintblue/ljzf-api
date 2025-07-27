@@ -80,8 +80,9 @@ class CommunityResource extends Resource
                     ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('business_district_id')
+                Forms\Components\Select::make('business_district_ids')
                     ->label('关联商圈')
+                    ->multiple()
                     ->options(BusinessDistrict::query()->pluck('name', 'id'))
                     ->native(false)
             ]);
@@ -98,10 +99,9 @@ class CommunityResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
                     ->label('图片'),
-                Tables\Columns\TextColumn::make('businessDistrict.name')
+                Tables\Columns\ViewColumn::make('business_district_ids')
                     ->label('商圈')
-                    ->badge()
-                    ->searchable(),
+                    ->view('tables.columns.business-district'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('名称')
                     ->searchable(),
