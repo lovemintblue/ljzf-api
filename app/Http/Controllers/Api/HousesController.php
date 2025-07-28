@@ -286,8 +286,7 @@ class HousesController extends Controller
                 'community'
             ]);
 
-        $houses = $builder
-            ->select('*')
+        $houses = $builder->select('*')
             ->addSelect(DB::raw("acos(cos(" . $latitude . "*pi()/180)*cos(latitude*pi()/180)*cos(" . $longitude . "*pi()/180-longitude*pi()/180)+sin(" . $latitude . "*pi()/180)*sin(latitude * pi()/180)) * 6367000 AS distance"))
             ->orderBy('distance')
 //            ->inRandomOrder()

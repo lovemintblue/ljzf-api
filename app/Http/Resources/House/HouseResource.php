@@ -26,6 +26,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $video
  * @property mixed $cover_image
  * @property mixed $no
+ * @property mixed $longitude
+ * @property mixed $latitude
  */
 class HouseResource extends JsonResource
 {
@@ -60,6 +62,8 @@ class HouseResource extends JsonResource
             'total_floors' => $this->total_floors,
             'unit' => $this->unit,
             'deposit_method' => $this->deposit_method,
+            'longitude' => $this->longitude,
+            'latitude' => $this->latitude,
             'created_at' => $this->created_at->diffForHumans(),
         ];
     }
