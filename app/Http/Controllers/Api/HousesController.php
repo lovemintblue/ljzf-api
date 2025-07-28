@@ -5,6 +5,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HouseRequest;
 use App\Http\Resources\House\HouseInfoResource;
@@ -311,6 +312,23 @@ class HousesController extends Controller
     public function destroy(House $house): Response
     {
         $house->delete();
+        return response()->noContent();
+    }
+
+    /**
+     * 批量删除
+     * @param Request $request
+     * @return Response
+     * @throws InvalidRequestException
+     */
+    public function batchDestroy(Request $request): Response
+    {
+        $ids = $request->input('ids');
+        if (empty($ids)) {
+            throw new InvalidRequestException('缺少必要参数!');
+        }
+        $ids = explode(',', $ids);
+        House::query()->whereIn('id', $ids)->delete();
         return response()->noContent();
     }
 }
