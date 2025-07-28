@@ -98,6 +98,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源 - 收藏列表
     Route::get('houses/favorites', [HousesController::class, 'favorites'])
         ->name('houses.favorites');
+    // 房源 - 附近列表
+    Route::get('houses.nearby', [HousesController::class, 'nearby'])
+        ->name('houses.nearby');
 
     // 商铺 - 列表
     Route::get('shops', [ShopsController::class, 'index'])

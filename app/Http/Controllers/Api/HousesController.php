@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class HousesController extends Controller
 {
@@ -264,6 +265,34 @@ class HousesController extends Controller
     public function favorites(Request $request): AnonymousResourceCollection
     {
         $houses = $request->user()->favoriteHouses()->paginate(16);
+        return HouseResource::collection($houses);
+    }
+
+    /**
+     * 附件房源
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function nearby(Request $request)
+    {
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+
+        $builder = House::query()
+            ->where('is_show', 1)
+            ->where('audit_status', 1)
+            ->where('is_draft', 0)
+            ->with([
+                'community'
+            ]);
+
+        $houses = $builder
+            ->select('*')
+            ->addSelect(DB::raw("acos(cos(" . $latitude . "*pi()/180)*cos(latitude*pi()/180)*cos(" . $longitude . "*pi()/180-longitude*pi()/180)+sin(" . $latitude . "*pi()/180)*sin(latitude * pi()/180)) * 6367000 AS distance"))
+            ->orderBy('distance')
+//            ->inRandomOrder()
+//            ->take(15)
+            ->paginate();
         return HouseResource::collection($houses);
     }
 }
