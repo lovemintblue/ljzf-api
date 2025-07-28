@@ -89,6 +89,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源 - 编辑
     Route::put('houses/{house}', [HousesController::class, 'update'])
         ->name('houses.update')->where('house', '[0-9]+');
+    // 房源 - 删除
+    Route::delete('houses/{house}', [HousesController::class, 'destroy'])
+        ->name('houses.destroy')->where('house', '[0-9]+');
     // 房源 - 收藏
     Route::post('houses/{house}/favorite', [HousesController::class, 'favor'])
         ->name('houses.favor');

@@ -302,4 +302,15 @@ class HousesController extends Controller
             ->paginate();
         return HouseResource::collection($houses);
     }
+
+    /**
+     * 删除
+     * @param House $house
+     * @return Response
+     */
+    public function destroy(House $house): Response
+    {
+        $house->delete();
+        return response()->noContent();
+    }
 }
