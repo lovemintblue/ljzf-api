@@ -170,10 +170,14 @@ class HousesController extends Controller
     {
         $user = $request->user();
 
-        $houseViewHistory = new HouseViewHistory();
-        $houseViewHistory->user()->associate($user);
-        $houseViewHistory->house()->associate($house);
-        $houseViewHistory->save();
+
+        if (!HouseViewHistory::query()->where('user_id', $user->id)->where('house_id', $house->id)->exists()) {
+            $houseViewHistory = new HouseViewHistory();
+            $houseViewHistory->user()->associate($user);
+            $houseViewHistory->house()->associate($house);
+            $houseViewHistory->save();
+        }
+
 
         return new HouseInfoResource($house->load(['community:id,name']));
     }
