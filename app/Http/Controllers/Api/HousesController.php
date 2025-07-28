@@ -288,7 +288,7 @@ class HousesController extends Controller
 
         $houses = $builder->select('*')
             ->addSelect(DB::raw("acos(cos(" . $latitude . "*pi()/180)*cos(latitude*pi()/180)*cos(" . $longitude . "*pi()/180-longitude*pi()/180)+sin(" . $latitude . "*pi()/180)*sin(latitude * pi()/180)) * 6367000 AS distance"))
-            ->having('distance', '<=', 5000) // 添加距离限制（5000米 = 5公里）
+//            ->having('distance', '<=', 5000) // 添加距离限制（5000米 = 5公里）
             ->orderBy('distance')
             ->paginate();
         return HouseResource::collection($houses);
