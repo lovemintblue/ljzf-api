@@ -288,7 +288,6 @@ class HousesController extends Controller
             ]);
 
         if (!empty($keyword)) {
-            dd("ok");
             $builder = $builder->where(function (Builder $query) use ($keyword) {
                 return $query->where('title', 'like', '%' . $keyword . '%')
                     ->orWhere('address', 'like', '%' . $keyword . '%');
