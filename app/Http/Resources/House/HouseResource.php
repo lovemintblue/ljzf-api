@@ -28,6 +28,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $no
  * @property mixed $longitude
  * @property mixed $latitude
+ * @property mixed $distance
  */
 class HouseResource extends JsonResource
 {
@@ -41,6 +42,8 @@ class HouseResource extends JsonResource
         $images = collect($this->images)->map(function ($image) {
             return formatUrl($image);
         });
+        $distance = round($this->distance / 1000, 1);
+
         return [
             'id' => $this->id,
             'no' => $this->no,
@@ -64,6 +67,7 @@ class HouseResource extends JsonResource
             'deposit_method' => $this->deposit_method,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
+            'distance' => $distance,
             'created_at' => $this->created_at->diffForHumans(),
         ];
     }
