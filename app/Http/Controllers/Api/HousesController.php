@@ -275,6 +275,7 @@ class HousesController extends Controller
      */
     public function nearby(Request $request)
     {
+        $keyword = $request->input('keyword');
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
@@ -286,6 +287,13 @@ class HousesController extends Controller
                 'community'
             ]);
 
+        if (!empty($keyword)) {
+            $builder = $builder->where(function (Builder $query) use ($keyword) {
+                return $query->where('title', 'like', '%' . $keyword . '%')
+                    ->orWhere('address', 'like', '%' . $keyword . '%');
+            });
+        }
+        
         $houses = $builder->select('*')
             ->addSelect(DB::raw("acos(cos(" . $latitude . "*pi()/180)*cos(latitude*pi()/180)*cos(" . $longitude . "*pi()/180-longitude*pi()/180)+sin(" . $latitude . "*pi()/180)*sin(latitude * pi()/180)) * 6367000 AS distance"))
 //            ->having('distance', '<=', 5000) // 添加距离限制（5000米 = 5公里）
