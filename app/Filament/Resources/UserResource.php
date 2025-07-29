@@ -54,8 +54,6 @@ class UserResource extends Resource
                     ->required(),
                 Forms\Components\Toggle::make('is_staff')
                     ->label('是否为员工')
-                    ->inline()
-                    ->inlineLabel(false)
                     ->default(0)
             ]);
     }
@@ -88,6 +86,8 @@ class UserResource extends Resource
                     ->badge(),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('状态'),
+                Tables\Columns\ToggleColumn::make('is_staff')
+                    ->label('是否为员工'),
                 Tables\Columns\TextColumn::make('latest_visit_at')
                     ->label('上次访问时间')
                     ->since(),
