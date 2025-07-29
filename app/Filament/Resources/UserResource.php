@@ -52,6 +52,11 @@ class UserResource extends Resource
                     ->label('昵称')
                     ->columnSpanFull()
                     ->required(),
+                Forms\Components\Toggle::make('is_staff')
+                    ->label('是否为员工')
+                    ->inline()
+                    ->inlineLabel(false)
+                    ->default(0)
             ]);
     }
 
