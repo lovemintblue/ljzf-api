@@ -281,6 +281,19 @@ class HousesController extends Controller
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
 
+        $communityId = $request->input('community_id');
+        $livingRoomCount = $request->input('living_room_count', -1);
+        $minRentPrice = $request->input('min_rent_price', -1);
+        $maxRentPrice = $request->input('max_rent_price', -1);
+        $type = $request->input('type', -1);
+        $minArea = $request->input('min_area', 0);
+        $maxArea = $request->input('max_area', 0);
+        $sort = $request->input('sort', '');
+        $direction = $request->input('direction', '');
+        $district = $request->input('district', '');
+        $orientation = $request->input('orientation', '');
+        $newType = $request->input('new_type', '');
+
         $builder = House::query()
             ->where('is_show', 1)
             ->where('audit_status', 1)
@@ -288,6 +301,69 @@ class HousesController extends Controller
             ->with([
                 'community'
             ]);
+        if (!empty($keyword)) {
+            $builder = $builder->where(function (Builder $query) use ($keyword) {
+                return $query->where('title', 'like', '%' . $keyword . '%')
+                    ->orWhere('address', 'like', '%' . $keyword . '%');
+            });
+        }
+
+
+        if (!empty($district)) {
+            $district = explode(',', $district);
+            $builder = $builder->whereIn('district', $district);
+        }
+
+        if (!empty($newType)) {
+            switch ($newType) {
+                case 'today':
+                    $builder = $builder->whereDate('created_at', today());
+                    break;
+                case 'three_days':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(3), today()]);
+                    break;
+                case 'week':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(7), today()]);
+                    break;
+                case 'month':
+                    $builder = $builder->whereBetween('created_at', [today()->subDays(30), today()]);
+                    break;
+            }
+        }
+
+        if ($communityId) {
+            $builder = $builder->where('community_id', $communityId);
+        }
+
+        if ($livingRoomCount > 0) {
+            $builder = $builder->where('living_room_count', $livingRoomCount);
+        }
+
+        if ($minRentPrice > 0 && $maxRentPrice > 0) {
+            if ((int)$maxRentPrice === -1) {
+                $builder = $builder->where('rent_price', '>', $minRentPrice);
+            } else {
+                $builder = $builder->whereBetween('rent_price', [$minRentPrice, $maxRentPrice]);
+            }
+        }
+
+        if ($type > -1) {
+            $builder = $builder->where('type', $type);
+        }
+
+        if ($minArea > 0 && $maxArea > 0) {
+            if ((int)$minArea === -1) {
+                $builder = $builder->where('area', '>', $minArea);
+            } else {
+                $builder = $builder->whereBetween('area', [$minArea, $maxArea]);
+            }
+        }
+
+        if (!empty($orientation)) {
+            $orientation = explode(',', $orientation);
+            $builder = $builder->whereIn('orientation', $orientation);
+        }
+
 
         if (!empty($keyword)) {
             $builder = $builder->where(function (Builder $query) use ($keyword) {
