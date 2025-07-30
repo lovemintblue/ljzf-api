@@ -42,6 +42,9 @@ class HousesController extends Controller
         $orientation = $request->input('orientation', '');
         $newType = $request->input('new_type', '');
 
+        $facilityIds = $request->input('facilities_ids', '');
+
+
         $builder = House::query()
             ->where('is_show', 1)
             ->where('audit_status', 1)
@@ -64,6 +67,13 @@ class HousesController extends Controller
         if (!empty($district)) {
             $district = explode(',', $district);
             $builder = $builder->whereIn('district', $district);
+        }
+
+        if (!empty($facilityIds)) {
+            $facilityIds = explode(',', $facilityIds);
+            foreach ($facilityIds as $id) {
+                $builder = $builder->whereJsonContains('facility_ids', $id);
+            }
         }
 
         if (!empty($newType)) {
@@ -275,7 +285,7 @@ class HousesController extends Controller
      * @param Request $request
      * @return AnonymousResourceCollection
      */
-    public function nearby(Request $request)
+    public function nearby(Request $request): AnonymousResourceCollection
     {
         $keyword = $request->input('keyword');
         $latitude = $request->input('latitude');
@@ -293,6 +303,8 @@ class HousesController extends Controller
         $district = $request->input('district', '');
         $orientation = $request->input('orientation', '');
         $newType = $request->input('new_type', '');
+
+        $facilityIds = $request->input('facilities_ids', '');
 
         $builder = House::query()
             ->where('is_show', 1)
@@ -312,6 +324,14 @@ class HousesController extends Controller
         if (!empty($district)) {
             $district = explode(',', $district);
             $builder = $builder->whereIn('district', $district);
+        }
+
+
+        if (!empty($facilityIds)) {
+            $facilityIds = explode(',', $facilityIds);
+            foreach ($facilityIds as $id) {
+                $builder = $builder->whereJsonContains('facility_ids', $id);
+            }
         }
 
         if (!empty($newType)) {
