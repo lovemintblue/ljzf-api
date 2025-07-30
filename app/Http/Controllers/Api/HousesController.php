@@ -141,11 +141,18 @@ class HousesController extends Controller
      * @param HouseRequest $request
      * @param House $house
      * @return HouseInfoResource
+     * @throws InvalidRequestException
      */
     public function store(HouseRequest $request, House $house): HouseInfoResource
     {
         $user = $request->user();
         $data = $request->all();
+
+
+        if (House::query()->where('title', $data['title'])->exists()) {
+            throw new InvalidRequestException('房源已存在,请修改标题后重试！');
+        }
+
 
         if (!empty($data['images'])) {
             $images = json_decode($data['images'], true);
@@ -195,11 +202,19 @@ class HousesController extends Controller
      * @param HouseRequest $request
      * @param House $house
      * @return HouseInfoResource
+     * @throws InvalidRequestException
      */
     public function update(HouseRequest $request, House $house): HouseInfoResource
     {
         $user = $request->user();
         $data = $request->all();
+
+
+        if (House::query()->where('title', $data['title'])->whereNot('id', $house->id)->exists()) {
+            throw new InvalidRequestException('房源已存在,请修改标题后重试！');
+        }
+
+
         if (!empty($data['images'])) {
             $images = json_decode($data['images'], true);
             $data['images'] = collect($images)->pluck('path')->toArray();
