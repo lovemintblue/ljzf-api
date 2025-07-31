@@ -165,14 +165,14 @@ class HousesController extends Controller
         $user = $request->user();
         $data = $request->all();
 
-        $oldHouse = House::query()
-            ->where('community_id', $data['community_id'])
-            ->where('building_number', $data['building_number'])
-            ->where('room_number', $data['room_number'])
-            ->first();
-        if ($oldHouse) {
-            throw new InvalidRequestException('房源已存在,请重试！');
-        }
+//        $oldHouse = House::query()
+//            ->where('community_id', $data['community_id'])
+//            ->where('building_number', $data['building_number'])
+//            ->where('room_number', $data['room_number'])
+//            ->first();
+//        if ($oldHouse) {
+//            throw new InvalidRequestException('房源已存在,请重试！');
+//        }
 
         if (!empty($data['images'])) {
             $images = json_decode($data['images'], true);
