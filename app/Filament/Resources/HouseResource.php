@@ -63,21 +63,19 @@ class HouseResource extends Resource
                                     ->tel()
                                     ->required()
                                     ->maxLength(255),
-                                Forms\Components\Radio::make('type')
+                                Forms\Components\Select::make('type')
                                     ->label('类型')
                                     ->required()
-                                    ->inline()
-                                    ->inlineLabel(false)
+                                    ->native(false)
                                     ->options([
                                         0 => '整租',
                                         1 => '合租'
                                     ])
                                     ->default(0),
-                                Forms\Components\Radio::make('status')
+                                Forms\Components\Select::make('status')
                                     ->label('状态')
                                     ->required()
-                                    ->inline()
-                                    ->inlineLabel(false)
+                                    ->native(false)
                                     ->options([
                                         0 => '空置',
                                         1 => '在租',
