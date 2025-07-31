@@ -144,8 +144,6 @@ class HousesController extends Controller
     public function draftIndex(Request $request): AnonymousResourceCollection
     {
         $builder = House::query()
-            ->where('is_show', 1)
-            ->where('audit_status', 1)
             ->where('is_draft', 1)
             ->where('user_id', 0)
             ->with([
