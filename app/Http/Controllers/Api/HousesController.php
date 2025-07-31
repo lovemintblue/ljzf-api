@@ -146,7 +146,7 @@ class HousesController extends Controller
         $builder = House::query()
             ->where('is_show', 1)
             ->where('audit_status', 1)
-            ->where('is_draft', 0)
+            ->where('is_draft', 1)
             ->with([
                 'community'
             ]);

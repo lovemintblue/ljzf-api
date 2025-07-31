@@ -38,7 +38,6 @@ Route::post('uploads/image', [UploadsController::class, 'image'])
 Route::post('uploads/file', [UploadsController::class, 'file'])
     ->name('uploads.file');
 
-
 // 小区 - 列表
 Route::get('communities', [CommunitiesController::class, 'index'])
     ->name('communities.index');
