@@ -42,8 +42,10 @@ class HouseResource extends Resource
         return $form
             ->schema([
                 Tabs::make('Tabs')
+                    ->columns()
                     ->tabs([
-                        Tabs\Tab::make('基础信息')
+                        Tabs\Tab::make('Tab 1')
+                            ->label('基础信息')
                             ->columns(4)
                             ->schema([
                                 Forms\Components\TextInput::make('title')
@@ -162,7 +164,8 @@ class HouseResource extends Resource
                                     ->columnSpanFull()
                                     ->maxLength(255),
                             ]),
-                        Tabs\Tab::make('图片视频')
+                        Tabs\Tab::make('Tab 2')
+                            ->label('图片视频')
                             ->columns(4)
                             ->schema([
                                 Forms\Components\FileUpload::make('video')
