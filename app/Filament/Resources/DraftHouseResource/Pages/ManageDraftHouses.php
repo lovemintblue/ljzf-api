@@ -23,6 +23,7 @@ class ManageDraftHouses extends ManageRecords
                 ->action(function () {
                     $house = new House();
                     $house->user_id = 0;
+                    $house->is_draft = 1;
                     $house->save();
 
                     Notification::make()->title('草稿-创建成功')->success()->send();

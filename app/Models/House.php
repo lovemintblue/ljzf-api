@@ -15,6 +15,7 @@ use Random\RandomException;
  * @property mixed $is_show
  * @property Carbon|mixed $hidden_at
  * @property int|mixed $user_id
+ * @property int|mixed $is_draft
  */
 #[ObservedBy(HouseObserver::class)]
 class House extends Model
