@@ -18,6 +18,8 @@ use Laravel\Sanctum\HasApiTokens;
  */
 class User extends Authenticatable
 {
+    protected $table = 'users';
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
@@ -59,7 +61,7 @@ class User extends Authenticatable
             ->withTimestamps()
             ->orderBy('user_favorite_shops.created_at', 'desc');
     }
-    
+
     /**
      * 关联房源
      * @return HasMany

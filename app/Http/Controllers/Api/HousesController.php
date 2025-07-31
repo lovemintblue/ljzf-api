@@ -147,6 +147,7 @@ class HousesController extends Controller
             ->where('is_show', 1)
             ->where('audit_status', 1)
             ->where('is_draft', 1)
+            ->where('user_id', 0)
             ->with([
                 'community'
             ]);

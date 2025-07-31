@@ -6,5 +6,4 @@ use Illuminate\Database\Eloquent\Model;
 
 class VipUser extends User
 {
-    protected $table = 'vip_users';
 }

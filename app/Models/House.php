@@ -18,6 +18,8 @@ use Random\RandomException;
 #[ObservedBy(HouseObserver::class)]
 class House extends Model
 {
+    protected $table = 'houses';
+
     protected $guarded = [];
 
     protected $casts = [
