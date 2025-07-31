@@ -77,6 +77,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源 - 列表
     Route::get('houses', [HousesController::class, 'index'])
         ->name('houses.index');
+    // 房源 - 草稿列表
+    Route::get('houses/draft-index', [HousesController::class, 'draftIndex'])
+        ->name('houses.draft-index');
     // 房源 - 我的房源
     Route::get('houses/my-index', [HousesController::class, 'myIndex'])
         ->name('houses.my-index');

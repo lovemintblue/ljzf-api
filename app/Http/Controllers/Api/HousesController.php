@@ -137,6 +137,24 @@ class HousesController extends Controller
     }
 
     /**
+     * 草稿列表
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     */
+    public function draftIndex(Request $request): AnonymousResourceCollection
+    {
+        $builder = House::query()
+            ->where('is_show', 1)
+            ->where('audit_status', 1)
+            ->where('is_draft', 0)
+            ->with([
+                'community'
+            ]);
+        $houses = $builder->paginate();
+        return HouseResource::collection($houses);
+    }
+
+    /**
      * 新增
      * @param HouseRequest $request
      * @param House $house
