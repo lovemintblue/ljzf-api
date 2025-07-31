@@ -116,7 +116,7 @@ class DraftHouseResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->query(function (House $query) {
-                return $query->where('is_draft', 1);
+                return $query->where('is_draft', 1)->where('user_id', 0);
             })
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
