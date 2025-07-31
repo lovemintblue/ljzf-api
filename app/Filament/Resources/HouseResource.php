@@ -7,6 +7,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\HouseResource\Pages;
 use App\Filament\Resources\HouseResource\RelationManagers;
+use App\Models\Community;
 use App\Models\House;
 use App\Models\Shop;
 use Filament\Forms;
@@ -146,9 +147,11 @@ class HouseResource extends Resource
                                     ->required()
                                     ->maxLength(255)
                                     ->default(0),
-                                Forms\Components\TextInput::make('community.name')
+                                Forms\Components\Select::make('community_id')
                                     ->label('小区')
-                                    ->maxLength(255),
+                                    ->options(Community::all()->pluck('name', 'id'))
+                                    ->native(false)
+                                    ->searchable(),
                                 Forms\Components\TextInput::make('province')
                                     ->label('省份')
                                     ->maxLength(255),
