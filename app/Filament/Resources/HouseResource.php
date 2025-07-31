@@ -43,6 +43,7 @@ class HouseResource extends Resource
             ->schema([
                 Tabs::make('Tabs')
                     ->columns()
+                    ->columnSpanFull()
                     ->tabs([
                         Tabs\Tab::make('Tab 1')
                             ->label('基础信息')
