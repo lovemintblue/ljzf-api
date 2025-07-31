@@ -5,12 +5,15 @@ namespace App\Filament\Resources\DraftHouseResource\Pages;
 use App\Filament\Resources\DraftHouseResource;
 use App\Models\DraftHouse;
 use App\Models\House;
+use Asmit\ResizedColumn\HasResizableColumn;
 use Filament\Actions;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ManageRecords;
 
 class ManageDraftHouses extends ManageRecords
 {
+    use HasResizableColumn;
+
     protected static string $resource = DraftHouseResource::class;
 
     /**
