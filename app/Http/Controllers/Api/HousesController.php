@@ -258,10 +258,10 @@ class HousesController extends Controller
         }
         $house->fill($data);
 
-        if (!$isDraft) {
+        if ((int)$isDraft === 0) {
             $house->user()->associate($request->user());
         }
-        
+
         $house->update();
         return new HouseInfoResource($house);
     }
