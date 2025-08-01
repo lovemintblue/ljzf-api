@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Community;
 
+use App\Models\BusinessDistrict;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -31,6 +32,7 @@ class CommunityInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $businessDistrict = BusinessDistrict::query()->whereIn('id', $this->business_district_ids)->pluck('name')->toArray();
         return [
             'id' => $this->id,
             'image' => formatUrl($this->image),
@@ -47,6 +49,7 @@ class CommunityInfoResource extends JsonResource
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'total_floors' => $this->total_floors,
+            'business_district' => $businessDistrict
         ];
     }
 }

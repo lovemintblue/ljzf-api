@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('houses', static function (Blueprint $table) {
-            $table->tinyInteger('viewing_method')->comment('看房方式')->nullable();
+            $table->tinyInteger('viewing_method')->comment('看房方式 0提前预约 1密码 2门口钥匙 3物业钥匙')->nullable();
         });
     }
 

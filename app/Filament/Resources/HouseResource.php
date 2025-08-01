@@ -12,6 +12,7 @@ use App\Models\House;
 use App\Models\Shop;
 use Filament\Forms;
 use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -165,6 +166,14 @@ class HouseResource extends Resource
                                     ->label('详细地址')
                                     ->columnSpanFull()
                                     ->maxLength(255),
+                                ToggleButtons::make('viewing_method')
+                                    ->label('看房方式')
+                                    ->options([
+                                        0 => '提前预约',
+                                        1 => '密码',
+                                        2 => '门口钥匙',
+                                        3 => '物业钥匙'
+                                    ])
                             ]),
                         Tabs\Tab::make('Tab 2')
                             ->label('图片视频')
