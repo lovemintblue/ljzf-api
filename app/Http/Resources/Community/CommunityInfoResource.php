@@ -32,7 +32,11 @@ class CommunityInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $businessDistrict = BusinessDistrict::query()->whereIn('id', $this->business_district_ids)->pluck('name')->toArray();
+        $businessDistrict = [];
+        if (!empty($this->business_district_ids)) {
+            $businessDistrict = BusinessDistrict::query()->whereIn('id', $this->business_district_ids)->pluck('name')->toArray();
+        }
+
         return [
             'id' => $this->id,
             'image' => formatUrl($this->image),
