@@ -59,23 +59,21 @@ class HouseInfoResource extends JsonResource
                 'url' => formatUrl($image)
             ];
         });
-
-
+        
         $isFavor = 0;
         if ($user->favoriteHouses()->where('house_id', $this->id)->first()) {
             $isFavor = 1;
         }
 
-        dd("ok");
-
-        $facilities = Facility::query()->whereIn('id', $this->facility_ids)->get()->map(function ($facility) {
-            return [
-                'icon' => formatUrl($facility->icon),
-                'name' => $facility->name,
-            ];
-        });
-
-
+        $facilities = [];
+        if (!empty($this->facility_ids)) {
+            $facilities = Facility::query()->whereIn('id', $this->facility_ids)->get()->map(function ($facility) {
+                return [
+                    'icon' => formatUrl($facility->icon),
+                    'name' => $facility->name,
+                ];
+            });
+        }
         return [
             'id' => $this->id,
             'no' => $this->no,
