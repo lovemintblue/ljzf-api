@@ -194,7 +194,7 @@ class HousesController extends Controller
             $data['video'] = $video['path'];
         }
         $house->fill($data);
-        if ($isCreateDraft) {
+        if ($isCreateDraft && (int)$data['is_draft'] === 1) {
             $house->user_id = 0;
         } else {
             $house->user()->associate($user);
