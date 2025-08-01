@@ -219,7 +219,7 @@ class HousesController extends Controller
         $houseViewHistory->house()->associate($house);
         $houseViewHistory->save();
 
-        return new HouseInfoResource($house->load(['community:id,name']));
+        return new HouseInfoResource($house->load(['community']));
     }
 
     /**
