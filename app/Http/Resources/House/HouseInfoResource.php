@@ -60,12 +60,13 @@ class HouseInfoResource extends JsonResource
             ];
         });
 
-        dd("ok");
 
         $isFavor = 0;
         if ($user->favoriteHouses()->where('house_id', $this->id)->first()) {
             $isFavor = 1;
         }
+
+        dd("ok");
 
         $facilities = Facility::query()->whereIn('id', $this->facility_ids)->get()->map(function ($facility) {
             return [
