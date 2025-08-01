@@ -33,7 +33,7 @@ class CommunityInfoResource extends JsonResource
     public function toArray(Request $request): array
     {
         $businessDistrict = [];
-        if (count($this->business_district_ids) > 0) {
+        if (!empty($this->business_district_ids) && count($this->business_district_ids) > 0) {
             $businessDistrict = BusinessDistrict::query()->whereIn('id', $this->business_district_ids)->pluck('name')->toArray();
         }
 
