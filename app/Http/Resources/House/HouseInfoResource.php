@@ -70,6 +70,7 @@ class HouseInfoResource extends JsonResource
                 'name' => $facility->name,
             ];
         });
+        dd("ok");
 
         return [
             'id' => $this->id,
