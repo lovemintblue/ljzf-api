@@ -22,7 +22,7 @@ class House extends Model
 {
     protected $table = 'houses';
 
-    protected $guarded = [];
+    protected $guarded = ['is_create_draft'];
 
     protected $casts = [
         'images' => 'json',
