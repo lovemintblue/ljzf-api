@@ -44,6 +44,7 @@ class HousesController extends Controller
         $newType = $request->input('new_type', '');
 
         $facilityIds = $request->input('facilities_ids', '');
+        $businessDistrictId = $request->input('business_district_id', '');
 
 
         $builder = House::query()
@@ -63,6 +64,17 @@ class HousesController extends Controller
         if (!empty($ids)) {
             $ids = explode(',', $ids);
             $builder = $builder->whereIn('id', $ids);
+        }
+
+        if (!empty($businessDistrictId)) {
+            $businessDistrictId = explode(',', $businessDistrictId);
+            $builder = $builder->whereHas('community', function ($query) use ($businessDistrictId) {
+                $query->where(function ($q) use ($businessDistrictId) {
+                    foreach ($businessDistrictId as $id) {
+                        $q->orWhereJsonContains('business_district_ids', $id);
+                    }
+                });
+            });
         }
 
         if (!empty($district)) {
