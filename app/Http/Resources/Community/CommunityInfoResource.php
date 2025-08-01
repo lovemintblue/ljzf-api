@@ -20,6 +20,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $average_rent_price
  * @property mixed $longitude
  * @property mixed $latitude
+ * @property mixed $total_floors
  */
 class CommunityInfoResource extends JsonResource
 {
@@ -45,6 +46,7 @@ class CommunityInfoResource extends JsonResource
             'average_sale_price' => $this->average_sale_price,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
+            'total_floors' => $this->total_floors,
         ];
     }
 }

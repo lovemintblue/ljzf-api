@@ -42,6 +42,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $no
  * @property mixed $unit
  * @property mixed $deposit_method
+ * @property mixed $backup_contact_name
+ * @property mixed $backup_contact_phone
+ * @property mixed $viewing_method
  */
 class HouseInfoResource extends JsonResource
 {
@@ -59,7 +62,7 @@ class HouseInfoResource extends JsonResource
                 'url' => formatUrl($image)
             ];
         });
-        
+
         $isFavor = 0;
         if ($user->favoriteHouses()->where('house_id', $this->id)->first()) {
             $isFavor = 1;
@@ -110,6 +113,9 @@ class HouseInfoResource extends JsonResource
             'unit' => $this->unit,
             'deposit_method' => $this->deposit_method,
             'is_favor' => $isFavor,
+            'backup_contact_name' => $this->backup_contact_name,
+            'backup_contact_phone' => $this->backup_contact_phone,
+            'viewing_method' => $this->viewing_method,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }

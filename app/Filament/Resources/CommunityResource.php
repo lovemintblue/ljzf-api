@@ -74,6 +74,9 @@ class CommunityResource extends Resource
                     ->label('租金均价(元/月)'),
                 Forms\Components\TextInput::make('average_sale_price')
                     ->label('售价均价(元/㎡)'),
+                Forms\Components\TextInput::make('total_floors')
+                    ->label('总楼层'),
+
                 Forms\Components\Textarea::make('address')
                     ->label('详细地址')
                     ->autosize()
