@@ -59,6 +59,9 @@ class HouseInfoResource extends JsonResource
                 'url' => formatUrl($image)
             ];
         });
+
+        dd("ok");
+
         $isFavor = 0;
         if ($user->favoriteHouses()->where('house_id', $this->id)->first()) {
             $isFavor = 1;
@@ -70,7 +73,7 @@ class HouseInfoResource extends JsonResource
                 'name' => $facility->name,
             ];
         });
-        dd("ok");
+
 
         return [
             'id' => $this->id,
