@@ -164,6 +164,7 @@ class HousesController extends Controller
     {
         $user = $request->user();
         $data = $request->all();
+        $isCreateDraft = $request->input('is_create_draft', 0);
 
 //        $oldHouse = House::query()
 //            ->where('community_id', $data['community_id'])
@@ -191,9 +192,12 @@ class HousesController extends Controller
             $video = json_decode($data['video'], true);
             $data['video'] = $video['path'];
         }
-
         $house->fill($data);
-        $house->user()->associate($user);
+        if ($isCreateDraft) {
+            $house->user_id = 0;
+        } else {
+            $house->user()->associate($user);
+        }
         $house->save();
         return new HouseInfoResource($house);
     }
@@ -226,20 +230,17 @@ class HousesController extends Controller
      */
     public function update(HouseRequest $request, House $house): HouseInfoResource
     {
-        $user = $request->user();
         $data = $request->all();
-
-        $oldHouse = House::query()
-            ->whereNot('id', $house->id)
-            ->where('community_id', $data['community_id'])
-            ->where('building_number', $data['building_number'])
-            ->where('room_number', $data['room_number'])
-            ->first();
-        if ($oldHouse) {
-            throw new InvalidRequestException('房源已存在,请重试！');
-        }
-
-
+        $isDraft = $request->input('is_draft', 1);
+//        $oldHouse = House::query()
+//            ->whereNot('id', $house->id)
+//            ->where('community_id', $data['community_id'])
+//            ->where('building_number', $data['building_number'])
+//            ->where('room_number', $data['room_number'])
+//            ->first();
+//        if ($oldHouse) {
+//            throw new InvalidRequestException('房源已存在,请重试！');
+//        }
         if (!empty($data['images'])) {
             $images = json_decode($data['images'], true);
             $data['images'] = collect($images)->pluck('path')->toArray();
@@ -256,7 +257,11 @@ class HousesController extends Controller
             $data['video'] = $video['path'];
         }
         $house->fill($data);
-        $house->user()->associate($user);
+
+        if (!$isDraft) {
+            $house->user()->associate($request->user());
+        }
+        
         $house->update();
         return new HouseInfoResource($house);
     }
