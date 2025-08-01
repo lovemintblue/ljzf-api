@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class HousesController extends Controller
 {
@@ -257,6 +258,9 @@ class HousesController extends Controller
             $data['video'] = $video['path'];
         }
         $house->fill($data);
+
+        Log::info('--测试--');
+        Log::info($isDraft);
 
         if ((int)$isDraft === 0) {
             $house->user()->associate($request->user());
