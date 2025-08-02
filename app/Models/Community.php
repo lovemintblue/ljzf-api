@@ -22,6 +22,7 @@ class Community extends Model
 
     protected $casts = [
         'business_district_ids' => 'json',
+        'album' => 'json',
     ];
 
     /**

@@ -44,6 +44,11 @@ class CommunityResource extends Resource
                 Forms\Components\FileUpload::make('image')
                     ->label('图片')
                     ->columnSpanFull(),
+                Forms\Components\FileUpload::make('album')
+                    ->label('相册')
+                    ->columnSpanFull()
+                    ->multiple()
+                    ->panelLayout('grid'),
                 Forms\Components\TextInput::make('name')
                     ->label('名称')
                     ->required()

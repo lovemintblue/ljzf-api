@@ -11,6 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $address
  * @property mixed $longitude
  * @property mixed $latitude
+ * @property mixed $album
  */
 class CommunityResource extends JsonResource
 {
@@ -21,9 +22,13 @@ class CommunityResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $album = collect($this->album)->map(function ($item) {
+            return formatUrl($item);
+        });
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'album' => $album,
             'address' => $this->address,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,

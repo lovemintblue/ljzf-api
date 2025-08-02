@@ -22,6 +22,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $longitude
  * @property mixed $latitude
  * @property mixed $total_floors
+ * @property mixed $album
  */
 class CommunityInfoResource extends JsonResource
 {
@@ -36,10 +37,14 @@ class CommunityInfoResource extends JsonResource
         if (!empty($this->business_district_ids) && count($this->business_district_ids) > 0) {
             $businessDistrict = BusinessDistrict::query()->whereIn('id', $this->business_district_ids)->pluck('name')->toArray();
         }
+        $album = collect($this->album)->map(function ($item) {
+            return formatUrl($item);
+        });
 
         return [
             'id' => $this->id,
             'image' => formatUrl($this->image),
+            'album' => $album,
             'name' => $this->name,
             'address' => $this->address,
             'built_year' => $this->built_year,
