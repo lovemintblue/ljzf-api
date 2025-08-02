@@ -168,6 +168,7 @@ class HouseResource extends Resource
                                     ->maxLength(255),
                                 ToggleButtons::make('viewing_method')
                                     ->label('看房方式')
+                                    ->inline()
                                     ->options([
                                         0 => '提前预约',
                                         1 => '密码',

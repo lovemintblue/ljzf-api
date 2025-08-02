@@ -66,6 +66,15 @@ class ManageGeneral extends SettingsPage
                                     ->maxContentWidth('3xl')
                                     ->extraInputAttributes(['style' => 'min-height: 12rem;']),
                             ]),
+                        Tabs\Tab::make('Tab 5')
+                            ->label('发布协议')
+                            ->schema([
+                                TiptapEditor::make('public_agreement')
+                                    ->profile('default')
+                                    ->label('')
+                                    ->maxContentWidth('3xl')
+                                    ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                            ]),
                     ])
             ]);
     }

@@ -43,6 +43,8 @@ class GeneralSettings extends Settings
      */
     public ?string $privacy_policy;
 
+    public ?string $public_agreement;
+
     /**
      * @return string
      */
