@@ -22,11 +22,17 @@ class CommunitiesController extends Controller
     public function index(Request $request): AnonymousResourceCollection
     {
         $keyword = $request->input('keyword', '');
+        $isPaginate = $request->input('is_paginate', 1);
         $builder = Community::query()->latest();
         if (!empty($keyword)) {
             $builder = $builder->whereLike('name', '%' . $keyword . '%');
         }
-        $communities = $builder->paginate();
+        if ($isPaginate) {
+            $communities = $builder->paginate();
+        } else {
+            $communities = $builder->get();
+            CommunityResource::wrap('data');
+        }
         return CommunityResource::collection($communities);
     }
 

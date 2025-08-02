@@ -109,6 +109,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源 - 附近列表
     Route::get('houses/nearby', [HousesController::class, 'nearby'])
         ->name('houses.nearby');
+    // 房源 - 锁定
+    Route::put('houses/{house}/lock', [HousesController::class, 'lock'])
+        ->name('houses.lock');
+    // 房源 - 取消锁定
+    Route::put('houses/{house}/unlock', [HousesController::class, 'unlock'])
+        ->name('houses.unlock');
 
     // 商铺 - 列表
     Route::get('shops', [ShopsController::class, 'index'])

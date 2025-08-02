@@ -45,6 +45,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $backup_contact_name
  * @property mixed $backup_contact_phone
  * @property mixed $viewing_method
+ * @property mixed $is_show
  */
 class HouseInfoResource extends JsonResource
 {
@@ -116,6 +117,7 @@ class HouseInfoResource extends JsonResource
             'backup_contact_name' => $this->backup_contact_name,
             'backup_contact_phone' => $this->backup_contact_phone,
             'viewing_method' => $this->viewing_method,
+            'is_show' => $this->is_show,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }

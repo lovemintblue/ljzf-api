@@ -1,0 +1,29 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('houses', static function (Blueprint $table) {
+            $table->tinyInteger('is_locked')->comment('锁定 0否 1是')->default(0);
+            $table->unsignedBigInteger('lock_user_id')->comment('锁定用户')->default(0);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('houses', static function (Blueprint $table) {
+            $table->dropColumn('is_locked');
+            $table->dropColumn('lock_user_id');
+        });
+    }
+};

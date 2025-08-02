@@ -488,4 +488,32 @@ class HousesController extends Controller
         House::query()->whereIn('id', $ids)->delete();
         return response()->noContent();
     }
+
+    /**
+     * 锁定
+     * @param Request $request
+     * @param House $house
+     * @return Response
+     */
+    public function lock(Request $request, House $house): Response
+    {
+        $user = $request->user();
+        $house->is_locked = 1;
+        $house->lock_user_id = $user->id;
+        $house->save();
+        return response()->noContent();
+    }
+
+    /**
+     * 取消锁定
+     * @param House $house
+     * @return Response
+     */
+    public function unlock(House $house): Response
+    {
+        $house->is_locked = 0;
+        $house->lock_user_id = 0;
+        $house->save();
+        return response()->noContent();
+    }
 }
