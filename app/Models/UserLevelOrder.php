@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property mixed $total_amount
- * @property mixed $price
  */
 class UserLevelOrder extends Model
 {

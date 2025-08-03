@@ -32,7 +32,7 @@ class UserLevelOrdersController extends Controller
             throw new InvalidRequestException('会员等级不存在，请重试！');
         }
 
-        $userLevelOrder->total_amount = $userLevelOrder->price;
+        $userLevelOrder->total_amount = $userLevel->price;
         $userLevelOrder->user()->associate($request->user());
         $userLevelOrder->userLevel()->associate($userLevel);
         $userLevelOrder->save();
