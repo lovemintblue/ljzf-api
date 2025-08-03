@@ -156,12 +156,22 @@ class HousesController extends Controller
      */
     public function draftIndex(Request $request): AnonymousResourceCollection
     {
+        $keyword = $request->input('keyword', '');
+        
         $builder = House::query()
             ->where('is_draft', 1)
             ->where('user_id', 0)
             ->with([
                 'community'
             ]);
+
+        if (!empty($keyword)) {
+            $builder = $builder->where(function (Builder $query) use ($keyword) {
+                return $query->where('title', 'like', '%' . $keyword . '%')
+                    ->orWhere('address', 'like', '%' . $keyword . '%');
+            });
+        }
+
         $houses = $builder->paginate();
         return HouseResource::collection($houses);
     }
