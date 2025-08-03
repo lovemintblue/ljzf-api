@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\HouseViewHistoriesController;
 use App\Http\Controllers\Api\IndexController;
 use App\Http\Controllers\Api\IndustriesController;
 use App\Http\Controllers\Api\NotificationsController;
+use App\Http\Controllers\Api\PaymentsController;
 use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\ShopsController;
 use App\Http\Controllers\Api\UploadsController;
@@ -64,6 +65,10 @@ Route::get('settings/general', [SettingsController::class, 'general'])
 // 首页 - 统计数据
 Route::get('index/statistics', [IndexController::class, 'statistics'])
     ->name('index.statistics');
+
+// 会员订单 - 支付回调
+Route::any('payments/pay-user-level-order-by-wechat-notify', [PaymentsController::class, 'payUserLevelOrderByWechatNotify'])
+    ->name('payments.pay-user-level-order-by-wechat-notify');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {
@@ -154,5 +159,8 @@ Route::middleware('auth:sanctum')->group(function () {
     // 会员订单 - 新增
     Route::post('user-level-orders', [UserLevelOrdersController::class, 'store'])
         ->name('user-level-orders.store');
+    // 会员订单 - 支付
+    Route::post('payments/{userLevelOrder}/pay-user-level-order-by-wechat', [PaymentsController::class, 'payUserLevelOrderByWechat'])
+        ->name('payments.pay-user-level-order-by-wechat');
 });
 
