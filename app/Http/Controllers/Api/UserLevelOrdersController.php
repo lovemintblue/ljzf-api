@@ -12,6 +12,7 @@ use App\Http\Resources\UserLevelOrder\UserLevelOrderInfoResource;
 use App\Models\UserLevel;
 use App\Models\UserLevelOrder;
 use Illuminate\Http\Request;
+use Random\RandomException;
 
 class UserLevelOrdersController extends Controller
 {
@@ -20,7 +21,7 @@ class UserLevelOrdersController extends Controller
      * @param UserLevelOrderRequest $request
      * @param UserLevelOrder $userLevelOrder
      * @return UserLevelOrderInfoResource
-     * @throws InvalidRequestException
+     * @throws InvalidRequestException|RandomException
      */
     public function store(UserLevelOrderRequest $request, UserLevelOrder $userLevelOrder): UserLevelOrderInfoResource
     {
@@ -32,6 +33,7 @@ class UserLevelOrdersController extends Controller
             throw new InvalidRequestException('会员等级不存在，请重试！');
         }
 
+        $userLevelOrder->no = UserLevelOrder::generateUniqueNO();
         $userLevelOrder->total_amount = $userLevel->price;
         $userLevelOrder->user()->associate($request->user());
         $userLevelOrder->userLevel()->associate($userLevel);
