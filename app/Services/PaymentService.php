@@ -36,15 +36,15 @@ class PaymentService
     public function setApp(): void
     {
         $config = [
-            'mch_id' => 1608322473,
+            'mch_id' => 1680943727,
             'private_key' => storage_path('/wechat/cert/apiclient_key.pem'),
             'certificate' => storage_path('/wechat/cert/apiclient_cert.pem'),
             // v3 API key
-            'secret_key' => 'dd41a764d75748c6ea5b276bd1a724b4',
+            'secret_key' => 'NZ5AKenXvHUgr1uk5eTQiWdQKjRynPUC',
             // v2 API key
-            'v2_secret_key' => '',
+            'v2_secret_key' => 'NZ5AKenXvHUgr1uk5eTQiWdQKjRynPUC',
             'platform_certs' => [
-                'PUB_KEY_ID_0117144350432025041700331608003004' => storage_path('wechat/cert/pub_key.pem')
+                'PUB_KEY_ID_0116809437272025080300192043000800' => storage_path('wechat/cert/pub_key.pem')
             ],
         ];
         $this->app = new Application($config);

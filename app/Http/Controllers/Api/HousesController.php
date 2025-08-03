@@ -42,8 +42,8 @@ class HousesController extends Controller
         $district = $request->input('district', '');
         $orientation = $request->input('orientation', '');
         $newType = $request->input('new_type', '');
-
         $facilityIds = $request->input('facilities_ids', '');
+
         $businessDistrictId = $request->input('business_district_id', '');
 
 
@@ -157,7 +157,7 @@ class HousesController extends Controller
     public function draftIndex(Request $request): AnonymousResourceCollection
     {
         $keyword = $request->input('keyword', '');
-        
+
         $builder = House::query()
             ->where('is_draft', 1)
             ->where('user_id', 0)

@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\SettingsController;
 use App\Http\Controllers\Api\ShopsController;
 use App\Http\Controllers\Api\UploadsController;
+use App\Http\Controllers\Api\UserLevelOrdersController;
 use App\Http\Controllers\Api\UserLevelsController;
 use App\Http\Controllers\Api\UsersController;
 use Illuminate\Http\Request;
@@ -149,5 +150,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源浏览记录 - 列表
     Route::get('house-view-histories', [HouseViewHistoriesController::class, 'index'])
         ->name('house-view-histories.index');
+
+    // 会员订单 - 新增
+    Route::post('user-level-orders', [UserLevelOrdersController::class, 'store'])
+        ->name('user-level-orders.store');
 });
 
