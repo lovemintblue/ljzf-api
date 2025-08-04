@@ -19,7 +19,13 @@ class UsersController extends Controller
         $user = $request->user();
         $user->latest_visit_at = Carbon::now();
         $user->save();
-        return new UserInfoResource($user->loadCount(['favoriteHouses', 'favoriteShops', 'houses', 'notifications']));
+        return new UserInfoResource($user->loadCount([
+            'favoriteHouses',
+            'favoriteShops',
+            'houses',
+            'notifications',
+            'userLevel'
+        ]));
     }
 
     /**

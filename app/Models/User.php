@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -69,6 +70,15 @@ class User extends Authenticatable
     public function houses(): HasMany
     {
         return $this->hasMany(House::class);
+    }
+
+    /**
+     * 关联等级
+     * @return BelongsTo
+     */
+    public function userLevel(): BelongsTo
+    {
+        return $this->belongsTo(UserLevel::class);
     }
 
     /**

@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HouseRequest;
+use App\Http\Resources\House\HouseEditInfoResource;
 use App\Http\Resources\House\HouseInfoResource;
 use App\Http\Resources\House\HouseResource;
 use App\Models\House;
@@ -226,13 +227,13 @@ class HousesController extends Controller
     }
 
     /**
-     * 详情
      * @param Request $request
      * @param House $house
-     * @return HouseInfoResource
+     * @return HouseEditInfoResource|HouseInfoResource
      */
-    public function show(Request $request, House $house): HouseInfoResource
+    public function show(Request $request, House $house)
     {
+        $isEdit = $request->input('is_edit', 0);
         $user = $request->user();
 
         HouseViewHistory::query()->where('user_id', $user->id)->where('house_id', $house->id)->delete();
@@ -241,7 +242,11 @@ class HousesController extends Controller
         $houseViewHistory->house()->associate($house);
         $houseViewHistory->save();
 
+        if ($isEdit) {
+            return new HouseEditInfoResource($house->load(['community']));
+        }
         return new HouseInfoResource($house->load(['community']));
+
     }
 
     /**
