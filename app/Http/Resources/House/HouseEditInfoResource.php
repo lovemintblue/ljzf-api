@@ -49,7 +49,7 @@ class HouseEditInfoResource extends JsonResource
             'payment_method' => $this->payment_method,
             'min_rental_period' => $this->min_rental_period,
             'images' => $images,
-            'community_id' => $this->community_id,
+            'community' => $this->community,
             'province' => $this->province,
             'city' => $this->city,
             'district' => $this->district,
