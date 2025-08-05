@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\HouseViewHistory\HouseViewHistoryResource;
 use App\Models\House;
 use App\Models\HouseViewHistory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -17,9 +18,9 @@ class HouseViewHistoriesController extends Controller
     /**
      * 列表
      * @param Request $request
-     * @return AnonymousResourceCollection
+     * @return JsonResponse
      */
-    public function index(Request $request): AnonymousResourceCollection
+    public function index(Request $request): JsonResponse
     {
         $user = $request->user();
         $houseViewHistories = HouseViewHistory::query()
@@ -33,8 +34,8 @@ class HouseViewHistoriesController extends Controller
         $houseViewHistories = $houseViewHistories->groupBy(function ($item) {
             return $item->created_at->format('Y-m-d');
         });
-        dd($houseViewHistories->toArray());
-        HouseViewHistoryResource::wrap('data');
-        return HouseViewHistoryResource::collection($houseViewHistories);
+        return response()->json([
+            'data' => $houseViewHistories
+        ]);
     }
 }
