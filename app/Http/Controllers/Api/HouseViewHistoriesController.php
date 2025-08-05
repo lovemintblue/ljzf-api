@@ -33,6 +33,7 @@ class HouseViewHistoriesController extends Controller
         $houseViewHistories = $houseViewHistories->groupBy(function ($item) {
             return $item->created_at->format('Y-m-d');
         });
+        dd($houseViewHistories->toArray());
         HouseViewHistoryResource::wrap('data');
         return HouseViewHistoryResource::collection($houseViewHistories);
     }
