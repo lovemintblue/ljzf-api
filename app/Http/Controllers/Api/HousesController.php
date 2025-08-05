@@ -115,7 +115,7 @@ class HousesController extends Controller
             $builder = $builder->where('living_room_count', $livingRoomCount);
         }
 
-        if ($minRentPrice > 0 && $maxRentPrice > 0) {
+        if ($minRentPrice >= 0 && $maxRentPrice > 0) {
             if ((int)$maxRentPrice === -1) {
                 $builder = $builder->where('rent_price', '>', $minRentPrice);
             } else {
