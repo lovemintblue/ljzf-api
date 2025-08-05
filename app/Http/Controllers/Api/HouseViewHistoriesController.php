@@ -13,6 +13,7 @@ use App\Models\HouseViewHistory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Carbon;
 
 class HouseViewHistoriesController extends Controller
 {
@@ -26,6 +27,7 @@ class HouseViewHistoriesController extends Controller
         $user = $request->user();
         $houseViewHistories = HouseViewHistory::query()
             ->whereBelongsTo($user)
+            ->whereDate('created_at', '>=', Carbon::now()->subMonth())
             ->withWhereHas('house', function ($query) {
                 $query->where('is_show', 1);
             })
