@@ -39,7 +39,7 @@ class HouseViewHistoriesController extends Controller
             return $group->map(function ($history) {
                 // 单独处理house数据，例如格式化价格或添加额外字段
                 if ($history->house) {
-                    $house = new HouseInfoResource($history->house);
+                    $history->house = new HouseInfoResource($history->house);
                 }
                 return $history;
             });
