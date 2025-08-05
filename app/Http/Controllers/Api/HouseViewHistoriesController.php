@@ -24,10 +24,16 @@ class HouseViewHistoriesController extends Controller
         $user = $request->user();
         $houseViewHistories = HouseViewHistory::query()
             ->whereBelongsTo($user)
-            ->with('house')
+            ->withWhereHas('house', function ($query) {
+                $query->where('is_show', 1);
+            })
             ->latest()
-            ->paginate();
-
+            ->get();
+        // 按日期分组（格式为Y-m-d）
+        $houseViewHistories = $houseViewHistories->groupBy(function ($item) {
+            return $item->created_at->format('Y-m-d');
+        });
+        HouseViewHistoryResource::wrap('data');
         return HouseViewHistoryResource::collection($houseViewHistories);
     }
 }
