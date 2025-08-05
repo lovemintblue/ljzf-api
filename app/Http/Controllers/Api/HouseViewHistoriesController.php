@@ -35,15 +35,7 @@ class HouseViewHistoriesController extends Controller
         $houseViewHistories = $houseViewHistories->groupBy(function ($item) {
             return $item->created_at->format('Y-m-d');
         })->map(function ($group) {
-            return $group->map(function ($history) {
-                // 先将模型转换为数组
-                $historyArray = $history->toArray();
-                // 处理house数据
-                if (!empty($historyArray['house'])) {
-                    $historyArray['house'] = (new HouseInfoResource($history->house))->toArray(request());
-                }
-                return $historyArray;
-            });
+            return HouseViewHistoryResource::collection($group);
         });
 
         return response()->json([
