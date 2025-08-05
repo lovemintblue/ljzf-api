@@ -35,13 +35,14 @@ class HouseViewHistoriesController extends Controller
         $houseViewHistories = $houseViewHistories->groupBy(function ($item) {
             return $item->created_at->format('Y-m-d');
         })->map(function ($group) {
-            // 处理每组中的每条记录
             return $group->map(function ($history) {
-                // 单独处理house数据，例如格式化价格或添加额外字段
-                if ($history->house) {
-                    $history->house = new HouseInfoResource($history->house);
+                // 先将模型转换为数组
+                $historyArray = $history->toArray();
+                // 处理house数据
+                if (!empty($historyArray['house'])) {
+                    $historyArray['house'] = (new HouseInfoResource($history->house))->toArray(request());
                 }
-                return $history;
+                return $historyArray;
             });
         });
 
