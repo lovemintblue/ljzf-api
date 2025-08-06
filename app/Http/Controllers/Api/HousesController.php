@@ -45,7 +45,7 @@ class HousesController extends Controller
         $newType = $request->input('new_type', '');
         $facilityIds = $request->input('facilities_ids', '');
         $businessDistrictId = $request->input('business_district_id', '');
-        $roomCount = $request->input('room_count');
+        $roomCount = $request->input('room_count', -1);
 
 
         $builder = House::query()
@@ -62,7 +62,7 @@ class HousesController extends Controller
             });
         }
 
-        if (isset($roomCount)) {
+        if ($roomCount >= 0) {
             $builder = $builder->where('room_count', $roomCount);
         }
 
