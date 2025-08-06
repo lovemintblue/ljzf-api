@@ -13,10 +13,13 @@ class ManageAuditHouses extends ManageRecords
 
     protected static string $resource = AuditHouseResource::class;
 
+    /**
+     * @return array|Actions\Action[]|Actions\ActionGroup[]
+     */
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            
         ];
     }
 }

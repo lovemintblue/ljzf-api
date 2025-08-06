@@ -33,6 +33,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $deposit_method
  * @property mixed $is_show
  * @property mixed $is_locked
+ * @property mixed $type
  */
 class HouseResource extends JsonResource
 {
@@ -72,6 +73,7 @@ class HouseResource extends JsonResource
             'latitude' => $this->latitude,
             'distance' => $distance,
             'is_show' => $this->is_show,
+            'type' => $this->type,
             'is_locked' => $this->is_locked,
             'created_at' => $this->created_at->diffForHumans(),
         ];

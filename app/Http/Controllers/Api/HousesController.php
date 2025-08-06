@@ -44,8 +44,8 @@ class HousesController extends Controller
         $orientation = $request->input('orientation', '');
         $newType = $request->input('new_type', '');
         $facilityIds = $request->input('facilities_ids', '');
-
         $businessDistrictId = $request->input('business_district_id', '');
+        $roomCount = $request->input('room_count');
 
 
         $builder = House::query()
@@ -61,6 +61,11 @@ class HousesController extends Controller
                     ->orWhere('address', 'like', '%' . $keyword . '%');
             });
         }
+
+        if (isset($roomCount)) {
+            $builder = $builder->where('room_count', $roomCount);
+        }
+
 
         if (!empty($ids)) {
             $ids = explode(',', $ids);

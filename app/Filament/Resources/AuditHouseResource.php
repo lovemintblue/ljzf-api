@@ -9,6 +9,7 @@ use App\Models\House;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Components\Tab;
+use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ViewColumn;
@@ -26,7 +27,7 @@ class AuditHouseResource extends Resource
 
     protected static ?string $navigationLabel = '审核列表';
 
-    protected static ?string $label = '房源';
+    protected static ?string $label = '审核列表';
 
     protected static ?int $navigationSort = 2;
 
@@ -175,6 +176,9 @@ class AuditHouseResource extends Resource
             ]);
     }
 
+    /**
+     * @return array|PageRegistration[]
+     */
     public static function getPages(): array
     {
         return [
