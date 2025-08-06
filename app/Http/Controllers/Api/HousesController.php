@@ -43,7 +43,7 @@ class HousesController extends Controller
         $district = $request->input('district', '');
         $orientation = $request->input('orientation', '');
         $newType = $request->input('new_type', '');
-        $facilityIds = $request->input('facilities_ids', '');
+        $facilityIds = $request->input('facilities_ids', -1);
         $businessDistrictId = $request->input('business_district_id', '');
         $roomCount = $request->input('room_count', -1);
 
@@ -88,17 +88,17 @@ class HousesController extends Controller
             $builder = $builder->whereIn('district', $district);
         }
 
-        if ((int)$facilityIds !== -1) {
-            $facilityIds = explode(',', $facilityIds);
-
-            $builder = $builder->where(function ($query) use ($facilityIds) {
-                $query->where(function ($q) use ($facilityIds) {
-                    foreach ($facilityIds as $id) {
-                        $q->orWhereJsonContains('facility_ids', $id);
-                    }
-                });
-            });
-        }
+//        if ((int)$facilityIds !== -1) {
+//            $facilityIds = explode(',', $facilityIds);
+//
+//            $builder = $builder->where(function ($query) use ($facilityIds) {
+//                $query->where(function ($q) use ($facilityIds) {
+//                    foreach ($facilityIds as $id) {
+//                        $q->orWhereJsonContains('facility_ids', $id);
+//                    }
+//                });
+//            });
+//        }
 
         if (!empty($newType)) {
             switch ($newType) {
