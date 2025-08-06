@@ -88,19 +88,17 @@ class HousesController extends Controller
             $builder = $builder->whereIn('district', $district);
         }
 
-
-        if ((int)$facilityIds !== -1) {
-   
-            $facilityIds = explode(',', $facilityIds);
-
-            $builder = $builder->where(function ($query) use ($facilityIds) {
-                $query->where(function ($q) use ($facilityIds) {
-                    foreach ($facilityIds as $id) {
-                        $q->orWhereJsonContains('facility_ids', $id);
-                    }
-                });
-            });
-        }
+//
+//        if ((int)$facilityIds !== -1) {
+//            $facilityIds = explode(',', $facilityIds);
+//            $builder = $builder->where(function ($query) use ($facilityIds) {
+//                $query->where(function ($q) use ($facilityIds) {
+//                    foreach ($facilityIds as $id) {
+//                        $q->orWhereJsonContains('facility_ids', $id);
+//                    }
+//                });
+//            });
+//        }
 
         if (!empty($newType)) {
             switch ($newType) {
