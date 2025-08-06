@@ -87,6 +87,9 @@ class HousesController extends Controller
             $district = explode(',', $district);
             $builder = $builder->whereIn('district', $district);
         }
+        
+        Log::info('打印打印');
+        Log::info($facilityIds);
 
 //
 //        if ((int)$facilityIds !== -1) {
