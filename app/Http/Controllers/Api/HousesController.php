@@ -87,21 +87,19 @@ class HousesController extends Controller
             $district = explode(',', $district);
             $builder = $builder->whereIn('district', $district);
         }
-        
+
         Log::info('打印打印');
         Log::info($facilityIds);
 
-//
-//        if ((int)$facilityIds !== -1) {
-//            $facilityIds = explode(',', $facilityIds);
-//            $builder = $builder->where(function ($query) use ($facilityIds) {
-//                $query->where(function ($q) use ($facilityIds) {
-//                    foreach ($facilityIds as $id) {
-//                        $q->orWhereJsonContains('facility_ids', $id);
-//                    }
-//                });
-//            });
-//        }
+
+        if ((int)$facilityIds !== -1) {
+            $facilityIds = explode(',', $facilityIds);
+            $builder = $builder->where(function ($q) use ($facilityIds) {
+                foreach ($facilityIds as $id) {
+                    $q->orWhereJsonContains('facility_ids', $id);
+                }
+            });
+        }
 
         if (!empty($newType)) {
             switch ($newType) {
