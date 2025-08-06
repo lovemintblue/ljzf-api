@@ -93,6 +93,7 @@ class HousesController extends Controller
 
 
         if ((int)$facilityIds !== -1) {
+            Log::info('进入筛选');
             $facilityIds = explode(',', $facilityIds);
             $builder = $builder->where(function ($q) use ($facilityIds) {
                 foreach ($facilityIds as $id) {
