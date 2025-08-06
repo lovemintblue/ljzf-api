@@ -97,13 +97,10 @@ class HousesController extends Controller
 
         if ((int)$facilityIds !== -1) {
             Log::info('进入筛选');
-            $facilityIds = array_map(function ($id) {
-                // 去除空格并转为字符串
-                return (string)trim($id);
-            }, explode(',', $facilityIds));
+            $facilityIds = explode(',', $facilityIds);
             $builder = $builder->where(function ($q) use ($facilityIds) {
                 foreach ($facilityIds as $id) {
-                    $q->orWhereJsonContains('facility_ids', $id);
+                    $q->orWhereJsonContains('facility_ids', (int)$id);
                 }
             });
         }
