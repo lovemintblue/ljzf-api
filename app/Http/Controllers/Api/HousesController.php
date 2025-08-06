@@ -87,6 +87,7 @@ class HousesController extends Controller
             $district = explode(',', $district);
             $builder = $builder->whereIn('district', $district);
         }
+        dd((int)$facilityIds);
 
 //        if ((int)$facilityIds !== -1) {
 //            $facilityIds = explode(',', $facilityIds);
