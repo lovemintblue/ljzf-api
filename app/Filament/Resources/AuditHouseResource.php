@@ -8,6 +8,7 @@ use App\Models\AuditHouse;
 use App\Models\House;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Components\Tab;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ViewColumn;
@@ -168,6 +169,7 @@ class AuditHouseResource extends Resource
                         $record->audit_status = 2;
                         $record->save();
                     }),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
             ]);

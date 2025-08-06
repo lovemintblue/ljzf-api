@@ -33,6 +33,7 @@ class HouseViewHistoriesController extends Controller
             })
             ->latest()
             ->get();
+        
         // 按日期分组（格式为Y-m-d）
         $houseViewHistories = $houseViewHistories->groupBy(function ($item) {
             return $item->created_at->format('Y-m-d');
