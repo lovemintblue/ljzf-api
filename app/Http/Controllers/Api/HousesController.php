@@ -91,6 +91,9 @@ class HousesController extends Controller
         Log::info('打印打印');
         Log::info($facilityIds);
 
+        if (empty($facilityIds)) {
+            $facilityIds = -1;
+        }
 
         if ((int)$facilityIds !== -1) {
             Log::info('进入筛选');
