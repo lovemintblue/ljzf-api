@@ -90,7 +90,7 @@ class HousesController extends Controller
 
 
         if ((int)$facilityIds !== -1) {
-            dd((int)$facilityIds);
+   
             $facilityIds = explode(',', $facilityIds);
 
             $builder = $builder->where(function ($query) use ($facilityIds) {
