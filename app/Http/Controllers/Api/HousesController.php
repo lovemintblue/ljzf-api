@@ -62,7 +62,7 @@ class HousesController extends Controller
             });
         }
 
-        if ($roomCount !== -1) {
+        if ((int)$roomCount !== -1) {
             $roomCount = explode(',', $roomCount);
             $builder = $builder->whereIn('room_count', $roomCount);
         }
@@ -88,12 +88,12 @@ class HousesController extends Controller
             $builder = $builder->whereIn('district', $district);
         }
 
-        if (!empty($facilityIds)) {
+        if ((int)$facilityIds !== -1) {
             $facilityIds = explode(',', $facilityIds);
 
-            $builder = $builder->where(function ($query) use ($businessDistrictId) {
-                $query->where(function ($q) use ($businessDistrictId) {
-                    foreach ($businessDistrictId as $id) {
+            $builder = $builder->where(function ($query) use ($facilityIds) {
+                $query->where(function ($q) use ($facilityIds) {
+                    foreach ($facilityIds as $id) {
                         $q->orWhereJsonContains('facility_ids', $id);
                     }
                 });
