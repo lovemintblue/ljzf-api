@@ -188,6 +188,12 @@ class AuditHouseResource extends Resource
         return $infolist
             ->schema([
                 TextEntry::make('no')->label('房源编号'),
+                TextEntry::make('user.nickname')->label('发布人'),
+                TextEntry::make('title')->label('标题'),
+                TextEntry::make('contact_name')->label('联系人'),
+                TextEntry::make('contact_phone')->label('联系电话'),
+                TextEntry::make('renovation')->label('装修'),
+                TextEntry::make('community.name')->label('小区'),
             ]);
     }
 
