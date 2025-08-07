@@ -30,7 +30,7 @@ class UserShareHouseInfoResource extends JsonResource
             'user' => new UserInfoResource($this->user),
             'contact_phone' => $this->contact_phone,
             'houses' => HouseResource::collection($houses),
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }
 }
