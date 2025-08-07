@@ -8,6 +8,8 @@ use App\Models\AuditHouse;
 use App\Models\House;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
@@ -173,6 +175,19 @@ class AuditHouseResource extends Resource
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
+            ]);
+    }
+
+    /**
+     * 详情
+     * @param Infolist $infolist
+     * @return Infolist
+     */
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                TextEntry::make('no')->label('房源编号'),
             ]);
     }
 
