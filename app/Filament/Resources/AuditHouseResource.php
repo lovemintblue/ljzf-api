@@ -8,6 +8,7 @@ use App\Models\AuditHouse;
 use App\Models\House;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Components\Tab;
@@ -187,6 +188,7 @@ class AuditHouseResource extends Resource
     {
         return $infolist
             ->schema([
+                ImageEntry::make('cover_image')->label('封面图'),
                 TextEntry::make('no')->label('房源编号'),
                 TextEntry::make('user.nickname')->label('发布人'),
                 TextEntry::make('title')->label('标题'),
@@ -194,6 +196,7 @@ class AuditHouseResource extends Resource
                 TextEntry::make('contact_phone')->label('联系电话'),
                 TextEntry::make('renovation')->label('装修'),
                 TextEntry::make('community.name')->label('小区'),
+
             ]);
     }
 
