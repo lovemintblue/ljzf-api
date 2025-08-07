@@ -126,8 +126,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('user-share-houses', [UserShareHousesController::class, 'store'])
         ->name('user-share-houses.store');
     // 用户分享房源 - 详情
-    Route::get('user-share-houses/{userShareHouse}', [UserShareHousesController::class, 'store'])
-        ->name('user-share-houses.store');
+    Route::get('user-share-houses/{userShareHouse}', [UserShareHousesController::class, 'show'])
+        ->name('user-share-houses.show');
 
     // 商铺 - 列表
     Route::get('shops', [ShopsController::class, 'index'])
