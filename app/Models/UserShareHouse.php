@@ -14,7 +14,7 @@ class UserShareHouse extends Model
     ];
 
     protected $casts = [
-        'house_ids'
+        'house_ids' => 'json'
     ];
 
     /**
