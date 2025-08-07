@@ -91,6 +91,9 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('latest_visit_at')
                     ->label('上次访问时间')
                     ->since(),
+                Tables\Columns\TextColumn::make('view_phone_count')
+                    ->label('查看电话次数')
+                    ->since(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d')

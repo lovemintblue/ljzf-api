@@ -82,6 +82,10 @@ class UserLevelResource extends Resource
                     ->columnSpanFull()
                     ->multiple()
                     ->options(UserLevel::$privilegeMap),
+                Forms\Components\TextInput::make('view_phone_count')
+                    ->label('查看电话次数')
+                    ->numeric()
+                    ->default(0),
             ]);
     }
 
