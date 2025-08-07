@@ -28,7 +28,7 @@ class InitUserViewPhoneCount extends Command
     public function handle()
     {
         $users = User::query()
-            ->with('useLevel')
+            ->with('userLevel')
             ->whereNot('user_level_id', 0)
             ->get();
 
