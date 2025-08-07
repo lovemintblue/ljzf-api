@@ -34,6 +34,7 @@ class InitUserViewPhoneCount extends Command
 
         foreach ($users as $user) {
             $user->view_phone_count = $user->userLevel->view_phone_count;
+            $user->save();
         }
         $this->info('同步完成');
     }

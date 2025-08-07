@@ -79,6 +79,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 用户 - 编辑
     Route::put('users/update', [UsersController::class, 'update'])
         ->name('users.update');
+    // 用户 - 减少查看电话次数
+    Route::put('users/decrement-view-phone-count', [UsersController::class, 'decrementViewPhoneCount'])
+        ->name('users.decrement-view-phone-count');
 
     // 房源 - 列表
     Route::get('houses', [HousesController::class, 'index'])

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserInfoResource;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UsersController extends Controller
 {
@@ -39,5 +40,17 @@ class UsersController extends Controller
         $user->fill($request->input());
         $user->update();
         return new UserInfoResource($user);
+    }
+
+    /**
+     * 减少查看电话次数
+     * @param Request $request
+     * @return Response
+     */
+    public function decrementViewPhoneCount(Request $request): Response
+    {
+        $user = $request->user();
+        $user->decrement('view_phone_count');
+        return response()->noContent();
     }
 }
