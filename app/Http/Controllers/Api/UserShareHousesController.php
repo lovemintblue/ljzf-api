@@ -23,7 +23,11 @@ class UserShareHousesController extends Controller
     public function store(UserShareHouseRequest $request, UserShareHouse $userShareHouse): UserShareHouseInfoResource
     {
         $user = $request->user();
-        $userShareHouse->fill($request->validated());
+        $data = $request->validated();
+
+        $data['house_ids'] = json_decode($data['house_ids'], true);
+
+        $userShareHouse->fill($data);
         $userShareHouse->user()->associate($user);
         $userShareHouse->save();
         return new UserShareHouseInfoResource($userShareHouse);
