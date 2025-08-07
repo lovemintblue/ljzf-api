@@ -16,7 +16,7 @@ class UserShareHouseRequest extends FormRequest
     {
         return [
             'contact_phone' => 'required|string',
-            'house_ids' => 'required|array',
+            'house_ids' => 'required|json',
         ];
     }
 }
