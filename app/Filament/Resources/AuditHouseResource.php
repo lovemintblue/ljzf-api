@@ -196,7 +196,23 @@ class AuditHouseResource extends Resource
                 TextEntry::make('contact_phone')->label('联系电话'),
                 TextEntry::make('renovation')->label('装修'),
                 TextEntry::make('community.name')->label('小区'),
-
+                TextEntry::make('type')->label('类型'),
+                TextEntry::make('room_count')->label('室'),
+                TextEntry::make('living_room_count')->label('厅'),
+                TextEntry::make('bathroom_count')->label('卫'),
+                TextEntry::make('area')->label('面积'),
+                TextEntry::make('floor')->label('楼层'),
+                TextEntry::make('total_floors')->label('总楼层'),
+                TextEntry::make('orientation')->label('朝向'),
+                TextEntry::make('rent_price')->label('租金'),
+                TextEntry::make('payment_method')->label('付款方式'),
+                TextEntry::make('min_rental_period')->label('起租时长'),
+                TextEntry::make('building_number')->label('栋数'),
+                TextEntry::make('room_number')->label('房间号'),
+                TextEntry::make('province')->label('省份'),
+                TextEntry::make('city')->label('城市'),
+                TextEntry::make('district')->label('区县'),
+                TextEntry::make('address')->label('详细地址'),
             ]);
     }
 
