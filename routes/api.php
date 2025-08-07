@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\UploadsController;
 use App\Http\Controllers\Api\UserLevelOrdersController;
 use App\Http\Controllers\Api\UserLevelsController;
 use App\Http\Controllers\Api\UsersController;
+use App\Http\Controllers\Api\UserShareHousesController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -121,6 +122,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源 - 取消锁定
     Route::put('houses/{house}/unlock', [HousesController::class, 'unlock'])
         ->name('houses.unlock');
+    // 用户分享房源
+    Route::post('user-share-houses', [UserShareHousesController::class, 'store'])
+        ->name('user-share-houses.store');
+    // 用户分享房源 - 详情
+    Route::get('user-share-houses/{userShareHouse}', [UserShareHousesController::class, 'store'])
+        ->name('user-share-houses.store');
 
     // 商铺 - 列表
     Route::get('shops', [ShopsController::class, 'index'])
