@@ -189,7 +189,7 @@ class AuditHouseResource extends Resource
         return $infolist
             ->columns(4)
             ->schema([
-                ImageEntry::make('cover_image')->label('封面图'),
+                ImageEntry::make('cover_image')->label('封面图')->columnSpan(1),
                 TextEntry::make('no')->label('房源编号'),
                 TextEntry::make('user.nickname')->label('发布人'),
                 TextEntry::make('title')->label('标题'),
