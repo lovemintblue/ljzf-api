@@ -30,7 +30,7 @@ class UserShareHousesController extends Controller
         $userShareHouse->fill($data);
         $userShareHouse->user()->associate($user);
         $userShareHouse->save();
-        return new UserShareHouseInfoResource($userShareHouse);
+        return new UserShareHouseInfoResource($userShareHouse->load('user'));
     }
 
     /**
@@ -40,6 +40,6 @@ class UserShareHousesController extends Controller
      */
     public function show(UserShareHouse $userShareHouse): UserShareHouseInfoResource
     {
-        return new UserShareHouseInfoResource($userShareHouse);
+        return new UserShareHouseInfoResource($userShareHouse->load('user'));
     }
 }
