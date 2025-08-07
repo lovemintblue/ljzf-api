@@ -187,6 +187,7 @@ class AuditHouseResource extends Resource
     public static function infolist(Infolist $infolist): Infolist
     {
         return $infolist
+            ->columns(4)
             ->schema([
                 ImageEntry::make('cover_image')->label('封面图'),
                 TextEntry::make('no')->label('房源编号'),
