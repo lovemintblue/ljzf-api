@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BusinessDistrictsController;
 use App\Http\Controllers\Api\CommunitiesController;
 use App\Http\Controllers\Api\DistrictsController;
 use App\Http\Controllers\Api\FacilitiesController;
+use App\Http\Controllers\Api\HouseFollowUpsController;
 use App\Http\Controllers\Api\HousesController;
 use App\Http\Controllers\Api\HouseViewHistoriesController;
 use App\Http\Controllers\Api\IndexController;
@@ -131,6 +132,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 用户分享房源 - 详情
     Route::get('user-share-houses/{userShareHouse}', [UserShareHousesController::class, 'show'])
         ->name('user-share-houses.show');
+    // 房源跟进 - 新增
+    Route::post('house-follow-ups', [HouseFollowUpsController::class, 'store'])
+        ->name('house-follow-ups.store');
 
     // 商铺 - 列表
     Route::get('shops', [ShopsController::class, 'index'])
