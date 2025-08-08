@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\UserInfoResource;
 use Carbon\Carbon;
@@ -46,10 +47,14 @@ class UsersController extends Controller
      * 减少查看电话次数
      * @param Request $request
      * @return Response
+     * @throws InvalidRequestException
      */
     public function decrementViewPhoneCount(Request $request): Response
     {
         $user = $request->user();
+        if ((int)$user->view_phone_count === 0) {
+            throw new InvalidRequestException('查看次数不足！');
+        }
         $user->decrement('view_phone_count');
         return response()->noContent();
     }
