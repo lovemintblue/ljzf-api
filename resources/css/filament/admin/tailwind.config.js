@@ -8,5 +8,6 @@ export default {
         './vendor/filament/**/*.blade.php',
         './vendor/awcodes/filament-table-repeater/resources/**/*.blade.php',
         './vendor/awcodes/filament-tiptap-editor/resources/**/*.blade.php',
+        './vendor/guava/filament-modal-relation-managers/resources/**/*.blade.php',
     ],
 }

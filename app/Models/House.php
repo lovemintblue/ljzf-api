@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Random\RandomException;
 
 /**
@@ -61,5 +62,14 @@ class House extends Model
     public function community(): BelongsTo
     {
         return $this->belongsTo(Community::class);
+    }
+
+    /**
+     * 关联跟进记录
+     * @return HasMany
+     */
+    public function houseFollowUps(): HasMany
+    {
+        return $this->hasMany(HouseFollowUp::class);
     }
 }

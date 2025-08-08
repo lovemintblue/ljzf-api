@@ -2,4 +2,5 @@
 @import '../../../../vendor/awcodes/filament-table-repeater/resources/css/plugin.css';
 @import '../../../../vendor/awcodes/filament-tiptap-editor/resources/css/plugin.css';
 
+
 @config 'tailwind.config.js';

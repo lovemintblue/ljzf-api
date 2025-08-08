@@ -1,0 +1,84 @@
+<?php
+
+namespace App\Filament\Resources;
+
+use App\Filament\Resources\HouseFollowUpResource\Pages;
+use App\Filament\Resources\HouseFollowUpResource\RelationManagers;
+use App\Models\HouseFollowUp;
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+
+class HouseFollowUpResource extends Resource
+{
+    protected static ?string $model = HouseFollowUp::class;
+
+    protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
+
+    protected static ?string $navigationGroup = '房源';
+
+    protected static ?string $navigationLabel = '跟进记录';
+
+    protected static ?string $label = '跟进记录';
+
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\Select::make('user_id')
+                    ->relationship('user', 'id')
+                    ->required(),
+                Forms\Components\Select::make('house_id')
+                    ->relationship('house', 'title')
+                    ->required(),
+                Forms\Components\TextInput::make('result')
+                    ->required()
+                    ->maxLength(255),
+            ]);
+    }
+
+    /**
+     * @param Table $table
+     * @return Table
+     */
+    public static function table(Table $table): Table
+    {
+        return $table
+            ->defaultSort('created_at', 'desc')
+            ->columns([
+                Tables\Columns\TextColumn::make('user.nickname')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('house.title')
+                    ->numeric()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('result')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('跟进时间')
+                    ->dateTime('Y-m-d H:i:s')
+            ])
+            ->filters([
+                //
+            ])
+            ->actions([
+                Tables\Actions\DeleteAction::make(),
+            ])
+            ->bulkActions([
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
+            ]);
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ManageHouseFollowUps::route('/'),
+        ];
+    }
+}

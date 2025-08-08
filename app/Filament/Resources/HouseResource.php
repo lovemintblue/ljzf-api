@@ -18,6 +18,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Table;
+use Guava\FilamentModalRelationManagers\Actions\Table\RelationManagerAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -242,7 +243,9 @@ class HouseResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->actions([RelationManagerAction::make('lesson-relation-manager')
+                ->label('跟进记录')
+                ->relationManager(RelationManagers\HouseFollowUpsRelationManager::make()),
                 Tables\Actions\Action::make('通过')
                     ->color('success')
                     ->visible(fn(House $record) => (int)$record->audit_status === 0)

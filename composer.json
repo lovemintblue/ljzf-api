@@ -16,10 +16,12 @@
         "bezhansalleh/filament-shield": "^3.3",
         "filament/filament": "^3.3",
         "filament/spatie-laravel-settings-plugin": "^3.2",
+        "guava/filament-modal-relation-managers": "^1.4",
         "laravel/framework": "^11.45.1",
         "laravel/sanctum": "^4.1.1",
         "laravel/tinker": "^2.10.1",
         "spatie/laravel-settings": "^3.4",
+        "spykapp/filament-flat-theme": "^3.0",
         "twilio/sdk": "^8.6",
         "w7corp/easywechat": "^6.17"
     },
