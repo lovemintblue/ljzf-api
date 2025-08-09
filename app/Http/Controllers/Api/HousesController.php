@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\HouseRequest;
+use App\Http\Resources\House\FavoriteHouseResource;
 use App\Http\Resources\House\HouseEditInfoResource;
 use App\Http\Resources\House\HouseInfoResource;
 use App\Http\Resources\House\HouseResource;
@@ -365,8 +366,8 @@ class HousesController extends Controller
     public function favorites(Request $request): AnonymousResourceCollection
     {
         $houses = $request->user()->favoriteHouses()->paginate();
-        
-        return HouseResource::collection($houses);
+
+        return FavoriteHouseResource::collection($houses);
     }
 
     /**
