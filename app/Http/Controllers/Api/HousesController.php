@@ -87,7 +87,7 @@ class HousesController extends Controller
             $district = explode(',', $district);
             $builder = $builder->whereIn('district', $district);
         }
-        
+
         if (empty($facilityIds)) {
             $facilityIds = -1;
         }
@@ -364,7 +364,8 @@ class HousesController extends Controller
      */
     public function favorites(Request $request): AnonymousResourceCollection
     {
-        $houses = $request->user()->favoriteHouses()->paginate(16);
+        $houses = $request->user()->favoriteHouses()->paginate();
+        
         return HouseResource::collection($houses);
     }
 

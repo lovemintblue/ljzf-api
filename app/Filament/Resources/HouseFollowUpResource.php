@@ -57,7 +57,7 @@ class HouseFollowUpResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('result')
-                    ->searchable(),
+                    ->label('跟进结果'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('跟进时间')
                     ->dateTime('Y-m-d H:i:s')

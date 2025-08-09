@@ -49,6 +49,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(House::class, 'user_favorite_houses')
             ->withTimestamps()
+            ->withPivot('created_at') // 获取收藏时间
+            ->as('favorite') // 定义访问别名
             ->orderBy('user_favorite_houses.created_at', 'desc');
     }
 
