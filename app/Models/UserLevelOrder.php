@@ -9,6 +9,7 @@ use Random\RandomException;
 /**
  * @property mixed $total_amount
  * @property mixed|string $no
+ * @property mixed $cycle
  */
 class UserLevelOrder extends Model
 {

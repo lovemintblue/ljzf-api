@@ -35,6 +35,7 @@ class UserLevelOrdersController extends Controller
 
         $userLevelOrder->no = UserLevelOrder::generateUniqueNO();
         $userLevelOrder->total_amount = $userLevel->price;
+        $userLevelOrder->cycle = $request->input('cycle');
         $userLevelOrder->user()->associate($request->user());
         $userLevelOrder->userLevel()->associate($userLevel);
         $userLevelOrder->save();

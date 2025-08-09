@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserLevelOrder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -57,8 +58,25 @@ class PaymentsController extends Controller
             $userLevelOrder->update([
                 'status' => 1,
             ]);
+
+            // 根据计算周期 计算到期时间
+            $expireAt = '';
+            if ((int)$userLevelOrder->cycle === 0) {
+                $expireAt = Carbon::now()->addMonth();
+            }
+
+            if ((int)$userLevelOrder->cycle === 1) {
+                $expireAt = Carbon::now()->addMonths(3);
+            }
+
+            if ((int)$userLevelOrder->cycle === 2) {
+                $expireAt = Carbon::now()->addYear();
+            }
+
+
             User::query()->where('id', $userLevelOrder->user_id)->update([
                 'user_level_id' => $userLevelOrder->user_level_id,
+                'expire_at' => $expireAt,
             ]);
         });
         return $server->serve();

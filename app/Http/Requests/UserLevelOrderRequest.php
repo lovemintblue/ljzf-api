@@ -15,7 +15,8 @@ class UserLevelOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_level_id' => 'required'
+            'user_level_id' => 'required',
+            'cycle' => 'required',
         ];
     }
 }
