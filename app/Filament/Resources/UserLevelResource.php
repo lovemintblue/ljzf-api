@@ -64,18 +64,6 @@ class UserLevelResource extends Resource
                     ->required()
                     ->label('超值')
                     ->default(0),
-                Forms\Components\Radio::make('cycle')
-                    ->required()
-                    ->label('计算周期')
-                    ->columnSpanFull()
-                    ->inline()
-                    ->inlineLabel(false)
-                    ->options([
-                        0 => '月',
-                        1 => '季',
-                        2 => '年'
-                    ])
-                    ->default(0),
                 Forms\Components\Select::make('privilege')
                     ->label('特权')
                     ->native(false)
