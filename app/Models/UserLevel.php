@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property mixed $name
@@ -41,4 +42,13 @@ class UserLevel extends Model
     protected $casts = [
         'privilege' => 'json'
     ];
+
+    /**
+     * 等级价格
+     * @return HasMany
+     */
+    public function userLevelPrices(): HasMany
+    {
+        return $this->hasMany(UserLevelPrice::class);
+    }
 }

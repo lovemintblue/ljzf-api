@@ -5,6 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\UserLevelResource\Pages;
 use App\Filament\Resources\UserLevelResource\RelationManagers;
 use App\Models\UserLevel;
+use Awcodes\TableRepeater\Components\TableRepeater;
+use Awcodes\TableRepeater\Header;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -74,6 +76,17 @@ class UserLevelResource extends Resource
                     ->label('查看电话次数')
                     ->numeric()
                     ->default(0),
+                TableRepeater::make('userLevelPrices')
+                    ->label('价格设置')
+                    ->headers([
+                        Header::make('时长')->width('150px'),
+                        Header::make('价格')->width('150px'),
+                    ])
+                    ->schema([
+                        Forms\Components\Select::make('cycle'),
+                        Forms\Components\TextInput::make('price')
+                    ])
+                    ->columnSpan('full')
             ]);
     }
 
