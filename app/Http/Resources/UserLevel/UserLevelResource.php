@@ -17,6 +17,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $is_good_value
  * @property mixed $privilege
  * @property mixed $cycle
+ * @property mixed $view_phone_count
  */
 class UserLevelResource extends JsonResource
 {
@@ -43,6 +44,7 @@ class UserLevelResource extends JsonResource
             'is_good_value' => $this->is_good_value,
             'cycle' => $cycle,
             'privilege' => $privilege,
+            'view_phone_count' => $this->view_phone_count,
         ];
     }
 }

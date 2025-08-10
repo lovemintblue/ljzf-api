@@ -33,6 +33,6 @@ class UserLevelsController extends Controller
      */
     public function show(UserLevel $userLevel): UserLevelInfoResource
     {
-        return new UserLevelInfoResource($userLevel);
+        return new UserLevelInfoResource($userLevel->load('userLevelPrices'));
     }
 }
