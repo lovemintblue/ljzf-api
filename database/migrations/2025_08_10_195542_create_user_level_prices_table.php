@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_level_id')->comment('用户等级ID');
             $table->tinyInteger('cycle')->comment('周期 0月 1季 2年')->default(0);
             $table->decimal('price', 10)->comment('价格')->default(0);
+            $table->decimal('original_price', 10)->comment('原价')->default(0);
             $table->comment('用户等级价格表');
         });
     }

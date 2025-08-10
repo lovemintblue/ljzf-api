@@ -71,6 +71,7 @@ class UserLevelResource extends Resource
                     ->relationship()
                     ->headers([
                         Header::make('时长')->width('150px'),
+                        Header::make('原价')->width('150px'),
                         Header::make('价格')->width('150px'),
                     ])
                     ->schema([
@@ -81,6 +82,9 @@ class UserLevelResource extends Resource
                                 2 => '年'
                             ])
                             ->native(false)
+                            ->default(0),
+                        Forms\Components\TextInput::make('original_price')
+                            ->numeric()
                             ->default(0),
                         Forms\Components\TextInput::make('price')
                             ->numeric()
