@@ -77,7 +77,7 @@ class PaymentsController extends Controller
 
             User::query()->where('id', $userLevelOrder->user_id)->update([
                 'user_level_id' => $userLevelOrder->user_level_id,
-                'expire_at' => $expireAt,
+                'expired_at' => $expireAt,
             ]);
         });
         return $server->serve();

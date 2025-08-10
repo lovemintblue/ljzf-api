@@ -92,7 +92,7 @@ class VipUserResource extends Resource
                 Tables\Columns\TextColumn::make('view_phone_count')
                     ->badge()
                     ->label('查看电话次数'),
-                Tables\Columns\TextColumn::make('expire_at')
+                Tables\Columns\TextColumn::make('expired_at')
                     ->label('到期时间')
                     ->dateTime('Y-m-d'),
                 Tables\Columns\TextColumn::make('created_at')
