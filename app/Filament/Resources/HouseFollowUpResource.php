@@ -51,11 +51,11 @@ class HouseFollowUpResource extends Resource
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('user.nickname')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('用户')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('house.title')
-                    ->numeric()
-                    ->sortable(),
+                    ->label('跟进房源')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('result')
                     ->label('跟进结果'),
                 Tables\Columns\TextColumn::make('created_at')
