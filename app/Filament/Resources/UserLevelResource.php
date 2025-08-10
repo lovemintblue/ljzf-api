@@ -47,17 +47,6 @@ class UserLevelResource extends Resource
                     ->helperText('数字类型，数字越大等级越高')
                     ->numeric()
                     ->default(0),
-                Forms\Components\TextInput::make('price')
-                    ->label('价格')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00)
-                    ->prefix('¥'),
-                Forms\Components\TextInput::make('original_price')
-                    ->label('原价')
-                    ->required()
-                    ->numeric()
-                    ->default(0.00),
                 Forms\Components\Toggle::make('is_recommend')
                     ->required()
                     ->label('推荐')
@@ -78,6 +67,7 @@ class UserLevelResource extends Resource
                     ->default(0),
                 TableRepeater::make('userLevelPrices')
                     ->label('价格设置')
+                    ->emptyLabel('未设置价格')
                     ->headers([
                         Header::make('时长')->width('150px'),
                         Header::make('价格')->width('150px'),

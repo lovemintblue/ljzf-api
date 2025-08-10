@@ -40,7 +40,6 @@ class UserLevelInfoResource extends JsonResource
             'original_price' => $this->original_price,
             'is_recommend' => $this->is_recommend,
             'is_good_value' => $this->is_good_value,
-            'cycle' => $cycle,
             'privilege' => $privilege,
             'view_phone_count' => $this->view_phone_count,
             'user_level_prices' => $this->userLevelPrices
