@@ -73,6 +73,7 @@ class PaymentsController extends Controller
                 $expireAt = Carbon::now()->addYear();
             }
 
+            Log::info('到期时间:' . $expireAt);
 
             User::query()->where('id', $userLevelOrder->user_id)->update([
                 'user_level_id' => $userLevelOrder->user_level_id,
