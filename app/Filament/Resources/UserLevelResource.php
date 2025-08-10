@@ -68,6 +68,7 @@ class UserLevelResource extends Resource
                 TableRepeater::make('userLevelPrices')
                     ->label('价格设置')
                     ->emptyLabel('未设置价格')
+                    ->relationship()
                     ->headers([
                         Header::make('时长')->width('150px'),
                         Header::make('价格')->width('150px'),
