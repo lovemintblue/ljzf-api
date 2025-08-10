@@ -82,7 +82,8 @@ class UserLevelResource extends Resource
                             ->native(false)
                             ->default(0),
                         Forms\Components\TextInput::make('price')
-                            ->label('价格')
+                            ->numeric()
+                            ->default(0)
                     ])
                     ->columnSpan('full')
             ]);
