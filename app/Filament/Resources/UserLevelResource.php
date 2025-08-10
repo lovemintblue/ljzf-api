@@ -83,8 +83,16 @@ class UserLevelResource extends Resource
                         Header::make('价格')->width('150px'),
                     ])
                     ->schema([
-                        Forms\Components\Select::make('cycle'),
+                        Forms\Components\Select::make('cycle')
+                            ->options([
+                                0 => '月',
+                                1 => '季',
+                                2 => '年'
+                            ])
+                            ->native(false)
+                            ->default(0),
                         Forms\Components\TextInput::make('price')
+                            ->label('价格')
                     ])
                     ->columnSpan('full')
             ]);
