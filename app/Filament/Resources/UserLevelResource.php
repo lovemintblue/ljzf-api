@@ -103,14 +103,6 @@ class UserLevelResource extends Resource
                     ->label('等级')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('price')
-                    ->label('价格')
-                    ->money()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('original_price')
-                    ->label('原价')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\ToggleColumn::make('is_recommend')
                     ->label('推荐'),
                 Tables\Columns\ToggleColumn::make('is_good_value')
