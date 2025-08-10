@@ -11,6 +11,7 @@ use App\Http\Requests\UserLevelOrderRequest;
 use App\Http\Resources\UserLevelOrder\UserLevelOrderInfoResource;
 use App\Models\UserLevel;
 use App\Models\UserLevelOrder;
+use App\Models\UserLevelPrice;
 use Illuminate\Http\Request;
 use Random\RandomException;
 
@@ -25,7 +26,16 @@ class UserLevelOrdersController extends Controller
      */
     public function store(UserLevelOrderRequest $request, UserLevelOrder $userLevelOrder): UserLevelOrderInfoResource
     {
-        $userLevelId = $request->input('user_level_id');
+        $userLevelPriceId = $request->input('user_level_price_id');
+
+
+        $userLevelPrice = UserLevelPrice::query()->where('id', $userLevelPriceId)->first();
+
+        if (!$userLevelPrice) {
+            throw new InvalidRequestException('购买异常，请重试！');
+        }
+
+        $userLevelId = $userLevelPrice->user_level_id;
 
         $userLevel = UserLevel::query()->where('id', $userLevelId)->first();
 
@@ -34,8 +44,8 @@ class UserLevelOrdersController extends Controller
         }
 
         $userLevelOrder->no = UserLevelOrder::generateUniqueNO();
-        $userLevelOrder->total_amount = $userLevel->price;
-        $userLevelOrder->cycle = $request->input('cycle');
+        $userLevelOrder->total_amount = $userLevelPrice->price;
+        $userLevelOrder->cycle = $userLevelPrice->cycle;
         $userLevelOrder->user()->associate($request->user());
         $userLevelOrder->userLevel()->associate($userLevel);
         $userLevelOrder->save();
