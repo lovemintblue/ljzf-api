@@ -7,6 +7,7 @@ use App\Filament\Resources\HouseFollowUpResource\RelationManagers;
 use App\Models\HouseFollowUp;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -70,6 +71,11 @@ class HouseFollowUpResource extends Resource
             ])
             ->actions([
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('下架房源')
+                    ->action(function (HouseFollowUp $record) {
+                        $record->house->update(['is_show' => 1]);
+                        Notification::make()->title('下架成功')->success()->send();
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
