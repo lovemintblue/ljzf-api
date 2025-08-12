@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
             AcceptHeader::class,
         ]);
     })
-    ->withSchedule(function (Schedule $schedule) {
+    ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule) {
         // 每天初始化会员查看次数
         $schedule->command('app:init-user-view-phone-count')->daily();
     })

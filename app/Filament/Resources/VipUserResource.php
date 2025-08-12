@@ -25,7 +25,7 @@ class VipUserResource extends Resource
 
     protected static ?string $navigationLabel = '会员列表';
 
-    protected static ?string $label = '用户';
+    protected static ?string $label = '会员列表';
     protected static ?int $navigationSort = 1;
 
     /**
@@ -77,12 +77,6 @@ class VipUserResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('userLevel.name')
                     ->label('VIP等级')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('province')
-                    ->label('省份')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('city')
-                    ->label('城市')
                     ->badge(),
                 Tables\Columns\ToggleColumn::make('status')
                     ->label('状态'),

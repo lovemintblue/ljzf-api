@@ -7,6 +7,7 @@ use App\Filament\Resources\HouseFollowUpResource\RelationManagers;
 use App\Models\HouseFollowUp;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\PageRegistration;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -50,6 +51,8 @@ class HouseFollowUpResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->columns([
+                Tables\Columns\ImageColumn::make('user.avatar')
+                    ->label('头像'),
                 Tables\Columns\TextColumn::make('user.nickname')
                     ->label('用户')
                     ->searchable(),
@@ -75,6 +78,9 @@ class HouseFollowUpResource extends Resource
             ]);
     }
 
+    /**
+     * @return array|PageRegistration[]
+     */
     public static function getPages(): array
     {
         return [
