@@ -43,6 +43,7 @@ class CarouselResource extends Resource
                     ->default(0),
                 Forms\Components\Radio::make('status')
                     ->label('状态')
+                    ->inline()
                     ->columnSpanFull()
                     ->required()
                     ->options([
