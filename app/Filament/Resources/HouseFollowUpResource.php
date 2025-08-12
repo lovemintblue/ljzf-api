@@ -72,6 +72,7 @@ class HouseFollowUpResource extends Resource
             ->actions([
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('下架房源')
+                    ->color('danger')
                     ->action(function (HouseFollowUp $record) {
                         $record->house->update(['is_show' => 1]);
                         Notification::make()->title('下架成功')->success()->send();
