@@ -20,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
             AcceptHeader::class,
         ]);
     })
+    ->withSchedule(function (Schedule $schedule) {
+        // 每天初始化会员查看次数
+        $schedule->command('app:init-user-view-phone-count')->daily();
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         // 不报告的异常
         $exceptions->dontReport([
