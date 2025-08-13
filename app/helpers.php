@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -13,4 +14,17 @@ function formatUrl(string|null $url): string
         return '';
     }
     return Storage::url($url);
+}
+
+/**
+ * 格式化时间
+ * @param $at
+ * @return string
+ */
+function formatAt($at): string
+{
+    if (empty($at)) {
+        return '';
+    }
+    return Carbon::parse($at)->format('Y-m-d H:i:s');
 }
