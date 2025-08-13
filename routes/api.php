@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthorizationsController;
 use App\Http\Controllers\Api\BusinessDistrictsController;
+use App\Http\Controllers\Api\CarouselsController;
 use App\Http\Controllers\Api\CommunitiesController;
 use App\Http\Controllers\Api\DistrictsController;
 use App\Http\Controllers\Api\FacilitiesController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Api\HousesController;
 use App\Http\Controllers\Api\HouseViewHistoriesController;
 use App\Http\Controllers\Api\IndexController;
 use App\Http\Controllers\Api\IndustriesController;
+use App\Http\Controllers\Api\NoticesController;
 use App\Http\Controllers\Api\NotificationsController;
 use App\Http\Controllers\Api\PaymentsController;
 use App\Http\Controllers\Api\SettingsController;
@@ -71,6 +73,14 @@ Route::get('index/statistics', [IndexController::class, 'statistics'])
 // 会员订单 - 支付回调
 Route::any('payments/pay-user-level-order-by-wechat-notify', [PaymentsController::class, 'payUserLevelOrderByWechatNotify'])
     ->name('payments.pay-user-level-order-by-wechat-notify');
+
+// 轮播图 - 列表
+Route::get('carousels', [CarouselsController::class, 'index'])
+    ->name('carousels.index');
+
+// 公告 - 列表
+Route::get('notices', [NoticesController::class, 'index'])
+    ->name('notices.index');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {

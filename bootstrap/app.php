@@ -23,6 +23,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withSchedule(function (\Illuminate\Console\Scheduling\Schedule $schedule) {
         // 每天初始化会员查看次数
         $schedule->command('app:init-user-view-phone-count')->daily();
+        // 处理会员到期
+        $schedule->command('app:handle-user-expired')->everyMinute();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // 不报告的异常
