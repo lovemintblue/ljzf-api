@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserLevelOrder;
+use App\Notifications\UserNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -55,6 +56,8 @@ class PaymentsController extends Controller
         // 处理支付结果事件
         $server->handlePaid(function ($message) {
             $userLevelOrder = UserLevelOrder::query()->where('no', $message['out_trade_no'])->first();
+
+            $user = User::query()->where('id', $userLevelOrder->user_id)->first();
             $userLevelOrder->update([
                 'status' => 1,
             ]);
@@ -79,6 +82,12 @@ class PaymentsController extends Controller
                 'user_level_id' => $userLevelOrder->user_level_id,
                 'expired_at' => $expireAt,
             ]);
+        
+            $user->notify(new UserNotification([
+                'title' => '会员开通成功',
+                'content' => '内容内容'
+            ]));
+
         });
         return $server->serve();
     }
