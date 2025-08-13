@@ -5,12 +5,7 @@ namespace App\Http\Resources\Notice;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/**
- * @property mixed $id
- * @property mixed $title
- * @property mixed $content
- */
-class NoticeResource extends JsonResource
+class NoticeInfoResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -19,10 +14,6 @@ class NoticeResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'id' => $this->id,
-            'title' => $this->title,
-            'content' => $this->content,
-        ];
+        return parent::toArray($request);
     }
 }

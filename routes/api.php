@@ -81,6 +81,9 @@ Route::get('carousels', [CarouselsController::class, 'index'])
 // 公告 - 列表
 Route::get('notices', [NoticesController::class, 'index'])
     ->name('notices.index');
+// 公告 - 详情
+Route::get('notices/{notice}', [NoticesController::class, 'show'])
+    ->name('notices.show');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {
