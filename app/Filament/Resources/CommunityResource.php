@@ -87,6 +87,10 @@ class CommunityResource extends Resource
                     ->columnSpanFull()
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('longitude')
+                    ->label('经度'),
+                Forms\Components\TextInput::make('latitude')
+                    ->label('纬度'),
                 Forms\Components\Select::make('business_district_ids')
                     ->label('关联商圈')
                     ->multiple()
