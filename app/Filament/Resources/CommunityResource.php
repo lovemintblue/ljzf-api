@@ -81,7 +81,6 @@ class CommunityResource extends Resource
                     ->label('售价均价(元/㎡)'),
                 Forms\Components\TextInput::make('total_floors')
                     ->label('总楼层'),
-
                 Forms\Components\Textarea::make('address')
                     ->label('详细地址')
                     ->autosize()
@@ -92,7 +91,13 @@ class CommunityResource extends Resource
                     ->label('关联商圈')
                     ->multiple()
                     ->options(BusinessDistrict::query()->pluck('name', 'id'))
-                    ->native(false)
+                    ->native(false),
+                Tables\Columns\ToggleColumn::make('is_commercial_housing')
+                    ->label('是否为商品房')
+                    ->default(0),
+                Tables\Columns\ToggleColumn::make('is_apartment')
+                    ->label('是否为公寓')
+                    ->default(0),
             ]);
     }
 

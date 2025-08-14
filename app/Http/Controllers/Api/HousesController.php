@@ -235,6 +235,12 @@ class HousesController extends Controller
         } else {
             $house->user()->associate($user);
         }
+
+        // 如果用户是员工 - 不需要审核
+        if ($user->is_staff) {
+            $house->audit_status = 1;
+        }
+
         $house->save();
         return new HouseInfoResource($house);
     }

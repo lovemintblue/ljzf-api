@@ -32,6 +32,7 @@ class MapService
         $data = Http::get($api)->json();
         Log::info($data);
         if ((int)$data['status'] === 0) {
+            Log::info($data['result']);
             return $data['result'];
         }
         return [];
