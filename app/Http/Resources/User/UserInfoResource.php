@@ -33,8 +33,7 @@ class UserInfoResource extends JsonResource
         $vipSurplusDays = 0;
 
         if (!empty($this->expired_at)) {
-            $expiredAt = Carbon::parse($this->expired_at);
-            $vipSurplusDays = $expiredAt->diffInDays(Carbon::now());
+            $vipSurplusDays = Carbon::now()->diffInDays($this->expired_at);
         }
 
         return [
@@ -49,7 +48,7 @@ class UserInfoResource extends JsonResource
             'view_phone_count' => $this->view_phone_count,
             'is_staff' => $this->is_staff,
             'expired_at' => $this->expired_at,
-            'vip_surplus_days' => $vipSurplusDays,
+            'vip_surplus_days' => (int)$vipSurplusDays,
         ];
     }
 }
