@@ -32,7 +32,7 @@ class UserInfoResource extends JsonResource
         $favoriteCount = $this->favorite_houses_count + $this->favorite_shops_count;
         $vipSurplusDays = 0;
 
-        if (empty($this->expired_at)) {
+        if (!empty($this->expired_at)) {
             $expiredAt = Carbon::parse($this->expired_at);
             $vipSurplusDays = $expiredAt->diffInDays(Carbon::now());
         }
