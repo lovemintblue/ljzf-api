@@ -92,10 +92,10 @@ class CommunityResource extends Resource
                     ->multiple()
                     ->options(BusinessDistrict::query()->pluck('name', 'id'))
                     ->native(false),
-                Tables\Columns\ToggleColumn::make('is_commercial_housing')
+                Forms\Components\Toggle::make('is_commercial_housing')
                     ->label('是否为商品房')
                     ->default(0),
-                Tables\Columns\ToggleColumn::make('is_apartment')
+                Forms\Components\Toggle::make('is_apartment')
                     ->label('是否为公寓')
                     ->default(0),
             ]);
