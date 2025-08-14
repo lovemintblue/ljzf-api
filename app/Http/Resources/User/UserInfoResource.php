@@ -18,6 +18,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $userLevel
  * @property mixed $view_phone_count
  * @property mixed $expire_at
+ * @property mixed $expired_at
  */
 class UserInfoResource extends JsonResource
 {
@@ -40,7 +41,7 @@ class UserInfoResource extends JsonResource
             'notifications_count' => $this->notifications_count,
             'view_phone_count' => $this->view_phone_count,
             'is_staff' => $this->is_staff,
-            'expire_at' => $this->expire_at,
+            'expired_at' => $this->expired_at,
         ];
     }
 }
