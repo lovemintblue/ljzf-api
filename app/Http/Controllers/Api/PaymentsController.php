@@ -55,7 +55,10 @@ class PaymentsController extends Controller
         $server = $app->getServer();
         // 处理支付结果事件
         $server->handlePaid(function ($message) {
-            $userLevelOrder = UserLevelOrder::query()->where('no', $message['out_trade_no'])->first();
+            $userLevelOrder = UserLevelOrder::query()
+                ->with('userLevel')
+                ->where('no', $message['out_trade_no'])
+                ->first();
 
             $user = User::query()->where('id', $userLevelOrder->user_id)->first();
             $userLevelOrder->update([
@@ -82,10 +85,16 @@ class PaymentsController extends Controller
                 'user_level_id' => $userLevelOrder->user_level_id,
                 'expired_at' => $expireAt,
             ]);
-        
+
+            $title = "尊敬的{$user->nickname}，恭喜您成功开通乐家租房{$userLevelOrder->userLevel->name}会员！";
+            $content = '开通时间:' . Carbon::now();
+            $content .= '到期时间:' . $expireAt;
+            $content .= '
+即日起您可享平台所属**会员权益，可在小程序【我的】页面点击“我的会员”查看详情与权益使用说明。如有任何疑问，欢迎随时联系客服，我们将竭诚为您服务。感谢您的支持，期待为您带来更多优质体验！';
+
             $user->notify(new UserNotification([
-                'title' => '会员开通成功',
-                'content' => '内容内容'
+                'title' => $title,
+                'content' => $content
             ]));
 
         });

@@ -121,9 +121,6 @@ class DraftHouseResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
                     ->label('封面图'),
-                Tables\Columns\TextColumn::make('id')
-                    ->label('ID')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('no')
                     ->label('编号')
                     ->searchable(),
@@ -137,12 +134,6 @@ class DraftHouseResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contact_phone')
                     ->label('联系电话')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('renovation')
-                    ->label('装修')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('community.name')
-                    ->label('小区')
                     ->searchable(),
                 ViewColumn::make('audit_status')
                     ->label('审核状态')
