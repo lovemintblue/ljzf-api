@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -17,7 +18,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $is_staff
  * @property mixed $userLevel
  * @property mixed $view_phone_count
- * @property mixed $expire_at
  * @property mixed $expired_at
  */
 class UserInfoResource extends JsonResource
@@ -30,6 +30,13 @@ class UserInfoResource extends JsonResource
     public function toArray(Request $request): array
     {
         $favoriteCount = $this->favorite_houses_count + $this->favorite_shops_count;
+        $vipSurplusDays = 0;
+
+        if (empty($this->expired_at)) {
+            $expiredAt = Carbon::parse($this->expired_at);
+            $vipSurplusDays = $expiredAt->diffInDays(Carbon::now());
+        }
+
         return [
             'id' => $this->id,
             'user_level' => $this->userLevel,
@@ -42,6 +49,7 @@ class UserInfoResource extends JsonResource
             'view_phone_count' => $this->view_phone_count,
             'is_staff' => $this->is_staff,
             'expired_at' => $this->expired_at,
+            'vip_surplus_days' => $vipSurplusDays,
         ];
     }
 }
