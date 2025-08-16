@@ -31,27 +31,27 @@ class SyncFileToQiniu extends Command
      */
     public function handle(): void
     {
-        $this->info('同步小区图片开始');
-        $communities = Community::query()->whereNotNull('image')->get();
-        foreach ($communities as $community) {
-            $filename = $community->image;
-            Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
-            if (!empty($community->album) && count($community->album) > 0) {
-                foreach ($community->album as $album) {
-                    $filename = $album;
-                    Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
-                }
-            }
-        }
-        $this->info('同步小区图片完成');
-
-        $this->info('--同步用户头像开始--');
-        $users = User::query()->whereNotNull('avatar')->get();
-        foreach ($users as $user) {
-            $filename = $user->avatar;
-            Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
-        }
-        $this->info('--同步用户头像完成--');
+//        $this->info('同步小区图片开始');
+//        $communities = Community::query()->whereNotNull('image')->get();
+//        foreach ($communities as $community) {
+//            $filename = $community->image;
+//            Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
+//            if (!empty($community->album) && count($community->album) > 0) {
+//                foreach ($community->album as $album) {
+//                    $filename = $album;
+//                    Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
+//                }
+//            }
+//        }
+//        $this->info('同步小区图片完成');
+//
+//        $this->info('--同步用户头像开始--');
+//        $users = User::query()->whereNotNull('avatar')->get();
+//        foreach ($users as $user) {
+//            $filename = $user->avatar;
+//            Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
+//        }
+//        $this->info('--同步用户头像完成--');
 
         $this->info('--同步房源图片开始--');
         $houses = House::query()->whereNotNull('cover_image')->get();
@@ -60,10 +60,13 @@ class SyncFileToQiniu extends Command
             Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
             $filename = $house->video;
             Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
-            foreach ($house->album as $album) {
-                $filename = $album;
-                Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
+            if (!empty($house->album) && count($house->album) > 0) {
+                foreach ($house->album as $album) {
+                    $filename = $album;
+                    Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
+                }
             }
+
         }
         $this->info('--同步房源图片完成--');
 
