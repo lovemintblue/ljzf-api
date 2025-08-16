@@ -36,7 +36,7 @@ class SyncFileToQiniu extends Command
         foreach ($communities as $community) {
             $filename = $community->image;
             Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
-            if (!empty($community->album)) {
+            if (!empty($community->album) && count($community->album) > 0) {
                 foreach ($community->album as $album) {
                     $filename = $album;
                     Storage::disk('qiniu')->put($filename, file_get_contents(Storage::url($filename)));
