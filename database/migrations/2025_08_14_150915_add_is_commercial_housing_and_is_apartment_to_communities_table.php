@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::table('communities', static function (Blueprint $table) {
             $table->tinyInteger('is_commercial_housing')->comment('是否为商品房')->default(0);
-            $table->tinyInteger('is_apartment')->comment('是否为公寓')->comment(0);
+            $table->tinyInteger('is_apartment')->comment('是否为公寓')->default(0);
         });
     }
 

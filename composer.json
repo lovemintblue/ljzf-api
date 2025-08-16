@@ -20,6 +20,7 @@
         "laravel/framework": "^11.45.1",
         "laravel/sanctum": "^4.1.1",
         "laravel/tinker": "^2.10.1",
+        "overtrue/laravel-filesystem-qiniu": "^2.4",
         "spatie/laravel-settings": "^3.4",
         "spykapp/filament-flat-theme": "^3.0",
         "twilio/sdk": "^8.6",
