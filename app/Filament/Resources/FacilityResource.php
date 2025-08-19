@@ -37,6 +37,10 @@ class FacilityResource extends Resource
                     ->columnSpanFull()
                     ->image()
                     ->label('图标'),
+                Forms\Components\FileUpload::make('selected_icon')
+                    ->columnSpanFull()
+                    ->image()
+                    ->label('选中图标'),
                 Forms\Components\TextInput::make('name')
                     ->label('名称')
                     ->columnSpanFull()
@@ -60,6 +64,8 @@ class FacilityResource extends Resource
             ->columns([
                 Tables\Columns\ImageColumn::make('icon')
                     ->label('图标'),
+                Tables\Columns\ImageColumn::make('selected_icon')
+                    ->label('选中图标'),
                 Tables\Columns\TextColumn::make('name')
                     ->label('名称')
                     ->searchable(),
