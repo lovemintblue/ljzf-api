@@ -178,6 +178,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 消息通知 - 列表
     Route::get('notifications', [NotificationsController::class, 'index'])
         ->name('notifications.index');
+    // 消息通知 - 想起
+    Route::get('notifications/{id}', [NotificationsController::class, 'show'])
+        ->name('notifications.show')->where('id', '[0-9]+');
 
     // 房源浏览记录 - 列表
     Route::get('house-view-histories', [HouseViewHistoriesController::class, 'index'])

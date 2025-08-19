@@ -24,7 +24,10 @@ class UserShareHouseInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $houses = House::query()->whereIn('id', $this->house_ids)->get();
+        $houses = House::query()
+            ->where('is_show', 1)
+            ->whereIn('id', $this->house_ids)
+            ->get();
         return [
             'id' => $this->id,
             'user' => new UserInfoResource($this->user),
