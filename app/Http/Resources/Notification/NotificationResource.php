@@ -5,6 +5,12 @@ namespace App\Http\Resources\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property mixed $id
+ * @property mixed $data
+ * @property mixed $read_at
+ * @property mixed $created_at
+ */
 class NotificationResource extends JsonResource
 {
     /**
