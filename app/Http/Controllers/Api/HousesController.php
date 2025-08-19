@@ -59,7 +59,8 @@ class HousesController extends Controller
         if (!empty($keyword)) {
             $builder = $builder->where(function (Builder $query) use ($keyword) {
                 return $query->where('title', 'like', '%' . $keyword . '%')
-                    ->orWhere('address', 'like', '%' . $keyword . '%');
+                    ->orWhere('address', 'like', '%' . $keyword . '%')
+                    ->orWhere('no', 'like', '%' . $keyword . '%');
             });
         }
 

@@ -17,6 +17,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\ViewColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Guava\FilamentModalRelationManagers\Actions\Table\RelationManagerAction;
 use Illuminate\Database\Eloquent\Builder;
@@ -232,8 +234,35 @@ class HouseResource extends Resource
                     ->dateTime('Y-m-d H:i:s')
             ])
             ->filters([
-                //
-            ])
+                SelectFilter::make('status4')
+                    ->label('门牌号')
+                    ->options([
+                        'draft' => 'Draft',
+                        'reviewing' => 'Reviewing',
+                        'published' => 'Published',
+                    ]),
+                SelectFilter::make('status')
+                    ->label('区域')
+                    ->options([
+                        'draft' => 'Draft',
+                        'reviewing' => 'Reviewing',
+                        'published' => 'Published',
+                    ]),
+                SelectFilter::make('status2')
+                    ->label('户型')
+                    ->options([
+                        'draft' => 'Draft',
+                        'reviewing' => 'Reviewing',
+                        'published' => 'Published',
+                    ]),
+                SelectFilter::make('status3')
+                    ->label('面积')
+                    ->options([
+                        'draft' => 'Draft',
+                        'reviewing' => 'Reviewing',
+                        'published' => 'Published',
+                    ]),
+            ], layout: FiltersLayout::AboveContent)
             ->actions([RelationManagerAction::make('lesson-relation-manager')
                 ->label('跟进记录')
                 ->relationManager(RelationManagers\HouseFollowUpsRelationManager::make()),
