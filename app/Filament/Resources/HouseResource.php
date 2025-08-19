@@ -8,6 +8,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\HouseResource\Pages;
 use App\Filament\Resources\HouseResource\RelationManagers;
 use App\Models\Community;
+use App\Models\Facility;
 use App\Models\House;
 use App\Models\Shop;
 use Filament\Forms;
@@ -52,7 +53,6 @@ class HouseResource extends Resource
                     ->tabs([
                         Tabs\Tab::make('Tab 1')
                             ->label('基础信息')
-                            ->columns(4)
                             ->schema([
                                 Forms\Components\TextInput::make('title')
                                     ->label('房号')
@@ -87,20 +87,36 @@ class HouseResource extends Resource
                                         2 => '转租'
                                     ])
                                     ->default(0),
-                                Forms\Components\TextInput::make('room_count')
+                                Forms\Components\Select::make('room_count')
                                     ->label('室')
+                                    ->native(false)
                                     ->required()
-                                    ->numeric()
+                                    ->options([
+                                        1 => '1室',
+                                        2 => '2室',
+                                        3 => '3室',
+                                        4 => '4室',
+                                    ])
                                     ->default(1),
-                                Forms\Components\TextInput::make('living_room_count')
+                                Forms\Components\Select::make('living_room_count')
                                     ->label('厅')
                                     ->required()
-                                    ->numeric()
+                                    ->native(false)
+                                    ->options([
+                                        0 => '0厅',
+                                        1 => '1厅',
+                                        2 => '2厅',
+                                    ])
                                     ->default(0),
-                                Forms\Components\TextInput::make('bathroom_count')
+                                Forms\Components\Select::make('bathroom_count')
                                     ->label('卫')
+                                    ->native(false)
                                     ->required()
-                                    ->numeric()
+                                    ->options([
+                                        0 => '0卫',
+                                        1 => '1卫',
+                                        2 => '2卫',
+                                    ])
                                     ->default(1),
                                 Forms\Components\TextInput::make('area')
                                     ->label('面积')
@@ -109,11 +125,6 @@ class HouseResource extends Resource
                                     ->default(0.00),
                                 Forms\Components\TextInput::make('floor')
                                     ->label('楼层')
-                                    ->required()
-                                    ->numeric()
-                                    ->default(0),
-                                Forms\Components\TextInput::make('total_floors')
-                                    ->label('总楼层')
                                     ->required()
                                     ->numeric()
                                     ->default(0),
@@ -143,13 +154,27 @@ class HouseResource extends Resource
                                     ->required()
                                     ->numeric()
                                     ->default(0.00),
-                                Forms\Components\TextInput::make('payment_method')
+                                Forms\Components\Select::make('payment_method')
                                     ->label('付款方式')
+                                    ->native(false)
+                                    ->options([
+                                        '月付',
+                                        '季付',
+                                        '半年付',
+                                        '年付'
+                                    ])
                                     ->required(),
-                                Forms\Components\TextInput::make('min_rental_period')
+                                Forms\Components\Select::make('min_rental_period')
                                     ->label('起租时长')
                                     ->required()
-                                    ->maxLength(255)
+                                    ->native(false)
+                                    ->options([
+                                        '年起租',
+                                        '短租',
+                                        '月起租',
+                                        '季起租',
+                                        '半年租'
+                                    ])
                                     ->default(0),
                                 Forms\Components\Select::make('community_id')
                                     ->label('小区')
@@ -172,12 +197,19 @@ class HouseResource extends Resource
                                 ToggleButtons::make('viewing_method')
                                     ->label('看房方式')
                                     ->inline()
+                                    ->columnSpanFull()
                                     ->options([
                                         0 => '提前预约',
                                         1 => '密码',
                                         2 => '门口钥匙',
                                         3 => '物业钥匙'
-                                    ])
+                                    ]),
+                                ToggleButtons::make('facility_ids')
+                                    ->label('配套设置')
+                                    ->columnSpanFull()
+                                    ->multiple()
+                                    ->inline()
+                                    ->options(Facility::query()->pluck('name', 'id')),
                             ]),
                         Tabs\Tab::make('Tab 2')
                             ->label('图片视频')
@@ -202,6 +234,7 @@ class HouseResource extends Resource
     /**
      * @param Table $table
      * @return Table
+     * @throws \Exception
      */
     public static function table(Table $table): Table
     {
@@ -234,34 +267,57 @@ class HouseResource extends Resource
                     ->dateTime('Y-m-d H:i:s')
             ])
             ->filters([
-                SelectFilter::make('status4')
-                    ->label('门牌号')
+                SelectFilter::make('community_id')
+                    ->label('小区')
+                    ->searchable()
+                    ->native(false)
+                    ->options(Community::all()->pluck('name', 'id')),
+                SelectFilter::make('room_count')
+                    ->label('室')
+                    ->native(false)
                     ->options([
-                        'draft' => 'Draft',
-                        'reviewing' => 'Reviewing',
-                        'published' => 'Published',
+                        1 => '1室',
+                        2 => '2室',
+                        3 => '3室',
+                        4 => '4室',
                     ]),
-                SelectFilter::make('status')
-                    ->label('区域')
+                SelectFilter::make('living_room_count')
+                    ->label('厅')
+                    ->native(false)
                     ->options([
-                        'draft' => 'Draft',
-                        'reviewing' => 'Reviewing',
-                        'published' => 'Published',
+                        0 => '0厅',
+                        1 => '1厅',
+                        2 => '2厅',
                     ]),
-                SelectFilter::make('status2')
-                    ->label('户型')
+                SelectFilter::make('bathroom_count')
+                    ->label('卫')
+                    ->native(false)
                     ->options([
-                        'draft' => 'Draft',
-                        'reviewing' => 'Reviewing',
-                        'published' => 'Published',
+                        0 => '0卫',
+                        1 => '1卫',
+                        2 => '2卫',
                     ]),
-                SelectFilter::make('status3')
-                    ->label('面积')
+                SelectFilter::make('payment_method')
+                    ->label('付款方式')
+                    ->native(false)
                     ->options([
-                        'draft' => 'Draft',
-                        'reviewing' => 'Reviewing',
-                        'published' => 'Published',
+                        '月付',
+                        '季付',
+                        '半年付',
+                        '年付'
                     ]),
+
+                SelectFilter::make('min_rental_period')
+                    ->label('起租时长')
+                    ->native(false)
+                    ->options([
+                        '年起租',
+                        '短租',
+                        '月起租',
+                        '季起租',
+                        '半年租'
+                    ]),
+
             ], layout: FiltersLayout::AboveContent)
             ->actions([RelationManagerAction::make('lesson-relation-manager')
                 ->label('跟进记录')
