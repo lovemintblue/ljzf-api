@@ -255,6 +255,9 @@ class HouseResource extends Resource
                 Tables\Columns\TextColumn::make('building_number')
                     ->label('栋数')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('room_number')
+                    ->label('房号')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('房号')
                     ->searchable(),
