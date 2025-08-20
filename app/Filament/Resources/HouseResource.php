@@ -249,6 +249,12 @@ class HouseResource extends Resource
                 Tables\Columns\TextColumn::make('no')
                     ->label('编号')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('unit')
+                    ->label('单元')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('building_number')
+                    ->label('栋数')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('房号')
                     ->searchable(),
