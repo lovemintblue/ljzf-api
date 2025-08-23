@@ -19,7 +19,9 @@ class IndexController extends Controller
     public function statistics(): JsonResponse
     {
         $todayHouseCount = House::query()->whereDate('created_at', today())->count();
-        $todayHiddenHouseCount = House::query()->whereDate('hidden_at', today())->count();
+        $todayHiddenHouseCount = House::query()
+            ->where('is_show', 0)
+            ->whereDate('hidden_at', today())->count();
         $data = [
             'today_house_count' => $todayHouseCount,
             'today_hidden_house_count' => $todayHiddenHouseCount,

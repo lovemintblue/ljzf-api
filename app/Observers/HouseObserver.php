@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\House;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class HouseObserver
 {
@@ -29,10 +30,12 @@ class HouseObserver
         $house->no = 'H' . $house->id;
 
         $oldIsShow = $house->getOriginal('is_show');
-        if ($oldIsShow !== $house->is_show && (int)$house->is_show === 0) {
+        if ((int)$oldIsShow !== (int)$house->is_show && (int)$house->is_show === 0) {
             $house->hidden_at = Carbon::now();
+            Log::info('--修改了隐藏时间--');
+        } else {
+            Log::info('--未修改隐藏时间--');
         }
-
     }
 
     /**
