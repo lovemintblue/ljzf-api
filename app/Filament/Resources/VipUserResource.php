@@ -9,11 +9,13 @@ use App\Models\UserLevel;
 use App\Models\VipUser;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Symfony\Component\Console\Input\Input;
 
 class VipUserResource extends Resource
 {
@@ -27,33 +29,6 @@ class VipUserResource extends Resource
 
     protected static ?string $label = '会员列表';
     protected static ?int $navigationSort = 1;
-
-    /**
-     * @param Form $form
-     * @return Form
-     */
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Forms\Components\FileUpload::make('avatar')
-                    ->label('头像')
-                    ->image()
-                    ->avatar()
-                    ->columnSpanFull(),
-                Forms\Components\Select::make('user_level_id')
-                    ->label('VIP等级')
-                    ->native(false)
-                    ->columnSpanFull()
-                    ->options(UserLevel::query()->pluck('name', 'id')->prepend([
-                        0 => '无等级'
-                    ])->toArray()),
-                Forms\Components\TextInput::make('nickname')
-                    ->label('昵称')
-                    ->columnSpanFull()
-                    ->required(),
-            ]);
-    }
 
     /**
      * @param Table $table
@@ -99,11 +74,64 @@ class VipUserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\Action::make('取消会员')
+                    ->color('danger')
+                    ->action(function (User $record) {
+                        $record->update([
+                            'user_level_id' => 0,
+                            'expired_at' => null,
+                        ]);
+                        Notification::make()->title('取消会员操作成功')->success()->send();
+                    }),
+                Tables\Actions\Action::make('设置查看次数')
+                    ->form([
+                        Forms\Components\TextInput::make('view_phone_count')
+                            ->label('次数')
+                            ->numeric()
+                            ->required(),
+                    ])
+                    ->action(function (array $data, User $record): void {
+                        $record->view_phone_count = $data['view_phone_count'];
+                        $record->save();
+                        Notification::make()->title('操作成功')->success()->send();
+                    })
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ]);
+    }
+
+    /**
+     * @param Form $form
+     * @return Form
+     */
+    public static function form(Form $form): Form
+    {
+        return $form
+            ->schema([
+                Forms\Components\FileUpload::make('avatar')
+                    ->label('头像')
+                    ->image()
+                    ->avatar()
+                    ->columnSpanFull(),
+                Forms\Components\Select::make('user_level_id')
+                    ->label('VIP等级')
+                    ->native(false)
+                    ->columnSpanFull()
+                    ->options(UserLevel::query()->pluck('name', 'id')->prepend([
+                        0 => '无等级'
+                    ])->toArray()),
+                Forms\Components\TextInput::make('nickname')
+                    ->label('昵称')
+                    ->columnSpanFull()
+                    ->required(),
+                Forms\Components\TextInput::make('view_phone_count')
+                    ->label('查看手机号次数')
+                    ->columnSpanFull()
+                    ->numeric()
+                    ->default(0)
             ]);
     }
 

@@ -1,23 +1,19 @@
 <?php
-/**
- * 管理后台 - 房源
- */
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\HouseResource\Pages;
-use App\Filament\Resources\HouseResource\RelationManagers;
+use App\Filament\Resources\HiddenHouseResource\Pages;
+use App\Filament\Resources\HiddenHouseResource\RelationManagers;
 use App\Models\Community;
 use App\Models\Facility;
+use App\Models\HiddenHouse;
 use App\Models\House;
-use App\Models\Shop;
 use Filament\Forms;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Columns\ViewColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -25,19 +21,19 @@ use Guava\FilamentModalRelationManagers\Actions\Table\RelationManagerAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class HouseResource extends Resource
+class HiddenHouseResource extends Resource
 {
-    protected static ?string $model = House::class;
+    protected static ?string $model = HiddenHouse::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
 
     protected static ?string $navigationGroup = '房源';
 
-    protected static ?string $navigationLabel = '房源列表';
+    protected static ?string $navigationLabel = '下架房源';
 
-    protected static ?string $label = '房源';
+    protected static ?string $label = '下架房源';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 2;
 
     /**
      * @param Form $form
@@ -227,7 +223,7 @@ class HouseResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->query(function (House $query) {
-                return $query->where('audit_status', 1)->where('is_show', 1);
+                return $query->where('audit_status', 1)->where('is_show', 0);
             })
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
@@ -346,7 +342,7 @@ class HouseResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageHouses::route('/'),
+            'index' => Pages\ManageHiddenHouses::route('/'),
         ];
     }
 }

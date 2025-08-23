@@ -7,3 +7,4 @@ class AuditHouse extends House
 {
     protected $table = 'houses';
 }
+

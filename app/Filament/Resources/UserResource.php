@@ -120,7 +120,7 @@ class UserResource extends Resource
                     ->required(),
                 Forms\Components\Toggle::make('is_staff')
                     ->label('是否为员工')
-                    ->default(0)
+                    ->default(0),
             ]);
     }
 

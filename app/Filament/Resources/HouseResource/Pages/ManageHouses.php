@@ -15,17 +15,7 @@ class ManageHouses extends ManageRecords
     use HasResizableColumn;
 
     protected static string $resource = HouseResource::class;
-
-    public function getTabs(): array
-    {
-        return [
-            '上架' => Tab::make()
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('is_show', 1)),
-            '下架' => Tab::make()
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('is_show', 0)),
-        ];
-    }
-
+    
     /**
      * @return array|Actions\Action[]|Actions\ActionGroup[]
      */
