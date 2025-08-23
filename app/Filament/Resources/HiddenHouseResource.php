@@ -134,11 +134,28 @@ class HiddenHouseResource extends Resource
                                     ->required()
                                     ->numeric()
                                     ->default(0),
-                                Forms\Components\TextInput::make('orientation')
+                                Forms\Components\Select::make('orientation')
                                     ->label('朝向')
+                                    ->options([
+                                        '东',
+                                        '南',
+                                        '西',
+                                        '北',
+                                        '东南',
+                                        '东北',
+                                        '西南',
+                                        '西北'
+                                    ])->default('东')
+                                    ->native(false)
                                     ->required(),
-                                Forms\Components\TextInput::make('renovation')
+                                Forms\Components\Select::make('renovation')
                                     ->label('装修')
+                                    ->native(false)
+                                    ->options([
+                                        '精装修',
+                                        '简装修',
+                                        '毛坯房'
+                                    ])
                                     ->required(),
                                 Forms\Components\TextInput::make('rent_price')
                                     ->label('租金')
