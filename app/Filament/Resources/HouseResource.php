@@ -227,7 +227,7 @@ class HouseResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->query(function (House $query) {
-                return $query->where('audit_status', 1)->where('is_show', 1);
+                return $query->where('audit_status', 1)->where('is_show', 1)->where('is_draft', 0);
             })
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
