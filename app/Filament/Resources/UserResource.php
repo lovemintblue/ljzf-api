@@ -68,7 +68,22 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Action::make('禁用')
+                    ->color('danger')
+                    ->visible(fn(User $record) => (int)$record->status === 1)
+                    ->action(function (User $record) {
+                        $record->status = 1;
+                        $record->save();
+                        Notification::make()->title('禁用成功')->success()->send();
+                    }),
+                Action::make('取消禁用')
+                    ->color('success')
+                    ->visible(fn(User $record) => (int)$record->status === 0)
+                    ->action(function (User $record) {
+                        $record->status = 1;
+                        $record->save();
+                        Notification::make()->title('取消禁用成功')->success()->send();
+                    }),
                 Action::make('设为会员')
                     ->form([
                         Select::make('user_level_id')
