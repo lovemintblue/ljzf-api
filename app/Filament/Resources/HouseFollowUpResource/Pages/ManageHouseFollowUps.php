@@ -15,10 +15,10 @@ class ManageHouseFollowUps extends ManageRecords
     public function getTabs(): array
     {
         return [
-            '在租' => Tab::make()
-                ->modifyQueryUsing(fn(Builder $query) => $query->where('result', '在租')),
             '已出租' => Tab::make()
                 ->modifyQueryUsing(fn(Builder $query) => $query->where('result', '已出租')),
+            '在租' => Tab::make()
+                ->modifyQueryUsing(fn(Builder $query) => $query->where('result', '在租')),
         ];
     }
 

@@ -39,6 +39,7 @@ class HouseFollowUpsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('result')
             ->defaultSort('created_at', 'desc')
+            ->emptyStateDescription('暂无跟进数据')
             ->columns([
                 Tables\Columns\ImageColumn::make('user.avatar')
                     ->label('头像'),
