@@ -23,6 +23,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $latitude
  * @property mixed $total_floors
  * @property mixed $album
+ * @property mixed $is_commercial_housing
+ * @property mixed $is_apartment
  */
 class CommunityInfoResource extends JsonResource
 {
@@ -58,7 +60,9 @@ class CommunityInfoResource extends JsonResource
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'total_floors' => $this->total_floors,
-            'business_district' => $businessDistrict
+            'business_district' => $businessDistrict,
+            'is_commercial_housing' => $this->is_commercial_housing,
+            'is_apartment' => $this->is_apartment,
         ];
     }
 }

@@ -47,7 +47,7 @@ class HousesController extends Controller
         $facilityIds = $request->input('facilities_ids', -1);
         $businessDistrictId = $request->input('business_district_id', '');
         $roomCount = $request->input('room_count', -1);
-
+        $isDelegated = $request->input('is_delegated');
 
         $builder = House::query()
             ->where('is_show', 1)
@@ -152,6 +152,10 @@ class HousesController extends Controller
         if (!empty($orientation)) {
             $orientation = explode(',', $orientation);
             $builder = $builder->whereIn('orientation', $orientation);
+        }
+
+        if (isset($isDelegated)) {
+            $builder = $builder->where('is_delegated', 1);
         }
 
         if (!empty($sort) && !empty($direction)) {

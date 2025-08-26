@@ -32,6 +32,8 @@ class CommunityResource extends JsonResource
             'address' => $this->address,
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
+            'is_commercial_housing' => $this->is_commercial_housing,
+            'is_apartment' => $this->is_apartment,
         ];
     }
 }
