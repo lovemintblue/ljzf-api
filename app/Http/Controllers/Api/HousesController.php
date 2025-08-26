@@ -200,7 +200,6 @@ class HousesController extends Controller
      * @param HouseRequest $request
      * @param House $house
      * @return HouseInfoResource
-     * @throws InvalidRequestException
      */
     public function store(HouseRequest $request, House $house): HouseInfoResource
     {
@@ -282,6 +281,7 @@ class HousesController extends Controller
      */
     public function update(HouseRequest $request, House $house): HouseInfoResource
     {
+        Log::info();
         $data = $request->all();
         $isDraft = $request->input('is_draft', 1);
 //        $oldHouse = House::query()
@@ -310,9 +310,6 @@ class HousesController extends Controller
         }
         $house->fill($data);
 
-        Log::info('--测试--');
-        Log::info($isDraft);
-
         if ((int)$isDraft === 0) {
             $house->user()->associate($request->user());
         }
@@ -330,12 +327,19 @@ class HousesController extends Controller
     {
         $user = $request->user();
         $isDraft = $request->input('is_draft', 0);
+        $isDelegated = $request->input('is_delegated');
 
-        $houses = House::query()
-            ->whereBelongsTo($user)
-            ->where('is_draft', $isDraft)
-            ->latest()
-            ->paginate();
+        $builder = House::query()->whereBelongsTo($user)->latest();
+
+        if (isset($isDelegated) && $isDelegated === 1) {
+            $builder = $builder->where('is_delegated', $isDelegated);
+        }
+
+        if (isset($isDraft) && $isDraft === 1) {
+            $builder = $builder->where('is_draft', $isDraft);
+        }
+
+        $houses = $builder->paginate();
         return HouseResource::collection($houses);
     }
 

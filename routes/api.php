@@ -106,6 +106,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // 房源 - 我的房源
     Route::get('houses/my-index', [HousesController::class, 'myIndex'])
         ->name('houses.my-index');
+    // 房源 - 委托发布列表
+    Route::get('', []);
+
     // 房源 - 新增
     Route::post('houses', [HousesController::class, 'store'])
         ->name('houses.store');
