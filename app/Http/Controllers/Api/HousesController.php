@@ -284,15 +284,8 @@ class HousesController extends Controller
         Log::info();
         $data = $request->all();
         $isDraft = $request->input('is_draft', 1);
-//        $oldHouse = House::query()
-//            ->whereNot('id', $house->id)
-//            ->where('community_id', $data['community_id'])
-//            ->where('building_number', $data['building_number'])
-//            ->where('room_number', $data['room_number'])
-//            ->first();
-//        if ($oldHouse) {
-//            throw new InvalidRequestException('房源已存在,请重试！');
-//        }
+        $isDelegated = $request->input('is_delegated', 0);
+
         if (!empty($data['images'])) {
             $images = json_decode($data['images'], true);
             $data['images'] = collect($images)->pluck('path')->toArray();
@@ -310,7 +303,7 @@ class HousesController extends Controller
         }
         $house->fill($data);
 
-        if ((int)$isDraft === 0) {
+        if ((int)$isDraft === 0 && (int)$isDelegated === 0) {
             $house->user()->associate($request->user());
         }
 
