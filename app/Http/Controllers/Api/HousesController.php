@@ -327,11 +327,13 @@ class HousesController extends Controller
 
         $builder = House::query()->whereBelongsTo($user)->latest();
 
-        if (isset($isDelegated) && $isDelegated === 1) {
+        if (isset($isDelegated) && (int)$isDelegated === 1) {
+            Log::info('委托');
             $builder = $builder->where('is_delegated', $isDelegated);
         }
 
-        if (isset($isDraft) && $isDraft === 1) {
+        if (isset($isDraft) && (int)$isDraft === 1) {
+            Log::info('草稿');
             $builder = $builder->where('is_draft', $isDraft);
         }
 
