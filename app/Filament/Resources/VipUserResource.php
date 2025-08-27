@@ -80,6 +80,24 @@ class VipUserResource extends Resource
                         ]);
                         Notification::make()->title('取消会员操作成功')->success()->send();
                     }),
+                Tables\Actions\Action::make('设置会员')
+                    ->form([
+                        Forms\Components\Select::make('user_level_id')
+                            ->label('选择会员等级')
+                            ->options(UserLevel::all()->pluck('name', 'id'))
+                            ->native(false)
+                            ->required(),
+                        Forms\Components\DatePicker::make('expired_at')
+                            ->label('到期时间')
+                    ])
+                    ->action(function (array $data, User $record): void {
+                        $userLevel = UserLevel::query()->where('id', $data['user_level_id'])->first();
+                        $record->user_level_id = $data['user_level_id'];
+                        $record->expired_at = $data['expired_at'];
+                        $record->view_phone_count = $userLevel->view_phone_count;
+                        $record->save();
+                        Notification::make()->title('会员设置成功')->success()->send();
+                    }),
                 Tables\Actions\Action::make('设置查看次数')
                     ->form([
                         Forms\Components\TextInput::make('view_phone_count')

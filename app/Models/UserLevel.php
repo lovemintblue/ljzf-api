@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property mixed $is_good_value
  * @property mixed $cycle
  * @property mixed $privilege
+ * @property mixed $view_phone_count
  */
 class UserLevel extends Model
 {
