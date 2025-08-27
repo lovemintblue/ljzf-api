@@ -206,16 +206,6 @@ class HousesController extends Controller
         $user = $request->user();
         $data = $request->all();
         $isCreateDraft = $request->input('is_create_draft', 0);
-
-//        $oldHouse = House::query()
-//            ->where('community_id', $data['community_id'])
-//            ->where('building_number', $data['building_number'])
-//            ->where('room_number', $data['room_number'])
-//            ->first();
-//        if ($oldHouse) {
-//            throw new InvalidRequestException('房源已存在,请重试！');
-//        }
-
         if (!empty($data['images'])) {
             $images = json_decode($data['images'], true);
             $data['images'] = collect($images)->pluck('path')->toArray();
@@ -235,8 +225,14 @@ class HousesController extends Controller
         }
         $house->fill($data);
         if ($isCreateDraft && (int)$data['is_draft'] === 1) {
+            Log::info('断点11111');
+            Log::info($isCreateDraft);
+            Log::info($data['is_draft']);
             $house->user_id = 0;
         } else {
+            Log::info('断点22222');
+            Log::info($isCreateDraft);
+            Log::info($data['is_draft']);
             $house->user()->associate($user);
         }
 

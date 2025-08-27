@@ -52,22 +52,19 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('userLevel.name')
                     ->label('VIP等级')
                     ->badge(),
-                Tables\Columns\ToggleColumn::make('status')
-                    ->label('状态'),
-                Tables\Columns\ToggleColumn::make('is_staff')
-                    ->label('是否为员工'),
                 Tables\Columns\TextColumn::make('latest_visit_at')
                     ->label('上次访问时间')
                     ->since(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
-                    ->dateTime('Y-m-d')
+                    ->dateTime('Y-m-d'),
+                Tables\Columns\ToggleColumn::make('is_staff')
+                    ->label('是否为员工'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
                 Action::make('禁用')
                     ->color('danger')
                     ->visible(fn(User $record) => (int)$record->status === 1)

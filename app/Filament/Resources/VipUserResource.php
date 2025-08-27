@@ -53,8 +53,6 @@ class VipUserResource extends Resource
                 Tables\Columns\TextColumn::make('userLevel.name')
                     ->label('VIP等级')
                     ->badge(),
-                Tables\Columns\ToggleColumn::make('status')
-                    ->label('状态'),
                 Tables\Columns\TextColumn::make('latest_visit_at')
                     ->label('上次访问时间')
                     ->since(),
@@ -73,7 +71,6 @@ class VipUserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
                 Tables\Actions\Action::make('取消会员')
                     ->color('danger')
                     ->action(function (User $record) {
