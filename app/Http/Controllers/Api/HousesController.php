@@ -277,7 +277,6 @@ class HousesController extends Controller
      */
     public function update(HouseRequest $request, House $house): HouseInfoResource
     {
-        Log::info();
         $data = $request->all();
         $isDraft = $request->input('is_draft', 1);
         $isDelegated = $request->input('is_delegated', 0);
@@ -328,7 +327,7 @@ class HousesController extends Controller
             $builder = $builder->where('is_delegated', $isDelegated);
         }
 
-        if (isset($isDraft) && (int)$isDraft === 1) {
+        if (isset($isDraft)) {
             Log::info('草稿');
             $builder = $builder->where('is_draft', $isDraft);
         }
