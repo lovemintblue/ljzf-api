@@ -24,7 +24,9 @@ class UsersController extends Controller
         return new UserInfoResource($user->loadCount([
             'favoriteHouses',
             'favoriteShops',
-            'houses',
+            'houses' => function ($query) {
+                $query->where('is_draft', 1);
+            },
             'notifications',
             'userLevel'
         ]));
