@@ -9,20 +9,26 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserLevelOrder;
 use App\Notifications\UserNotification;
+use App\Services\PaymentService;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class PaymentsController extends Controller
 {
-    public function payUserLevelOrderByWechat(Request $request, UserLevelOrder $userLevelOrder)
+    /**
+     * @param Request $request
+     * @param UserLevelOrder $userLevelOrder
+     * @return JsonResponse
+     */
+    public function payUserLevelOrderByWechat(Request $request, UserLevelOrder $userLevelOrder): JsonResponse
     {
         $user = $request->user();
-        $app = (new \App\Services\PaymentService())->getApp();
+        $app = (new PaymentService())->getApp();
         $appId = 'wx2a3e44e8b256b4ea';
         $mchId = (string)$app->getMerchant()->getMerchantId();
-//        $amount = $userLevelOrder->total_amount * 100;
-        $amount = 10;
+        $amount = $userLevelOrder->total_amount * 100;
 
         $response = $app->getClient()->postJson("v3/pay/transactions/jsapi", [
             "mchid" => $mchId,
@@ -47,11 +53,14 @@ class PaymentsController extends Controller
         return response()->json($config);
     }
 
+    /**
+     * @return mixed
+     */
     public function payUserLevelOrderByWechatNotify()
     {
         Log::info('--订单支付回调--');
         // $app 为你实例化的支付对象，此处省略实例化步骤
-        $app = (new \App\Services\PaymentService())->getApp();
+        $app = (new PaymentService())->getApp();
         $server = $app->getServer();
         // 处理支付结果事件
         $server->handlePaid(function ($message) {

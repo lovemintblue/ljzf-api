@@ -322,6 +322,9 @@ class HousesController extends Controller
         $isDraft = $request->input('is_draft', 0);
         $isDelegated = $request->input('is_delegated');
 
+        Log::info('--打印草稿参数--:' . $isDraft);
+        Log::info('--打印委托参数--:' . $isDelegated);
+
         $builder = House::query()->whereBelongsTo($user)->latest();
 
         if (isset($isDelegated) && $isDelegated === 1) {
@@ -379,7 +382,7 @@ class HousesController extends Controller
     }
 
     /**
-     * 附件房源
+     * 附近房源
      * @param Request $request
      * @return AnonymousResourceCollection
      */
