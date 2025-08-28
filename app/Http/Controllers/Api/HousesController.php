@@ -206,6 +206,8 @@ class HousesController extends Controller
         $user = $request->user();
         $data = $request->all();
         $isCreateDraft = $request->input('is_create_draft', 0);
+        Log::info('--打印提交的参数--');
+        Log::info($data);
         if (!empty($data['images'])) {
             $images = json_decode($data['images'], true);
             $data['images'] = collect($images)->pluck('path')->toArray();
