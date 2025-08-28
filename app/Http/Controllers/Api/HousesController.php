@@ -233,8 +233,6 @@ class HousesController extends Controller
             $house->user_id = 0;
         } else {
             Log::info('断点22222');
-            Log::info($isCreateDraft);
-            Log::info($data['is_draft']);
             $house->user()->associate($user);
         }
 
