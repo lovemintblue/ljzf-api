@@ -25,7 +25,7 @@ class UsersController extends Controller
             'favoriteHouses',
             'favoriteShops',
             'houses' => function ($query) {
-                $query->where('is_draft', 1);
+                $query->where('is_draft', 0);
             },
             'notifications',
             'userLevel'
