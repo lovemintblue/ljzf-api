@@ -84,6 +84,9 @@ Route::get('notices', [NoticesController::class, 'index'])
 // 公告 - 详情
 Route::get('notices/{notice}', [NoticesController::class, 'show'])
     ->name('notices.show');
+// 房源 - 列表
+Route::get('houses', [HousesController::class, 'index'])
+    ->name('houses.index');
 
 // 令牌路由
 Route::middleware('auth:sanctum')->group(function () {
@@ -97,9 +100,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('users/decrement-view-phone-count', [UsersController::class, 'decrementViewPhoneCount'])
         ->name('users.decrement-view-phone-count');
 
-    // 房源 - 列表
-    Route::get('houses', [HousesController::class, 'index'])
-        ->name('houses.index');
+
     // 房源 - 草稿列表
     Route::get('houses/draft-index', [HousesController::class, 'draftIndex'])
         ->name('houses.draft-index');
@@ -108,7 +109,6 @@ Route::middleware('auth:sanctum')->group(function () {
         ->name('houses.my-index');
     // 房源 - 委托发布列表
     Route::get('', []);
-
     // 房源 - 新增
     Route::post('houses', [HousesController::class, 'store'])
         ->name('houses.store');

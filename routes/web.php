@@ -29,6 +29,26 @@ Route::get('test', function () {
 
 
 Route::get('test2', static function (\Illuminate\Http\Request $request) {
+    // pdf转image url地址
+    $pdfToImageUrl = 'https://demo.qiqippt.com/trans.php';
+    $params = [
+        'source' => 'https://qiniuoss.zcylovezhx.com/1756301544_9sjYLqwF6s.pdf',
+    ];
 
+    // 构建带参数的GET请求URL
+    $url = $pdfToImageUrl . '?' . http_build_query($params);
+
+    $ch = curl_init($url);
+    // 设置返回结果不直接输出
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    if (curl_errno($ch)) {
+        throw new Exception('Curl error: ' . curl_error($ch));
+    }
+    curl_close($ch);
+
+    $decodedResponse = json_decode($response, true);
+    var_dump($decodedResponse);
+    die;
 });
 
