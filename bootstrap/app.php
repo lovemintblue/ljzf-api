@@ -34,7 +34,7 @@ return Application::configure(basePath: dirname(__DIR__))
             ->daily()  // 每天执行一次
             ->at('00:30')  // 凌晨 00:30 执行（用户访问量低的时候）
             ->withoutOverlapping();  // 防止任务重叠执行
-        $schedule->command('app:handle-watermark')->everyFiveSeconds();
+        $schedule->command('app:handle-watermark')->everyMinute();
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // 不报告的异常
