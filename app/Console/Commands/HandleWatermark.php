@@ -31,6 +31,7 @@ class HandleWatermark extends Command
     public function handle(): void
     {
         $houses = House::query()
+            ->whereNotNull('title')
             ->whereNull('watermark_video')
             ->limit(5)
             ->get();
