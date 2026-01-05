@@ -15,9 +15,11 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @property mixed $mini_app_openid
  * @property mixed $phone
+ * @property mixed $avatar
  * @property mixed|string $nickname
  * @property mixed $user_level_id
  * @property mixed $expired_at
+ * @property mixed $view_phone_count
  * @property int|mixed $status
  */
 class User extends Authenticatable
@@ -78,12 +80,39 @@ class User extends Authenticatable
     }
 
     /**
+     * 关联商铺
+     * @return HasMany
+     */
+    public function shops(): HasMany
+    {
+        return $this->hasMany(Shop::class);
+    }
+
+    /**
      * 关联等级
      * @return BelongsTo
      */
     public function userLevel(): BelongsTo
     {
         return $this->belongsTo(UserLevel::class);
+    }
+
+    /**
+     * 关联会员订单
+     * @return HasMany
+     */
+    public function userLevelOrders(): HasMany
+    {
+        return $this->hasMany(UserLevelOrder::class);
+    }
+
+    /**
+     * 关联房源跟进记录
+     * @return HasMany
+     */
+    public function houseFollowUps(): HasMany
+    {
+        return $this->hasMany(HouseFollowUp::class);
     }
 
     /**

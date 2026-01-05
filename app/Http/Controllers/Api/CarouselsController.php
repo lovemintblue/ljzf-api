@@ -19,7 +19,7 @@ class CarouselsController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        $carousels = Carousel::query()->orderByDesc('sort')->get();
+        $carousels = Carousel::query()->where('status',1)->orderByDesc('sort')->get();
         CarouselResource::wrap('data');
         return CarouselResource::collection($carousels);
     }

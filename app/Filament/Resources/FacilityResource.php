@@ -50,7 +50,17 @@ class FacilityResource extends Resource
                     ->options([
                         0 => '房源',
                         1 => '商铺'
-                    ])->default(0)
+                    ])->default([0])
+                    ->afterStateHydrated(function ($component, $state) {
+                        // 确保从数据库读取时转换为整数数组，但只在编辑时处理
+                        if (is_array($state) && !empty($state)) {
+                            $component->state(array_map('intval', $state));
+                        }
+                    })
+                    ->dehydrateStateUsing(function ($state) {
+                        // 确保保存时转换为整数数组
+                        return is_array($state) ? array_map('intval', $state) : [];
+                    })
             ]);
     }
 
@@ -73,6 +83,8 @@ class FacilityResource extends Resource
                     ->label('类型')
                     ->view('tables.columns.facility-type')
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])

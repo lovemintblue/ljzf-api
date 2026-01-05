@@ -21,7 +21,7 @@ class UserLevelsController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $userLevels = UserLevel::query()->get();
+        $userLevels = UserLevel::query()->where('status',1)->get();
         UserLevelResource::wrap('data');
         return UserLevelResource::collection($userLevels);
     }

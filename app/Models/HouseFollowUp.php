@@ -7,10 +7,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property mixed $house
+ * @property bool $is_punished
+ * @property bool $is_processed
  */
 class HouseFollowUp extends Model
 {
     protected $guarded = [];
+    
+    protected $casts = [
+        'is_punished' => 'boolean',
+        'is_processed' => 'boolean',
+    ];
 
     /**
      * @return BelongsTo

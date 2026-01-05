@@ -12,6 +12,13 @@ use Random\RandomException;
  * @property mixed $id
  * @property int|mixed $audit_status
  * @property mixed|string $no
+ * @property int $rental_type
+ * @property float|null $floor_height
+ * @property float|null $frontage
+ * @property float|null $depth
+ * @property string|null $description
+ * @property string|null $latitude
+ * @property string|null $longitude
  */
 #[ObservedBy(ShopObserver::class)]
 class Shop extends Model
@@ -25,6 +32,10 @@ class Shop extends Model
         'images' => 'json',
         'facility_ids' => 'json',
         'industry_ids' => 'json',
+        'suitable_businesses' => 'json',
+        'floor_height' => 'float',
+        'frontage' => 'float',
+        'depth' => 'float',
     ];
 
     /**

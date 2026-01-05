@@ -15,7 +15,7 @@ class HousePolicy
      */
     public function viewAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('view_any_house');
+        return $adminUser->can('view_any_pending::update::house');
     }
 
     /**
@@ -23,7 +23,7 @@ class HousePolicy
      */
     public function view(AdminUser $adminUser, House $house): bool
     {
-        return $adminUser->can('view_house');
+        return $adminUser->can('view_pending::update::house');
     }
 
     /**
@@ -31,7 +31,7 @@ class HousePolicy
      */
     public function create(AdminUser $adminUser): bool
     {
-        return $adminUser->can('create_house');
+        return $adminUser->can('create_pending::update::house');
     }
 
     /**
@@ -39,7 +39,7 @@ class HousePolicy
      */
     public function update(AdminUser $adminUser, House $house): bool
     {
-        return $adminUser->can('update_house');
+        return $adminUser->can('update_pending::update::house');
     }
 
     /**
@@ -47,7 +47,7 @@ class HousePolicy
      */
     public function delete(AdminUser $adminUser, House $house): bool
     {
-        return $adminUser->can('delete_house');
+        return $adminUser->can('delete_pending::update::house');
     }
 
     /**
@@ -55,7 +55,7 @@ class HousePolicy
      */
     public function deleteAny(AdminUser $adminUser): bool
     {
-        return $adminUser->can('delete_any_house');
+        return $adminUser->can('delete_any_pending::update::house');
     }
 
     /**

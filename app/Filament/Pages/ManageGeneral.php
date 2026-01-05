@@ -20,6 +20,11 @@ class ManageGeneral extends SettingsPage
 
     protected static ?string $title = '基础设置';
 
+    public static function canAccess(): bool
+    {
+        return auth()->check() && auth()->user()->can('page_ManageGeneral');
+    }
+
     public function form(Form $form): Form
     {
         return $form
@@ -74,6 +79,19 @@ class ManageGeneral extends SettingsPage
                                     ->label('')
                                     ->maxContentWidth('3xl')
                                     ->extraInputAttributes(['style' => 'min-height: 12rem;']),
+                            ]),
+                        Tabs\Tab::make('Tab 6')
+                            ->label('房源设置')
+                            ->schema([
+                                Forms\Components\TextInput::make('house_update_days')
+                                    ->label('房源自动转为待更新天数')
+                                    ->helperText('房源上架后超过指定天数将自动转为待更新状态，仍会在前端显示')
+                                    ->numeric()
+                                    ->required()
+                                    ->default(30)
+                                    ->minValue(1)
+                                    ->maxValue(365)
+                                    ->suffix('天'),
                             ]),
                     ])
             ]);

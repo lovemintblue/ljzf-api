@@ -4,12 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\VipUserResource\Pages;
 use App\Filament\Resources\VipUserResource\RelationManagers;
+use App\Filament\Resources\UserResource;
 use App\Models\User;
 use App\Models\UserLevel;
+use App\Models\UsersViewPhoneLog;
 use App\Models\VipUser;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -58,58 +59,72 @@ class VipUserResource extends Resource
                     ->since(),
                 Tables\Columns\TextColumn::make('view_phone_count')
                     ->badge()
-                    ->label('查看电话次数'),
+                    ->label('每日基础电话额度次数')
+                    ->getStateUsing(function ($record) {
+                        // 会员等级额度
+                        $baseQuota = $record->userLevel->view_phone_count ?? 0;
+                        // 个人额度调整值
+                        $personalAdjustment = $record->view_phone_count ?? 0;
+                        // 实际基础额度
+                        $actualQuota = $baseQuota + $personalAdjustment;
+                        
+                        if ($personalAdjustment > 0) {
+                            return "{$actualQuota} 次 ({$baseQuota}+{$personalAdjustment})";
+                        } elseif ($personalAdjustment < 0) {
+                            return "{$actualQuota} 次 ({$baseQuota}{$personalAdjustment})";
+                        } else {
+                            return "{$actualQuota} 次";
+                        }
+                    })
+                    ->color(function ($record) {
+                        $personalAdjustment = $record->view_phone_count ?? 0;
+                        if ($personalAdjustment > 0) return 'success';
+                        if ($personalAdjustment < 0) return 'danger';
+                        return 'info';
+                    }),
+                Tables\Columns\TextColumn::make('daily_remaining_count')
+                    ->badge()
+                    ->label('每日剩余查看次数')
+                    ->getStateUsing(function ($record) {
+                        $use_num = UsersViewPhoneLog::where('user_id',$record->id)->where('created_at','>=',date('Y-m-d') . ' 00:00:00')->where('created_at','<=',date('Y-m-d') . ' 23:59:59')->count();
+                        // 从会员等级获取基础额度
+                        $baseQuota = $record->userLevel->view_phone_count ?? 0;
+                        // 加上个人额度调整值（可正可负）
+                        $personalAdjustment = $record->view_phone_count ?? 0;
+                        // 计算剩余次数 = 会员等级额度 + 个人调整值 - 已用次数 + 临时额度
+                        $remaining = $baseQuota + $personalAdjustment - $use_num;
+                        // 加上临时额度
+                        if ($record->temp_quota_date == date('Y-m-d') && $record->temp_quota != 0) {
+                            $remaining += $record->temp_quota;
+                        }
+                        return max(0, $remaining);
+                    })
+                    ->color(function ($state) {
+                        if ($state <= 0) return 'danger';
+                        if ($state <= 5) return 'warning';
+                        return 'success';
+                    }),
                 Tables\Columns\TextColumn::make('expired_at')
                     ->label('到期时间')
-                    ->dateTime('Y-m-d'),
+                    ->dateTime('Y-m-d')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('创建时间')
                     ->dateTime('Y-m-d')
+                    ->sortable()
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\Action::make('取消会员')
-                    ->color('danger')
-                    ->action(function (User $record) {
-                        $record->update([
-                            'user_level_id' => 0,
-                            'expired_at' => null,
-                        ]);
-                        Notification::make()->title('取消会员操作成功')->success()->send();
-                    }),
-                Tables\Actions\Action::make('设置会员')
-                    ->form([
-                        Forms\Components\Select::make('user_level_id')
-                            ->label('选择会员等级')
-                            ->options(UserLevel::all()->pluck('name', 'id'))
-                            ->native(false)
-                            ->required(),
-                        Forms\Components\DatePicker::make('expired_at')
-                            ->label('到期时间')
-                    ])
-                    ->action(function (array $data, User $record): void {
-                        $userLevel = UserLevel::query()->where('id', $data['user_level_id'])->first();
-                        $record->user_level_id = $data['user_level_id'];
-                        $record->expired_at = $data['expired_at'];
-                        $record->view_phone_count = $userLevel->view_phone_count;
-                        $record->save();
-                        Notification::make()->title('会员设置成功')->success()->send();
-                    }),
-                Tables\Actions\Action::make('设置查看次数')
-                    ->form([
-                        Forms\Components\TextInput::make('view_phone_count')
-                            ->label('次数')
-                            ->numeric()
-                            ->required(),
-                    ])
-                    ->action(function (array $data, User $record): void {
-                        $record->view_phone_count = $data['view_phone_count'];
-                        $record->save();
-                        Notification::make()->title('操作成功')->success()->send();
-                    })
+                Tables\Actions\Action::make('详情')
+                    ->label('详情')
+                    ->color('info')
+                    ->icon('heroicon-o-eye')
+                    ->button()
+                    ->url(fn (User $record): string => UserResource::getUrl('detail', ['record' => $record]))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -141,12 +156,7 @@ class VipUserResource extends Resource
                 Forms\Components\TextInput::make('nickname')
                     ->label('昵称')
                     ->columnSpanFull()
-                    ->required(),
-                Forms\Components\TextInput::make('view_phone_count')
-                    ->label('查看手机号次数')
-                    ->columnSpanFull()
-                    ->numeric()
-                    ->default(0)
+                    ->required()
             ]);
     }
 

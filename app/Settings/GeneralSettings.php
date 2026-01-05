@@ -46,6 +46,12 @@ class GeneralSettings extends Settings
     public ?string $public_agreement;
 
     /**
+     * 房源多少天后需要更新
+     * @var int
+     */
+    public int $house_update_days = 30;
+
+    /**
      * @return string
      */
     public static function group(): string

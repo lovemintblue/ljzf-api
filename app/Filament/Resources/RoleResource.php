@@ -106,6 +106,8 @@ class RoleResource extends Resource implements HasShieldPermissions
                     ->label(__('filament-shield::filament-shield.column.updated_at'))
                     ->dateTime('Y-m-d H:i:s'),
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])

@@ -27,15 +27,15 @@ class InitUserViewPhoneCount extends Command
      */
     public function handle()
     {
-        $users = User::query()
-            ->with('userLevel')
-            ->whereNot('user_level_id', 0)
-            ->get();
+        // 清除所有用户的临时额度
+        User::query()
+            ->where('temp_quota_date', '<', date('Y-m-d'))
+            ->update([
+                'temp_quota' => 0,
+                'temp_quota_date' => null,
+            ]);
 
-        foreach ($users as $user) {
-            $user->view_phone_count = $user->userLevel->view_phone_count;
-            $user->save();
-        }
+        Log::info('每日访问次数重置完成（临时额度已清除）');
         $this->info('同步完成');
     }
 }

@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Console\Commands;
+
+use App\Models\House;
+use App\Services\HouseService;
+use App\Services\WatermarkService;
+use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Storage;
+
+class HandleWatermark extends Command
+{
+    /**
+     * The name and signature of the console command.
+     *
+     * @var string
+     */
+    protected $signature = 'app:handle-watermark';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = '处理水印';
+
+    /**
+     * Execute the console command.
+     */
+    public function handle(): void
+    {
+        $houses = House::query()
+            ->whereNull('watermark_video')
+            ->limit(100)
+            ->get();
+        foreach ($houses as $house) {
+            (new HouseService())::handleWatermark($house);
+            $this->info($house->title.':处理完成');
+        }
+    }
+}

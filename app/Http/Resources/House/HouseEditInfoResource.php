@@ -66,6 +66,8 @@ class HouseEditInfoResource extends JsonResource
             'backup_contact_phone' => $this->backup_contact_phone,
             'viewing_method' => $this->viewing_method,
             'is_show' => $this->is_show,
+            'is_top' => (bool)$this->is_top,
+            'top_at' => $this->top_at ? $this->top_at->format('Y-m-d H:i:s') : null,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }

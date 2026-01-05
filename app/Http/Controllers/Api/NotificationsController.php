@@ -34,6 +34,54 @@ class NotificationsController extends Controller
     {
         $user = $request->user();
         $notification = $user->notifications()->findOrFail($id);
+        
+        // 标记为已读
+        if (!$notification->read_at) {
+            $notification->markAsRead();
+        }
+        
         return new NotificationInfoResource($notification);
+    }
+
+    /**
+     * 标记为已读
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function markAsRead(Request $request, $id): \Illuminate\Http\JsonResponse
+    {
+        $user = $request->user();
+        $notification = $user->notifications()->findOrFail($id);
+        
+        $notification->markAsRead();
+        
+        return response()->json(['message' => '标记成功']);
+    }
+
+    /**
+     * 标记全部为已读
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function markAllAsRead(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $user = $request->user();
+        $user->unreadNotifications()->update(['read_at' => now()]);
+        
+        return response()->json(['message' => '全部已读']);
+    }
+
+    /**
+     * 未读数量
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function unreadCount(Request $request): \Illuminate\Http\JsonResponse
+    {
+        $user = $request->user();
+        $count = $user->unreadNotifications()->count();
+        
+        return response()->json(['count' => $count]);
     }
 }

@@ -138,6 +138,8 @@ class CommunityResource extends Resource
                     ->dateTime('Y-m-d H:i:s')
                     ->label('创建时间'),
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])

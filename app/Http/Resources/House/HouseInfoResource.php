@@ -46,6 +46,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $backup_contact_phone
  * @property mixed $viewing_method
  * @property mixed $is_show
+ * @property mixed $is_top
+ * @property mixed $top_at
  */
 class HouseInfoResource extends JsonResource
 {
@@ -56,7 +58,12 @@ class HouseInfoResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // 优先从 token 获取用户，如果没有则从 URL 参数获取
         $user = $request->user();
+        if (!$user && $request->input('user_id')) {
+            $user = \App\Models\User::find($request->input('user_id'));
+        }
+        
         $images = collect($this->images)->map(function ($image) {
             return [
                 'path' => $image,
@@ -65,19 +72,23 @@ class HouseInfoResource extends JsonResource
         });
 
         $isFavor = 0;
-        if ($user->favoriteHouses()->where('house_id', $this->id)->first()) {
+        if ($user && $user->favoriteHouses()->find($this->id)) {
             $isFavor = 1;
         }
 
-        $facilities = [];
-        if (!empty($this->facility_ids)) {
-            $facilities = Facility::query()->whereIn('id', $this->facility_ids)->get()->map(function ($facility) {
+        if (!empty($this->facility_ids)){
+            $facilities = Facility::query()->whereIn('id',$this->facility_ids)->get()->filter(function ($facility) {
+                if (!empty($facility->type) && in_array(0,$facility->type)){
+                    return $facility;
+                }
+            })->map(function ($facility) {
                 return [
                     'icon' => formatUrl($facility->icon),
                     'name' => $facility->name,
                 ];
             });
         }
+
         return [
             'id' => $this->id,
             'no' => $this->no,
@@ -105,7 +116,7 @@ class HouseInfoResource extends JsonResource
             'district' => $this->district,
             'address' => $this->address,
             'facility_ids' => $this->facility_ids,
-            'facilities' => $facilities,
+            'facilities' => $facilities ?? [],
             'building_number' => $this->building_number,
             'room_number' => $this->room_number,
             'status' => $this->status,
@@ -118,6 +129,8 @@ class HouseInfoResource extends JsonResource
             'backup_contact_phone' => $this->backup_contact_phone,
             'viewing_method' => $this->viewing_method,
             'is_show' => $this->is_show,
+            'is_top' => (bool)$this->is_top,
+            'top_at' => $this->top_at ? $this->top_at->format('Y-m-d H:i:s') : null,
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }

@@ -44,7 +44,10 @@ class HouseFollowUpsRelationManager extends RelationManager
                 Tables\Columns\ImageColumn::make('user.avatar')
                     ->label('头像'),
                 Tables\Columns\TextColumn::make('user.nickname')
-                    ->label('用户')
+                    ->label('跟进人')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('user.phone')
+                    ->label('跟进电话')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('house.title')
                     ->label('跟进房源')

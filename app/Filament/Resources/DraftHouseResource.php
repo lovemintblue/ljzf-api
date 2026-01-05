@@ -30,7 +30,7 @@ class DraftHouseResource extends Resource
 
     protected static ?string $label = '房源';
 
-    protected static ?int $navigationSort = 3;
+    protected static ?int $navigationSort = 4;
 
     /**
      * @param Form $form
@@ -41,7 +41,7 @@ class DraftHouseResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
+                    ->relationship('user', 'nickname')
                     ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -142,6 +142,8 @@ class DraftHouseResource extends Resource
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s')
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])

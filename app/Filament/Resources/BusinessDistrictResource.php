@@ -18,7 +18,7 @@ class BusinessDistrictResource extends Resource
     protected static ?string $model = BusinessDistrict::class;
 
     protected static ?string $navigationIcon = 'heroicon-m-squares-2x2';
-    
+
     protected static ?string $navigationLabel = '商圈';
 
     protected static ?string $label = '商圈';
@@ -51,6 +51,8 @@ class BusinessDistrictResource extends Resource
                     ->dateTime('Y-m-d H:i:s')
                     ->sortable()
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])

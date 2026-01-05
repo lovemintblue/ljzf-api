@@ -7,10 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use App\Models\UserLevel;
 use Filament\Forms;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
-use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
@@ -61,43 +58,18 @@ class UserResource extends Resource
                 Tables\Columns\ToggleColumn::make('is_staff')
                     ->label('是否为员工'),
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])
             ->actions([
-                Action::make('禁用')
-                    ->color('danger')
-                    ->visible(fn(User $record) => (int)$record->status === 1)
-                    ->action(function (User $record) {
-                        $record->status = 1;
-                        $record->save();
-                        Notification::make()->title('禁用成功')->success()->send();
-                    }),
-                Action::make('取消禁用')
-                    ->color('success')
-                    ->visible(fn(User $record) => (int)$record->status === 0)
-                    ->action(function (User $record) {
-                        $record->status = 1;
-                        $record->save();
-                        Notification::make()->title('取消禁用成功')->success()->send();
-                    }),
-                Action::make('设为会员')
-                    ->form([
-                        Select::make('user_level_id')
-                            ->label('会员等级')
-                            ->options(UserLevel::query()->pluck('name', 'id'))
-                            ->native(false)
-                            ->required(),
-                        DatePicker::make('expired_at')
-                            ->label('到期时间')
-                            ->native(false)
-                    ])
-                    ->action(function (array $data, User $record): void {
-                        $record->user_level_id = $data['user_level_id'];
-                        $record->expired_at = $data['expired_at'];
-                        $record->save();
-                        Notification::make()->title('会员设置成功.')->success()->send();
-                    })
+                Action::make('详情')
+                    ->label('详情')
+                    ->color('info')
+                    ->icon('heroicon-o-eye')
+                    ->button()
+                    ->url(fn (User $record): string => UserResource::getUrl('detail', ['record' => $record]))
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -140,6 +112,7 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ManageUsers::route('/'),
+            'detail' => Pages\UserDetail::route('/{record}/detail'),
         ];
     }
 }

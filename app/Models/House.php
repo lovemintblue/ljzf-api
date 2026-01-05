@@ -30,7 +30,12 @@ class House extends Model
 
     protected $casts = [
         'images' => 'json',
-        'facility_ids' => 'json'
+        'facility_ids' => 'json',
+        'last_updated_at' => 'datetime',
+        'scheduled_publish_at' => 'datetime',
+        'top_at' => 'datetime',
+        'top_expires_at' => 'date',
+        'watermark_images' => 'json',
     ];
 
     /**
@@ -71,5 +76,14 @@ class House extends Model
     public function houseFollowUps(): HasMany
     {
         return $this->hasMany(HouseFollowUp::class);
+    }
+
+    /**
+     * 关联操作日志
+     * @return HasMany
+     */
+    public function operationLogs(): HasMany
+    {
+        return $this->hasMany(HouseOperationLog::class);
     }
 }

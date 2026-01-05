@@ -75,17 +75,25 @@ class PaymentsController extends Controller
             ]);
 
             // 根据计算周期 计算到期时间
-            $expireAt = '';
-            if ((int)$userLevelOrder->cycle === 0) {
-                $expireAt = Carbon::now()->addMonth();
-            }
-
-            if ((int)$userLevelOrder->cycle === 1) {
-                $expireAt = Carbon::now()->addMonths(3);
-            }
-
-            if ((int)$userLevelOrder->cycle === 2) {
-                $expireAt = Carbon::now()->addYear();
+            // 使用固定的天数而不是月份，确保时长准确
+            $cycleDays = [
+                0 => 30,   // 月度：30天
+                1 => 90,   // 季度：90天
+                2 => 365   // 年度：365天
+            ];
+            
+            $days = $cycleDays[$userLevelOrder->cycle] ?? 30;
+            
+            // 判断是续费还是升级/开通
+            $currentLevel = $user->user_level_id;
+            $targetLevel = $userLevelOrder->user_level_id;
+            
+            if ($currentLevel == $targetLevel && $user->expired_at && Carbon::parse($user->expired_at)->isFuture()) {
+                // 同等级续费：在当前到期时间基础上叠加
+                $expireAt = Carbon::parse($user->expired_at)->addDays($days);
+            } else {
+                // 升级或开通：从现在开始计算
+                $expireAt = Carbon::now()->addDays($days);
             }
 
             Log::info('到期时间:' . $expireAt);

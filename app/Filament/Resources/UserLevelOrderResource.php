@@ -49,9 +49,13 @@ class UserLevelOrderResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(0.00),
-                Forms\Components\TextInput::make('status')
+                Forms\Components\Select::make('status')
+                    ->label('支付状态')
+                    ->options([
+                        0 => '未支付',
+                        1 => '已支付',
+                    ])
                     ->required()
-                    ->numeric()
                     ->default(0),
             ]);
     }
@@ -59,30 +63,53 @@ class UserLevelOrderResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(function (UserLevelOrder $query) {
+                return $query->orderBy('created_at', 'DESC');
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('no')
+                    ->label('订单编号')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.id')
                     ->numeric()
+                    ->label('用户ID')
                     ->sortable(),
+                Tables\Columns\ImageColumn::make('user.avatar')
+                    ->label('头像'),
+                Tables\Columns\TextColumn::make('user.nickname')
+                    ->label('用户')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('user.phone')
+                    ->label('用户电话')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('userLevel.name')
                     ->numeric()
+                    ->label('会员等级')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('total_amount')
                     ->numeric()
+                    ->label('订单金额')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status')
-                    ->numeric()
+                Tables\Columns\BadgeColumn::make('status')
+                    ->label('支付状态')
+                    ->formatStateUsing(fn (string $state): string => match ((int) $state) {
+                        0 => '未支付',
+                        1 => '已支付',
+                        default => '未知状态',
+                    })
+                    ->colors([
+                        'danger' => 0,
+                        'success' => 1,
+                    ])
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('创建时间')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime('Y-m-d H:i:s'),
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])

@@ -28,11 +28,20 @@ class UserShareHouseInfoResource extends JsonResource
             ->where('is_show', 1)
             ->whereIn('id', $this->house_ids)
             ->get();
+        $house_ids = $this->house_ids;
+        $houses_data = [];
+        foreach ($house_ids as $house_id){
+            foreach ($houses as $h){
+                if ($house_id == $h->id){
+                    $houses_data[] = $h;
+                }
+            }
+        }
         return [
             'id' => $this->id,
             'user' => new UserInfoResource($this->user),
             'contact_phone' => $this->contact_phone,
-            'houses' => HouseResource::collection($houses),
+            'houses' => HouseResource::collection($houses_data),
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }

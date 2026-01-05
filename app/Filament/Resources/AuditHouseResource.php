@@ -6,6 +6,7 @@ use App\Filament\Resources\AuditHouseResource\Pages;
 use App\Filament\Resources\AuditHouseResource\RelationManagers;
 use App\Models\AuditHouse;
 use App\Models\House;
+use App\Models\HouseOperationLog;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\ImageEntry;
@@ -32,7 +33,29 @@ class AuditHouseResource extends Resource
 
     protected static ?string $label = '审核列表';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 3;
+
+    public static function getNavigationBadge(): ?string
+    {
+        return House::where('audit_status', 0)
+            ->where('is_draft', 0)
+            ->where('is_delegated', 0)
+            ->count();
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        $count = House::where('audit_status', 0)
+            ->where('is_draft', 0)
+            ->where('is_delegated', 0)
+            ->count();
+        if ($count > 20) {
+            return 'danger';
+        } elseif ($count > 10) {
+            return 'warning';
+        }
+        return 'success';
+    }
 
     /**
      * @param Form $form
@@ -43,7 +66,7 @@ class AuditHouseResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
+                    ->relationship('user', 'nickname')
                     ->required(),
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -118,7 +141,7 @@ class AuditHouseResource extends Resource
         return $table
             ->defaultSort('created_at', 'desc')
             ->query(function (House $query) {
-                return $query->where('audit_status', 0)->where('is_draft', 0);
+                return $query->where('audit_status', 0)->where('is_draft', 0)->where('is_delegated', 0);
             })
             ->columns([
                 Tables\Columns\ImageColumn::make('cover_image')
@@ -128,11 +151,34 @@ class AuditHouseResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('user.nickname')
                     ->label('发布人'),
-                Tables\Columns\TextColumn::make('title')
-                    ->label('标题')
+                Tables\Columns\TextColumn::make('community.name')
+                    ->label('小区')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('building_number')
+                    ->label('栋数')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('unit')
+                    ->label('单元')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('floor')
+                    ->label('楼层')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('room_number')
+                    ->label('房号')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('room_config')
+                    ->label('房间配置')
+                    ->getStateUsing(function (House $record) {
+                        return $record->room_count . '室|' . $record->living_room_count . '厅|' . $record->bathroom_count . '卫';
+                    }),
+                Tables\Columns\TextColumn::make('rent_price')
+                    ->label('租金')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('contact_name')
                     ->label('联系人')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('contact_phone')
+                    ->label('联系电话')
                     ->searchable(),
                 ViewColumn::make('audit_status')
                     ->label('审核状态')
@@ -141,6 +187,8 @@ class AuditHouseResource extends Resource
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s')
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])
@@ -152,14 +200,51 @@ class AuditHouseResource extends Resource
                     ->action(function (House $record) {
                         $record->audit_status = 1;
                         $record->save();
+                        
+                        // 记录首次发布日志（如果之前没有发布记录）
+                        $hasPublishLog = HouseOperationLog::where('house_id', $record->id)
+                            ->where('operation_type', 'publish')
+                            ->exists();
+                        if (!$hasPublishLog) {
+                            HouseOperationLog::create([
+                                'house_id' => $record->id,
+                                'operator_id' => auth()->id(),
+                                'operator_type' => 'admin',
+                                'operation_type' => 'publish',
+                            ]);
+                        }
+                        
+                        // 发送审核通过通知
+                        if ($record->user) {
+                            (new \App\Services\NotificationService())->notifyHouseAuditPassed($record->user, $record);
+                        }
                     }),
                 Tables\Actions\Action::make('驳回')
                     ->color('danger')
                     ->visible(fn(House $record) => (int)$record->audit_status === 0)
-                    ->requiresConfirmation()
-                    ->action(function (House $record) {
+                    ->form([
+                        Forms\Components\Textarea::make('reason')
+                            ->label('驳回原因')
+                            ->placeholder('请输入驳回原因，将发送通知给用户')
+                            ->required()
+                            ->maxLength(500),
+                    ])
+                    ->modalHeading('驳回房源')
+                    ->modalDescription('请填写驳回原因，用户将收到违规通知')
+                    ->action(function (House $record, array $data) {
                         $record->audit_status = 2;
+                        $record->is_draft = 1;
                         $record->save();
+                        
+                        // 发送违规通知
+                        if ($record->user) {
+                            (new \App\Services\NotificationService())->notifyViolationWarning(
+                                $record->user,
+                                '房源',
+                                $record->title ?? '未命名房源',
+                                $data['reason']
+                            );
+                        }
                     }),
                 Tables\Actions\ViewAction::make(),
             ])

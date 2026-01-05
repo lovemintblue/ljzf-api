@@ -47,14 +47,10 @@ class UserLevelResource extends Resource
                     ->helperText('数字类型，数字越大等级越高')
                     ->numeric()
                     ->default(0),
-                Forms\Components\Toggle::make('is_recommend')
+                Forms\Components\Toggle::make('status')
                     ->required()
-                    ->label('推荐')
-                    ->default(0),
-                Forms\Components\Toggle::make('is_good_value')
-                    ->required()
-                    ->label('超值')
-                    ->default(0),
+                    ->label('状态')
+                    ->default(1),
                 Forms\Components\Select::make('privilege')
                     ->label('特权')
                     ->native(false)
@@ -63,7 +59,10 @@ class UserLevelResource extends Resource
                     ->options(UserLevel::$privilegeMap),
                 Forms\Components\TextInput::make('view_phone_count')
                     ->label('查看电话次数')
+                    ->helperText('每日可查看手机号的次数')
                     ->numeric()
+                    ->minValue(0)
+                    ->required()
                     ->default(0),
                 TableRepeater::make('userLevelPrices')
                     ->label('价格设置')
@@ -109,16 +108,51 @@ class UserLevelResource extends Resource
                     ->label('等级')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\ToggleColumn::make('is_recommend')
-                    ->label('推荐'),
-                Tables\Columns\ToggleColumn::make('is_good_value')
-                    ->label('超值'),
+                Tables\Columns\ToggleColumn::make('status')
+                    ->label('状态'),
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->mutateFormDataUsing(function (array $data): array {
+                        \Illuminate\Support\Facades\Log::info('编辑用户等级 - 表单提交数据', $data);
+                        return $data;
+                    })
+                    ->using(function ($record, array $data): \App\Models\UserLevel {
+                        \Illuminate\Support\Facades\Log::info('编辑用户等级 - 使用自定义保存逻辑', [
+                            'record_id' => $record->id,
+                            'data' => $data,
+                        ]);
+                        
+                        // 先保存主表数据
+                        $record->fill([
+                            'name' => $data['name'],
+                            'level' => $data['level'],
+                            'status' => $data['status'],
+                            'privilege' => $data['privilege'] ?? null,
+                            'view_phone_count' => $data['view_phone_count'],
+                        ]);
+                        $record->save();
+                        
+                        \Illuminate\Support\Facades\Log::info('编辑用户等级 - 主表保存后', [
+                            'id' => $record->id,
+                            'view_phone_count' => $record->view_phone_count,
+                        ]);
+                        
+                        // 再处理关系数据
+                        if (isset($data['userLevelPrices'])) {
+                            $record->userLevelPrices()->delete();
+                            foreach ($data['userLevelPrices'] as $price) {
+                                $record->userLevelPrices()->create($price);
+                            }
+                        }
+                        
+                        return $record;
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

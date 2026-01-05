@@ -8,6 +8,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @property mixed $id
  * @property mixed $image
+ * @property mixed $url
  */
 class CarouselResource extends JsonResource
 {
@@ -20,7 +21,8 @@ class CarouselResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image' => formatUrl($this->image)
+            'image' => formatUrl($this->image),
+            'url' => $this->url
         ];
     }
 }

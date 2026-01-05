@@ -76,6 +76,8 @@ class NoticeResource extends Resource
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s'),
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 //
             ])

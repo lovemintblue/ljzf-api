@@ -12,6 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $nickname
  * @property mixed $phone
  * @property mixed $houses_count
+ * @property mixed $shops_count
  * @property mixed $favorite_houses_count
  * @property mixed $favorite_shops_count
  * @property mixed $notifications_count
@@ -44,6 +45,7 @@ class UserInfoResource extends JsonResource
             'phone' => $this->phone,
             'favorite_count' => $favoriteCount,
             'houses_count' => $this->houses_count,
+            'shops_count' => $this->shops_count ?? 0,
             'notifications_count' => $this->notifications_count,
             'view_phone_count' => $this->view_phone_count,
             'is_staff' => $this->is_staff,

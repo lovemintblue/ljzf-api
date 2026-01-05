@@ -8,6 +8,7 @@ use App\Models\Community;
 use App\Models\Facility;
 use App\Models\HiddenHouse;
 use App\Models\House;
+use App\Models\HouseOperationLog;
 use Filament\Forms;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\ToggleButtons;
@@ -33,7 +34,7 @@ class HiddenHouseResource extends Resource
 
     protected static ?string $label = '下架房源';
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = 0;
 
     /**
      * @param Form $form
@@ -274,6 +275,8 @@ class HiddenHouseResource extends Resource
                     ->label('创建时间')
                     ->dateTime('Y-m-d H:i:s')
             ])
+            ->recordUrl(null)
+            ->recordAction(null)
             ->filters([
                 SelectFilter::make('community_id')
                     ->label('小区')
@@ -337,6 +340,19 @@ class HiddenHouseResource extends Resource
                     ->action(function (House $record) {
                         $record->audit_status = 1;
                         $record->save();
+                        
+                        // 记录首次发布日志（如果之前没有发布记录）
+                        $hasPublishLog = HouseOperationLog::where('house_id', $record->id)
+                            ->where('operation_type', 'publish')
+                            ->exists();
+                        if (!$hasPublishLog) {
+                            HouseOperationLog::create([
+                                'house_id' => $record->id,
+                                'operator_id' => auth()->id(),
+                                'operator_type' => 'admin',
+                                'operation_type' => 'publish',
+                            ]);
+                        }
                     }),
                 Tables\Actions\Action::make('驳回')
                     ->color('danger')
