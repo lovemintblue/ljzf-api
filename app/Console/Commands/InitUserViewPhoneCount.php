@@ -33,8 +33,8 @@ class InitUserViewPhoneCount extends Command
             ->update([
                 'temp_quota' => 0,
                 'temp_quota_date' => null,
+                'view_phone_count' => 0,
             ]);
-
         Log::info('每日访问次数重置完成（临时额度已清除）');
         $this->info('同步完成');
     }
