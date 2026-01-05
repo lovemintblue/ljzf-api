@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\House;
 use App\Services\HouseService;
 use App\Services\WatermarkService;
+use Faker\Provider\Image;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -33,7 +34,7 @@ class HandleWatermark extends Command
         $houses = House::query()
             ->whereNotNull('title')
             ->whereNull('watermark_video')
-            ->limit(5)
+            ->limit(1)
             ->get();
         foreach ($houses as $house) {
             (new HouseService())::handleWatermark($house);
