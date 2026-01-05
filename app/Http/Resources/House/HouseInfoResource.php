@@ -67,7 +67,7 @@ class HouseInfoResource extends JsonResource
 
         $images = [];
 
-        if (count($this->watermark_images) > 0) {
+        if (!empty($this->watermark_images) > 0) {
             $images = collect($this->watermark_images)->map(function ($image) {
                 return [
                     'path' => $image,
