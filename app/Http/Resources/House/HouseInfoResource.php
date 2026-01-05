@@ -48,6 +48,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property mixed $is_show
  * @property mixed $is_top
  * @property mixed $top_at
+ * @property mixed $watermark_images
  */
 class HouseInfoResource extends JsonResource
 {
@@ -63,13 +64,26 @@ class HouseInfoResource extends JsonResource
         if (!$user && $request->input('user_id')) {
             $user = \App\Models\User::find($request->input('user_id'));
         }
-        
-        $images = collect($this->images)->map(function ($image) {
-            return [
-                'path' => $image,
-                'url' => formatUrl($image)
-            ];
-        });
+
+        $images = [];
+
+        if (count($this->watermark_images) > 0) {
+            $images = collect($this->watermark_images)->map(function ($image) {
+                return [
+                    'path' => $image,
+                    'url' => formatUrl($image)
+                ];
+            });
+        } else {
+            $images = collect($this->images)->map(function ($image) {
+                return [
+                    'path' => $image,
+                    'url' => formatUrl($image)
+                ];
+            });
+        }
+
+
 
         $isFavor = 0;
         if ($user && $user->favoriteHouses()->find($this->id)) {
@@ -89,10 +103,15 @@ class HouseInfoResource extends JsonResource
             });
         }
 
+        $video = $this->video;
+        if (!empty($this->watermark_video)) {
+            $video = $this->watermark_video;
+        }
+
         return [
             'id' => $this->id,
             'no' => $this->no,
-            'video' => formatUrl($this->video),
+            'video' => formatUrl($video),
             'cover_image' => formatUrl($this->cover_image),
             'title' => $this->title,
             'contact_name' => $this->contact_name,
