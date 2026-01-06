@@ -25,7 +25,7 @@ class InitUserViewPhoneCount extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         // 清除所有用户的临时额度
         User::query()
