@@ -32,16 +32,20 @@ class HandleWatermark extends Command
     public function handle(): void
     {
         ini_set('memory_limit', '512M');
+        $count = House::query()->whereNotNull('video')
+            ->whereNull('watermark_video')
+            ->where('is_show', 1)->count();
+        Log::info('剩余数量:'.$count);
         $houses = House::query()
             ->whereNotNull('video')
             ->whereNull('watermark_video')
-            ->where('is_show',1)
+            ->where('is_show', 1)
             ->limit(1)
             ->get();
         foreach ($houses as $house) {
             (new HouseService())::handleWatermark($house);
-            $this->info($house->title.':处理完成');
-            Log::info($house->title.':处理完成');
+            $this->info($house->title . ':处理完成');
+            Log::info($house->title . ':处理完成');
         }
     }
 }
