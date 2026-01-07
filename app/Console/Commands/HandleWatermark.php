@@ -31,6 +31,7 @@ class HandleWatermark extends Command
      */
     public function handle(): void
     {
+        ini_set('memory_limit', '512M');
         $houses = House::query()
             ->whereNotNull('video')
             ->whereNull('watermark_video')
