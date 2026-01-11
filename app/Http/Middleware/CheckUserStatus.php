@@ -12,7 +12,7 @@ class CheckUserStatus
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param Closure(Request): (Response) $next
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -21,7 +21,7 @@ class CheckUserStatus
             $user = Auth::user();
 
             // 检查用户状态是否被禁用 (status = 0)
-            if ($user->status == 0) {
+            if ((int)$user->status === 0) {
                 return response()->json([
                     'message' => '您的账户已被禁用，无法访问该功能！',
                     'error' => 'USER_DISABLED'
