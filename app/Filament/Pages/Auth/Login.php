@@ -11,20 +11,6 @@ use Illuminate\Validation\ValidationException;
 class Login extends BaseLogin
 {
     /**
-     * 用户名表单组件
-     * @return Component
-     */
-    protected function getUsernameComponent(): Component
-    {
-        return TextInput::make('username')
-            ->label('用户名')
-            ->required()
-            ->autocomplete()
-            ->autofocus()
-            ->extraInputAttributes(['tabindex' => 1]);
-    }
-
-    /**
      * @return array<int | string, string | Form>
      */
     protected function getForms(): array
@@ -42,6 +28,19 @@ class Login extends BaseLogin
         ];
     }
 
+    /**
+     * 用户名表单组件
+     * @return Component
+     */
+    protected function getUsernameComponent(): Component
+    {
+        return TextInput::make('username')
+            ->label('用户名')
+            ->required()
+            ->autocomplete()
+            ->autofocus()
+            ->extraInputAttributes(['tabindex' => 1]);
+    }
 
     /**
      * @param  array<string, mixed>  $data
@@ -55,6 +54,9 @@ class Login extends BaseLogin
         ];
     }
 
+    /**
+     * @return never
+     */
     protected function throwFailureValidationException(): never
     {
         throw ValidationException::withMessages([

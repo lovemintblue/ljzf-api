@@ -20,6 +20,8 @@ use Random\RandomException;
  * @property int|mixed $is_draft
  * @property int|mixed $is_locked
  * @property mixed $lock_user_id
+ * @property mixed|null $watermark_video
+ * @property mixed|null $watermark_images
  */
 #[ObservedBy(HouseObserver::class)]
 class House extends Model
@@ -50,7 +52,6 @@ class House extends Model
         } while (self::query()->where('no', $no)->exists());
         return $no;
     }
-
 
     /**
      * @return BelongsTo

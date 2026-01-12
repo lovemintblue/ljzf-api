@@ -36,6 +36,11 @@ class HouseObserver
         } else {
             Log::info('--未修改隐藏时间--');
         }
+
+        if ($house->isDirty('video')) {
+            $house->watermark_video = null;
+            $house->watermark_images = null;
+        }
     }
 
     /**
