@@ -49,5 +49,6 @@ class HandleWatermark extends Command
             $this->info($house->title . ':处理完成');
             Log::info($house->title . ':处理完成');
         }
+
     }
 }

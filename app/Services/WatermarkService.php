@@ -60,6 +60,7 @@ class WatermarkService
             ->inFormat(new X264)
             ->toDisk('qiniu')
             ->save($tempFileName);
+        FFMpeg::cleanupTemporaryFiles();
         return $tempFileName;
     }
 }
